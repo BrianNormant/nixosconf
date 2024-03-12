@@ -19,7 +19,14 @@
     patch = ./beyond.patch;
   } ];
 
-  hardware.opengl.enable = true;
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+      libva
+    ];
+  };
 
   nixpkgs.config.allowUnfree = true;
   nix.settings.sandbox = "relaxed";
@@ -29,13 +36,9 @@
   hardware.new-lg4ff.enable = true;
   hardware.usb-modeswitch.enable = true;
   
-  #OpenXR
-  # services.monado = {
-    # enable = true;
-    # defaultRuntime = true;
-  # };
-
   networking.hostName = "BrianNixDesktop"; # Define your hostname.
+
+  
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -78,9 +81,6 @@
        powerOnBoot = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-
   services.ollama = {
     enable = true;
     acceleration = "rocm";
@@ -108,20 +108,19 @@
       fzf
       bat bat-extras.batman
       tree
-                # Devellopment related
+
       vifm
       lazygit
       nushell
       gh # Github CLI tool
-      nodejs_21 yarn          # Web (Javascript)
-		# Gaming
-      prismlauncher
+      prismlauncher # LLVM
       oterm
+
       		#Other
       copyq # clipboard manager
       dunst # notification daemom
       wob   # Ligthweight overlay to show volume changes
-      rofi-wayland # Menu for desktop
+      rofi-wayland rofi-calc # Menu for desktop
       playerctl
       appimage-run
 
@@ -142,16 +141,15 @@
     # xdg.portal.enable = true;
     xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
 
-    # programs.git = {
-    #   enable = true;
-    #   userName = "BrianNixDesktop";
-    #   userEmail = "briannormant@gmail.com";
-    # };
+    programs.git = {
+      enable = true;
+      userName = "BrianNixDesktop";
+      userEmail = "briannormant@gmail.com";
+    };
 
     programs.firefox.enable = true;
     programs.zsh = {
       enable = true;
-      enableCompletion = true;
       plugins = [
         {
           name = "zsh-nix-shell";
@@ -175,11 +173,13 @@
     curl
     lxqt.lxqt-policykit
     file
-    bluez # Bluetooth
-    mesa # AMD drivers?
+    zsh
+    acpi
     unzip
     p7zip
     neofetch # Extrement important!!!
+    bluez # bluetooth headphones
+    docker
   ];
   fonts.packages = with pkgs; [
     noto-fonts
@@ -212,17 +212,18 @@
       man = "batman";
     };
     shellInit = ''
-  source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-  eval "$(zoxide init zsh)"
 if [[ -v TMUX ]]; then
+  source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
   source ${pkgs.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+  eval "$(zoxide init zsh)"
 fi
-  # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-  # Initialization code that may require console input (password prompts, [y/n]
-  # confirmations, etc.) must go above this block; everything else may go below.
-  if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-    source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-  fi
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+  source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+fi
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -310,7 +311,6 @@ set -g @tmux-gruvbox 'dark'
   programs.hyprland.enable = true;
   programs.git.enable = true;
   
-
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Hint electron to use wayland:
 
   programs.neovim = {
@@ -331,6 +331,9 @@ set -g @tmux-gruvbox 'dark'
     (import (builtins.fetchTarball {
       url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz; # Nvim 10.0 and +
     }))
+    (final: prev: {
+     rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
+    })
   ];
   
 
@@ -381,6 +384,4 @@ set -g @tmux-gruvbox 'dark'
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-
