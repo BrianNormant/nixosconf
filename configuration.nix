@@ -13,10 +13,6 @@
 # Use the recommanded option : systemd-boot
 	boot.loader.systemd-boot.enable = true;
 	boot.kernelPackages = pkgs.linuxPackages_latest;
-	boot.kernelPatches = [ {
-		name = "beyondfix";
-		patch = ./beyond.patch;
-	} ];
 
 	hardware.opengl = {
 		enable = true;
@@ -40,17 +36,10 @@
 		} ];
 	};
 
-	## If not set, Gradle and jdtls does not work
-	programs.nix-ld.enable = true;
-	programs.nix-ld.libraries = with pkgs; [];
-
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-# For logitech G29
-	hardware.new-lg4ff.enable = true;
-	hardware.usb-modeswitch.enable = true;
 
 	networking.hostName = "BrianNixDesktop"; # Define your hostname.
 
@@ -95,15 +84,11 @@
 		 }
 		 '')
 	];
+
 # Enable bluetooth
 	hardware.bluetooth = {
 		enable = true;
 		powerOnBoot = true;
-	};
-
-	services.ollama = {
-		enable = true;
-		acceleration = "rocm";
 	};
 
 # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -135,7 +120,6 @@
 			lazygit
 			nushell
 			gh glab # Github and gitlab CLI tool
-			prismlauncher
 			oterm
 #Other
 			copyq # clipboard manager
@@ -146,8 +130,6 @@
 			appimage-run
 
 # gaming
-			gamemode
-			mangohud
 				];
 	};
 	home-manager = {
@@ -157,17 +139,6 @@
 	home-manager.users.brian = { pkgs, ...}: {
 		home.packages = [ pkgs.waybar pkgs.cava ];
 		home.file.".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
-		/*
-		home.sessionVariables = {
-			GDK_BACKEND = "wayland,x11";
-			QT_QPA_PLATFORM = "wayland;xcb";
-#SDL_VIDEODRIVER = "x11";
-			CLUTTER_BACKEND = "wayland";
-			XDG_CURRENT_DESKTOP = "Hyprland";
-			XDG_SESSION_TYPE = "wayland";
-			XDG_SESSION_DESKTOP = "Hyprland";
-			WLR_NO_HARDWARE_CURSORS = "1";
-		};*/
 
 		home.stateVersion = "23.11";
 		xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
@@ -470,10 +441,6 @@ vim.opt.laststatus = 3
 		};
 	};
 
-	virtualisation.docker = {
-		enable = true;
-	};
-
 # List packages installed in system profile. To search, run:
 # $ nix search wget
 	environment.systemPackages = with pkgs; [
@@ -488,7 +455,6 @@ vim.opt.laststatus = 3
 			p7zip
 			neofetch # Extrement important!!!
 			bluez # bluetooth headphones
-			docker
 			bc
 			sshfs
 	];
@@ -611,14 +577,6 @@ set -g @tmux-gruvbox 'dark'
 			'';
 	};
 
-	programs.gamescope.enable = true;
-	programs.steam = {
-		enable = true;
-		remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-		dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-		gamescopeSession.enable = false;
-	};
-
 	programs.hyprland.enable = true;
 	programs.git.enable = true;
 
@@ -689,18 +647,8 @@ set -g @tmux-gruvbox 'dark'
 		enableSSHSupport = true;
 	};
 
-# List services that you want to enable:
-
-# Enable the OpenSSH daemon.
-	services.openssh = {
-		enable = true;
-		ports = [ 4269 ];
-		settings.AllowUsers = [ "brian" ];
-		settings.PasswordAuthentication = false;
-	};
-
 # Open ports in the firewall.
-	networking.firewall.allowedTCPPorts = [ 4269 4270 ];
+	networking.firewall.allowedTCPPorts = [];
 # networking.firewall.allowedUDPPorts = [ ... ];
 # Or disable the firewall altogether.
 # networking.firewall.enable = false;
