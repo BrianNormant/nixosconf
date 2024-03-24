@@ -700,7 +700,7 @@ set -g @tmux-gruvbox 'dark'
 	};
 
 # Open ports in the firewall.
-	networking.firewall.allowedTCPPorts = [ 4269 4270 ];
+	networking.firewall.allowedTCPPorts = [ 4269 4270 1521 ];
 # networking.firewall.allowedUDPPorts = [ ... ];
 # Or disable the firewall altogether.
 # networking.firewall.enable = false;
