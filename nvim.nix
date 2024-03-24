@@ -133,7 +133,6 @@ lua require("nvim-web-devicons").setup {}
 			} );
 			  config = "lua require('icon-picker').setup {}";}
 			lazygit-nvim
-			compiler-explorer-nvim
 			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
 				pname = "muren-nvim";
 				version = "HEAD";
@@ -161,8 +160,32 @@ EOF
 			coq-thirdparty
 
 			# LSP
-			{ plugin = symbols-outline-nvim;
-			  config = "lua require 'symbols-outline'.setup {}"; }
+			{ plugin = goto-preview;
+			  config = "lua require('goto-preview').setup {}";}
+			{ plugin = nvim-navbuddy;
+			  config = ''
+lua << EOF
+require 'nvim-navbuddy'.setup {
+	window = {
+		border = "rounded",
+		size = "50%",
+	},
+	lsp = { auto_attach = true },
+}
+EOF
+			''; }
+			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
+				pname = "boo-nvim";
+				version = "8384bc";
+				src = pkgs.fetchFromGitHub {
+			     owner = "LukasPietzschmann";
+			     repo = "boo.nvim";
+			     rev = "8384bc";
+			     sha256 = "sha256-FSPJHWpvkw8wY1h+h4pdpS9ChyZOO+/XQqmPvm0iKSI=";
+			   };
+			} );
+			  config = "lua require ('boo').setup {}";}
+
 			{ plugin = lsp_lines-nvim;
 			  config = ''
 lua << EOF
