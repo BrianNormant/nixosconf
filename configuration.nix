@@ -8,15 +8,12 @@
 	imports = [ # Include the results of the hardware scan.
 		./hardware-configuration.nix
 		<home-manager/nixos>
+		./localimport.nix
 	];
 
 # Use the recommanded option : systemd-boot
 	boot.loader.systemd-boot.enable = true;
 	boot.kernelPackages = pkgs.linuxPackages_latest;
-	boot.kernelPatches = [ {
-		name = "beyondfix";
-		patch = ./beyond.patch;
-	} ];
 
 	hardware.opengl = {
 		enable = true;
@@ -40,17 +37,12 @@
 		} ];
 	};
 
-	## If not set, Gradle and jdtls does not work
-	programs.nix-ld.enable = true;
-	programs.nix-ld.libraries = with pkgs; [];
-
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-# For logitech G29
-	hardware.new-lg4ff.enable = true;
-	hardware.usb-modeswitch.enable = true;
+	programs.nix-ld.enable = true;
+	programs.nix-ld.libraries = with pkgs; [];
 
 	networking.hostName = "BrianNixDesktop"; # Define your hostname.
 
@@ -95,18 +87,13 @@
 		 }
 		 '')
 	];
+
 # Enable bluetooth
 	hardware.bluetooth = {
 		enable = true;
 		powerOnBoot = true;
 	};
 
-	services.ollama = {
-		enable = true;
-		acceleration = "rocm";
-	};
-
-# Define a user account. Don't forget to set a password with ‘passwd’.
 	users.users.brian = {
 		isNormalUser = true;
 		extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
@@ -135,7 +122,6 @@
 			lazygit
 			nushell
 			gh glab # Github and gitlab CLI tool
-			prismlauncher
 			oterm
 #Other
 			copyq # clipboard manager
@@ -146,28 +132,24 @@
 			appimage-run
 
 # gaming
-			gamemode
-			mangohud
-				];
+			prismlauncher
+		];
 	};
 	home-manager = {
 		useUserPackages = true;
 		useGlobalPkgs = true;
 	};
 	home-manager.users.brian = { pkgs, ...}: {
-		home.packages = [ pkgs.waybar pkgs.cava ];
+		home.packages = with pkgs; [
+			waybar
+			cava
+
+			#dev:
+			jetbrains.idea-community-src
+			android-studio
+
+			];
 		home.file.".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
-		/*
-		home.sessionVariables = {
-			GDK_BACKEND = "wayland,x11";
-			QT_QPA_PLATFORM = "wayland;xcb";
-#SDL_VIDEODRIVER = "x11";
-			CLUTTER_BACKEND = "wayland";
-			XDG_CURRENT_DESKTOP = "Hyprland";
-			XDG_SESSION_TYPE = "wayland";
-			XDG_SESSION_DESKTOP = "Hyprland";
-			WLR_NO_HARDWARE_CURSORS = "1";
-		};*/
 
 		home.stateVersion = "23.11";
 		xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
@@ -221,6 +203,7 @@
 				gdb
 				lua-language-server
 				nil
+				oracle-instantclient
 			];
 			plugins = with pkgs.vimPlugins; [
 
@@ -443,7 +426,15 @@ EOF
 
 						# DataBase
 						vim-dadbod-ui
-						vim-dadbod
+						{ plugin = vim-dadbod;
+						  config = ''
+lua << EOF
+vim.g.db_ui_use_nerd_fonts = 1
+vim.g.dbs = {
+	['DB Oracle locale'] = "oracle://SYSTEM:welcome123@localhost:1521/FREE"
+}
+EOF
+						  ''; }
 						# Markdown
 						markdown-preview-nvim
 
@@ -454,6 +445,7 @@ EOF
 			extraLuaConfig = ''			
 vim.opt.clipboard:append "unnamedplus"
 vim.opt.scrolloff = 5
+vim.o.laststatus = 3
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -465,32 +457,27 @@ vim.o.relativenumber = true
 
 vim.cmd "colorscheme gruvbox"
 vim.cmd "COQnow"
-vim.opt.laststatus = 3
 			'';
 		};
-	};
-
-	virtualisation.docker = {
-		enable = true;
 	};
 
 # List packages installed in system profile. To search, run:
 # $ nix search wget
 	environment.systemPackages = with pkgs; [
+		brightnessctl
 		wget
-			git
-			curl
-			lxqt.lxqt-policykit
-			file
-			zsh
-			acpi
-			unzip
-			p7zip
-			neofetch # Extrement important!!!
-			bluez # bluetooth headphones
-			docker
-			bc
-			sshfs
+		git
+		curl
+		lxqt.lxqt-policykit
+		file
+		zsh
+		acpi
+		unzip
+		p7zip
+		neofetch # Extrement important!!!
+		bluez # bluetooth headphones
+		bc
+		sshfs
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
@@ -524,12 +511,6 @@ vim.opt.laststatus = 3
 			vim = "NVIM_APPNAME=nvim-simple nvim";
 		};
 		shellInit = ''
-if [[ -v TMUX ]]; then
-	source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-	source ${pkgs.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-	eval "$(zoxide init zsh)"
-fi
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -537,86 +518,22 @@ if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh
 	source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
 fi
 
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-if [[ ! ( -o login || -v TMUX ) ]]; then
-	#Set up $TERM
-	#export TERM="xterm-256color"
-	# export MICRO_TRUECOLOR=1
-	export TERM="tmux-256color"
-	nbsession=$(tmux ls 2> /dev/null | wc -l)
-	if [[ $nbsession -eq 0 ]]; then
-		exec tmux -2 new-session -t Main
-	elif [[ $nbsession -lt 5 ]]; then
-		# If a session is not attached, attach to it.
-		tmuxsession=$(tmux ls 2> /dev/null)
-		for session in ''${(f)tmuxsession}; do
-			local name=$(echo $session | cut -d ":" -f 1)
-			clients=$(tmux list-clients -t $name 2> /dev/null | wc -l)
-			if [[ $clients -eq 0 ]]; then
-				# If it's not attached, attach to it
-				exec tmux attach -t "$name"
-				break;
-			fi;
-		done
-		exec tmux -2 new-session
-	else
-		exec tmux -2 attach
-	fi
-fi
+
+source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
+eval "$(zoxide init zsh)"
+
 '';
 	};
 	programs.tmux = {
 		enable = true;
 		keyMode = "vi";
 		plugins = [ pkgs.tmuxPlugins.gruvbox ];
-		extraConfig = ''
-set -g mouse on
-# set -g base-index 1
-# setw -g pane-base-index 1
-set -g automatic-rename off # dont change the name of the window after each dir change
-#set -g default-terminal "screen-256color"
-set -g default-terminal "tmux-256color"
-set -ag terminal-overrides ",*:RGB"
-set-option -g set-titles on
-set-option -g set-titles-string "TMUX<#S> ¦ #W"
-set-option -sg escape-time 10
-set-option -g focus-events on
-# Keybinds
-# bind-key -T root WheelUpPane
-bind-key -T prefix 1 select-window -t :=0
-bind-key -T prefix 2 select-window -t :=1
-bind-key -T prefix 3 select-window -t :=2
-bind-key -T prefix 4 select-window -t :=3
-bind-key -T prefix 5 select-window -t :=4
-bind-key -T prefix 6 select-window -t :=5
-bind-key -T prefix 7 select-window -t :=6
-bind-key -T prefix 8 select-window -t :=7
-bind-key -T prefix 9 select-window -t :=8
-bind-key -T prefix 0 select-window -t :=9
-bind-key -T prefix "%" splitw -h -c "#{pane_current_path}"
-bind-key -T prefix '"' splitw -v -c "#{pane_current_path}"
-bind-key -T prefix "n" new-session
-bind-key -T prefix S 'setw synchronize-panes'
-# Default Layout
-# set-hook -g window-linked[1] "splitp -h; resizep -x30%; select-pane -t 0"
-#send-keys -t 1 -l "clear"
-#send-keys -t 1 "Enter"
-#send-keys -t 0 -l "clear"
-#send-keys -t 0 "Enter"
-
-set -g @tmux-gruvbox 'dark'
-			'';
-	};
-
-	programs.gamescope.enable = true;
-	programs.steam = {
-		enable = true;
-		remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-		dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-		gamescopeSession.enable = false;
+		extraConfig = ( builtins.readFile ./tmux.conf );
 	};
 
 	programs.hyprland.enable = true;
@@ -689,18 +606,8 @@ set -g @tmux-gruvbox 'dark'
 		enableSSHSupport = true;
 	};
 
-# List services that you want to enable:
-
-# Enable the OpenSSH daemon.
-	services.openssh = {
-		enable = true;
-		ports = [ 4269 ];
-		settings.AllowUsers = [ "brian" ];
-		settings.PasswordAuthentication = false;
-	};
-
 # Open ports in the firewall.
-	networking.firewall.allowedTCPPorts = [ 4269 4270 1521 ];
+	networking.firewall.allowedTCPPorts = [];
 # networking.firewall.allowedUDPPorts = [ ... ];
 # Or disable the firewall altogether.
 # networking.firewall.enable = false;
