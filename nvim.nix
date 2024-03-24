@@ -15,6 +15,9 @@
 			lua-language-server
 			nil
 			oracle-instantclient
+			curl
+			jq
+			html-tidy
 		];
 		plugins = with pkgs.vimPlugins; [
 			{ plugin = dressing-nvim;
@@ -26,14 +29,12 @@
 			{ plugin = dropbar-nvim;
 			  config = "lua require('dropbar').setup {}"; }
 			ccc-nvim
-			# { plugin = modicator-nvim;
-			#   config = "lua require('modicator').setup {}"; }
 			{ plugin = gitsigns-nvim;
 			  config = "lua require('gitsigns').setup {}"; }
 
 			{ plugin = lualine-nvim;
 			  config = (builtins.readFile ./bar.vim);}
-			# Qol
+			# QOL
 			{ plugin = comment-nvim;
 			  config = "lua require('Comment').setup {}";}
 			vim-surround
@@ -114,6 +115,7 @@ telescope.setup {
 	},
 }
 telescope.load_extension('lsp_handlers')
+telescope.load_extension('rest')
 EOF
 			'';}
 			vim-wakatime
@@ -256,6 +258,15 @@ vim.api.nvim_create_autocmd(
 	})
 EOF
 				''; }
+			# HTTP
+			{ plugin = rest-nvim;
+			  config = ''
+
+lua << EOF
+require 'rest-nvim'.setup {}
+vim.api.nvim_create_user_command('Rest', require('rest-nvim').run, {})
+EOF
+			'';}
 
 			# DataBase
 			vim-dadbod-ui
@@ -276,7 +287,6 @@ EOF
 		extraLuaConfig = ''			
 vim.opt.clipboard:append "unnamedplus"
 vim.opt.scrolloff = 5
-vim.o.laststatus = 3
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -288,6 +298,7 @@ vim.o.relativenumber = true
 
 vim.cmd "colorscheme gruvbox"
 vim.cmd "COQnow"
+vim.o.laststatus = 3
 		'';
 	};
 	
