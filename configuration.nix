@@ -45,7 +45,10 @@
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 	programs.nix-ld.enable = true;
-	programs.nix-ld.libraries = with pkgs; [];
+	programs.nix-ld.libraries = with pkgs; [
+		fontconfig
+		noto-fonts
+	];
 
 	networking.hostName = "BrianNixDesktop"; # Define your hostname.
 
