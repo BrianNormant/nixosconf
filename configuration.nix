@@ -9,6 +9,8 @@
 		./hardware-configuration.nix
 		<home-manager/nixos>
 		./localimport.nix
+
+		./zsh.nix
 	];
 
 # Use the recommanded option : systemd-boot
@@ -174,21 +176,6 @@
 		};
 
 		programs.firefox.enable = true;
-		programs.zsh = {
-			enable = true;
-			plugins = [
-			{
-				name = "zsh-nix-shell";
-				file = "nix-shell.plugin.zsh";
-				src = pkgs.fetchFromGitHub {
-					owner = "chisui";
-					repo = "zsh-nix-shell";
-					rev = "v0.8.0";
-					sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
-				};
-			}
-			];
-		};
 		programs.neovim = {
 			enable = true;
 			withPython3 = true;
@@ -495,39 +482,6 @@ vim.cmd "COQnow"
 	programs.dconf.enable = true;
 
 
-	programs.zsh = {
-		enable = true;
-		autosuggestions.enable = true;
-		syntaxHighlighting.enable = true;
-		shellAliases = {
-			ls = "lsd";
-			l = "lsd -la";
-			ll = "lsd -l";
-			cd = "z";
-			icat = "kitty +kitten icat --clear";
-			lg = "lazygit";
-			man = "batman";
-			vim = "NVIM_APPNAME=nvim-simple nvim";
-		};
-		shellInit = ''
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-	source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
-eval "$(zoxide init zsh)"
-
-'(( ! ''${+functions[p10k]} )) || p10k finalize'
-'';
-	};
 	programs.tmux = {
 		enable = true;
 		keyMode = "vi";
