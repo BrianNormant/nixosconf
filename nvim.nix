@@ -1,4 +1,4 @@
-{ pkgs, vimPlugins, ... }:
+{ pkgs, ... }:
 {
 	home-manager.users.brian.programs.neovim = {
 		enable = true;
@@ -16,7 +16,7 @@
 			nil
 			oracle-instantclient
 		];
-		plugins = with vimPlugins; [
+		plugins = with pkgs.vimPlugins; [
 			{ plugin = dressing-nvim;
 			  config = "lua require(\"dressing\").setup {}"; }
 			{ plugin = gruvbox-nvim; 
@@ -297,4 +297,9 @@ vim.cmd "COQnow"
 			};
 		};
 	};
+	nixpkgs.overlays = [                                                                           
+    	(import (builtins.fetchTarball {                                                           
+         	url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
+        }))
+	];
 }
