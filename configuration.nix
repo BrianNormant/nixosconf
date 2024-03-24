@@ -470,7 +470,6 @@ vim.cmd "COQnow"
 		curl
 		lxqt.lxqt-policykit
 		file
-		zsh
 		acpi
 		unzip
 		p7zip
@@ -521,12 +520,12 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
 source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
 eval "$(zoxide init zsh)"
 
+'(( ! ''${+functions[p10k]} )) || p10k finalize'
 '';
 	};
 	programs.tmux = {
