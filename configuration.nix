@@ -35,11 +35,16 @@
 			persist = true;
 		} ];
 	};
+	services.fprintd.enable = true;
+	services.fprintd.tod.enable = true;
+	services.fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090;
 
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+	programs.nix-ld.enable = true;
+	programs.nix-ld.libraries = with pkgs; [];
 
 	networking.hostName = "BrianNixDesktop"; # Define your hostname.
 
@@ -137,7 +142,15 @@
 		useGlobalPkgs = true;
 	};
 	home-manager.users.brian = { pkgs, ...}: {
-		home.packages = [ pkgs.waybar pkgs.cava ];
+		home.packages = with pkgs; [
+			waybar
+			cava
+
+			#dev:
+			jetbrains.idea-community-src
+			android-studio
+
+			];
 		home.file.".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
 
 		home.stateVersion = "23.11";
@@ -192,6 +205,7 @@
 				gdb
 				lua-language-server
 				nil
+				oracle-instantclient
 			];
 			plugins = with pkgs.vimPlugins; [
 
@@ -414,7 +428,15 @@ EOF
 
 						# DataBase
 						vim-dadbod-ui
-						vim-dadbod
+						{ plugin = vim-dadbod;
+						  config = ''
+lua << EOF
+vim.g.db_ui_use_nerd_fonts = 1
+vim.g.dbs = {
+	['DB Oracle locale'] = "oracle://SYSTEM:welcome123@localhost:1521/FREE"
+}
+EOF
+						  ''; }
 						# Markdown
 						markdown-preview-nvim
 
@@ -444,19 +466,20 @@ vim.opt.laststatus = 3
 # List packages installed in system profile. To search, run:
 # $ nix search wget
 	environment.systemPackages = with pkgs; [
+		brightnessctl
 		wget
-			git
-			curl
-			lxqt.lxqt-policykit
-			file
-			zsh
-			acpi
-			unzip
-			p7zip
-			neofetch # Extrement important!!!
-			bluez # bluetooth headphones
-			bc
-			sshfs
+		git
+		curl
+		lxqt.lxqt-policykit
+		file
+		zsh
+		acpi
+		unzip
+		p7zip
+		neofetch # Extrement important!!!
+		bluez # bluetooth headphones
+		bc
+		sshfs
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
@@ -490,12 +513,6 @@ vim.opt.laststatus = 3
 			vim = "NVIM_APPNAME=nvim-simple nvim";
 		};
 		shellInit = ''
-if [[ -v TMUX ]]; then
-	source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-	source ${pkgs.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-	eval "$(zoxide init zsh)"
-fi
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -503,35 +520,15 @@ if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh
 	source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
 fi
 
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-if [[ ! ( -o login || -v TMUX ) ]]; then
-	#Set up $TERM
-	#export TERM="xterm-256color"
-	# export MICRO_TRUECOLOR=1
-	export TERM="tmux-256color"
-	nbsession=$(tmux ls 2> /dev/null | wc -l)
-	if [[ $nbsession -eq 0 ]]; then
-		exec tmux -2 new-session -t Main
-	elif [[ $nbsession -lt 5 ]]; then
-		# If a session is not attached, attach to it.
-		tmuxsession=$(tmux ls 2> /dev/null)
-		for session in ''${(f)tmuxsession}; do
-			local name=$(echo $session | cut -d ":" -f 1)
-			clients=$(tmux list-clients -t $name 2> /dev/null | wc -l)
-			if [[ $clients -eq 0 ]]; then
-				# If it's not attached, attach to it
-				exec tmux attach -t "$name"
-				break;
-			fi;
-		done
-		exec tmux -2 new-session
-	else
-		exec tmux -2 attach
-	fi
-fi
+
+source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
+eval "$(zoxide init zsh)"
+
 '';
 	};
 	programs.tmux = {
