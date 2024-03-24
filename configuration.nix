@@ -242,16 +242,6 @@
 			];
 		};
 	};
-# Overlays
-	nixpkgs.overlays = [
-		(import (builtins.fetchTarball {
-			 url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
-			 }))
-	(final: prev: {
-	 rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
-	 })
-	];
-
 
 # Some programs need SUID wrappers, can be configured further or are
 # started in user sessions.
