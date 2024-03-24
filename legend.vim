@@ -8,15 +8,16 @@ require 'legendary'.setup {
         {"\\", '<cmd>split<cr><C-w>j', description="Split horizontal"},
         {"|", '<cmd>vsplit<cr><C-w>l', description="Split vertical"},
 		--- Telescope
-		{"<leader>fF", "<cmd>Telescope<cmd>"},
-		{"<leader>ff", function() require('telescope.builtin').find_files() end},
-		{"<leader>fF", function() require('telescope.builtin').live_grep() end},
-		{"<leader>fb", function() require('telescope.builtin').buffers() end},
+		{"<leader>ft",  function()  require('telescope.builtin').builtin()     end},
+		{"<leader>ff",  function()  require('telescope.builtin').find_files()  end},
+		{"<leader>fF",  function()  require('telescope.builtin').live_grep()   end},
+		{"<leader>fb",  function()  require('telescope.builtin').buffers()     end},
+		{"<leader>f/",  function()  require('telescope.builtin').current_buffer_fuzzy_find()     end},
 
 		--- Telescope &| LSP
-		{"<leader>fd", function() require('telescope.builtin').lsp_definitions() end},
-		{"<leader>fr", function() require('telescope.builtin').lsp_references() end},
-		{"<leader>fi", function() require('telescope.builtin').lsp_implementations() end},
+		{"<leader>fd",  function()  require('telescope.builtin').lsp_definitions()      end},
+		{"<leader>fr",  function()  require('telescope.builtin').lsp_references()       end},
+		{"<leader>fi",  function()  require('telescope.builtin').lsp_implementations()  end},
 		{"<leader>L", "<Cmd>SymbolsOutline<cr>"},
 		{"<leader>la", function()
 			if vim.bo.filetype == "java" then
