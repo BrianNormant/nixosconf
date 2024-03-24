@@ -4,14 +4,15 @@
 		autosuggestions.enable = true;
 		syntaxHighlighting.enable = true;
 		shellAliases = {
-			ls = "lsd";
-			l = "lsd -la";
-			ll = "lsd -l";
-			cd = "z";
-			icat = "kitty +kitten icat --clear";
-			lg = "lazygit";
-			man = "batman";
-			vim = "NVIM_APPNAME=nvim-simple nvim";
+			ls    =  "lsd";
+			l     =  "lsd -la";
+			ll    =  "lsd -l";
+			cd    =  "z";
+			icat  =  "kitty +kitten icat --clear";
+			lg    =  "lazygit";
+			man   =  "batman";
+			vim   =  "NVIM_APPNAME=nvim-simple  nvim";
+			gg    =  "lazygit";
 		};
 		shellInit = ''
 
