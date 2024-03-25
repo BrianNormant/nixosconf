@@ -58,7 +58,9 @@ require 'legendary'.setup {
 		{"<F1>", "<cmd>Gen<cr>"},
 		{"<F1>", ":'<,'>Gen<cr>"},
 		{"<F2>", function() require('dropbar.api').pick() end},
-	}
+
+	},
+	commands = {},
 }
 
 EOF

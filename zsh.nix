@@ -13,6 +13,7 @@
 			man   =  "batman";
 			vim   =  "NVIM_APPNAME=nvim-simple  nvim";
 			gg    =  "lazygit";
+			man-php = "find ~/Downloads/php-chunked-xhtml -maxdepth 1 -type f | fzf | xargs lynx";
 		};
 		shellInit = ''
 

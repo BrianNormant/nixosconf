@@ -30,7 +30,7 @@
 		enable = true;
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
-		gamescopeSession.enable = true;
+		gamescopeSession.enable = false;
 	};
 	nixpkgs.config.packageOverrides = pkgs: {
 		steam = pkgs.steam.override {

@@ -1,5 +1,26 @@
 { pkgs, ... }:
-{
+let 
+nvim-treesitter-parsers-http = pkgs.vimPlugins.nvim-treesitter-parsers.http.overrideAttrs  (final: self: {
+	version = "test";
+	src = pkgs.fetchFromGitHub {
+		owner = "rest-nvim";
+		repo = "tree-sitter-http";
+		rev = "261d78f";
+		sha256 = "sha256-Kh5CeVc6wtqRHb/RzFALk3pnnzzC/OR3qkDwIQH+XlA=";
+	};
+});
+/*
+nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.overrideAttrs (final: self: {
+	version = "HEAD";
+	src = pkgs.fetchFromGitHub {
+		owner = "nvim-treesitter";
+		repo  = "nvim-treesitter";
+		rev   = "HEAD";
+		sha256 = "sha256-U/0F/q2hfewO00nDBwdCGvQZoGv3EE0j1j47UO0u0p8=";
+	};
+});
+*/
+in {
 	home-manager.users.brian.programs.neovim = {
 		enable = true;
 		withPython3 = true;
@@ -18,14 +39,17 @@
 			curl
 			jq
 			html-tidy
+			luajitPackages.luarocks
+			tree-sitter
 		];
+
 		plugins = with pkgs.vimPlugins; [
 			{ plugin = dressing-nvim;
 			  config = "lua require(\"dressing\").setup {}"; }
 			{ plugin = gruvbox-nvim; 
 			  config = "lua require('gruvbox').setup { contrast = 'soft'}"; }
-			{ plugin = tabby-nvim;
-			  config = "lua require('tabby').setup {}"; }
+			{ plugin = bufferline-nvim;
+			  config = "lua require('bufferline').setup {}"; }
 			{ plugin = dropbar-nvim;
 			  config = "lua require('dropbar').setup {}"; }
 			ccc-nvim
@@ -199,7 +223,7 @@ EOF
 			''; }
 			{ plugin = actions-preview-nvim;
 			  config = "lua require 'actions-preview'.setup {}";}
-			# lsp
+			# LSP
 			{ plugin = nvim-lspconfig;
 			  config = ''
 lua << EOF
@@ -259,12 +283,25 @@ vim.api.nvim_create_autocmd(
 EOF
 				''; }
 			# HTTP
-			{ plugin = rest-nvim;
-			  config = ''
+			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
+				pname = "rest.nvim";
+				version = "1234";
+				src = pkgs.fetchFromGitHub {
+			     owner = "rest-nvim";
+			     repo = "rest.nvim";
+			     rev = "5300ae0";
+			     hash = "sha256-EuQ4RCwFRA99QJ4onQKulFDK3s6MOrWA5f55nlDf45w=";
+			   };
+			} );
+			  config = with pkgs.luajitPackages; ''
 
 lua << EOF
+package.path = package.path .. ";/home/brian/.luarocks/share/lua/5.1/?.lua" .. ";/home/brian/.luarocks/share/lua/5.1/?/init.lua"
+package.path = package.path .. ";${nvim-nio}/share/lua/5.1/?.lua" .. ";${nvim-nio}/share/lua/5.1/?/init.lua"
+package.path = package.path .. ";${lua-curl}/share/lua/5.1/?.lua" .. ";${lua-curl}/share/lua/5.1/?/init.lua"
+package.path = package.path .. ";${xml2lua}/share/lua/5.1/?.lua" .. ";${xml2lua}/share/lua/5.1/?/init.lua"
+
 require 'rest-nvim'.setup {}
-vim.api.nvim_create_user_command('Rest', require('rest-nvim').run, {})
 EOF
 			'';}
 
@@ -283,8 +320,18 @@ EOF
 			markdown-preview-nvim
 			{ plugin = legendary-nvim;
 			  config = ( builtins.readFile ./legend.vim ); }
+
+			# Treesitter
+			nvim-treesitter
+			nvim-treesitter-parsers.java
+			nvim-treesitter-parsers.lua
+			nvim-treesitter-parsers.c
+			nvim-treesitter-parsers.xml
+			nvim-treesitter-parsers.json
+			nvim-treesitter-parsers.graphql
+			nvim-treesitter-parsers-http
 		];
-		extraLuaConfig = ''			
+		extraLuaConfig = ''
 vim.opt.clipboard:append "unnamedplus"
 vim.opt.scrolloff = 5
 
@@ -320,6 +367,7 @@ vim.o.laststatus = 3
 			hi CurrentWordTwins cterm=underline
 			'';
 			packages.myVimPackage = with pkgs.vimPlugins; {
+				opt = [];
 				start = [
 					gruvbox
 					comment-nvim
@@ -327,7 +375,6 @@ vim.o.laststatus = 3
 					vim_current_word
 					vim-wordy
 				];
-				opt = [];
 			};
 		};
 	};

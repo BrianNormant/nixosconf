@@ -198,6 +198,7 @@
 		bluez # bluetooth headphones
 		bc
 		sshfs
+		lynx
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
