@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+	boot.loader.systemd-boot.consoleMode = "max";
 	services.fprintd = {
 		enable = true;
 		tod.enable = true;
