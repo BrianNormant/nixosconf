@@ -13,10 +13,26 @@
 			man   =  "batman";
 			vim   =  "NVIM_APPNAME=nvim-simple  nvim";
 			gg    =  "lazygit";
+			man-php = "find ~/Downloads/php-chunked-xhtml -maxdepth 1 -type f | fzf | xargs lynx";
 		};
 		shellInit = ''
 
-source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+source ${pkgs.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# Disable zsh-autocomplete keybinds
+() {
+   local -a prefix=( '\e'{\[,O} )
+   local -a up=( ''${^prefix}A ) down=( ''${^prefix}B )
+   local key=
+   for key in $up[@]; do
+      bindkey "$key" up-line-or-history
+   done
+   for key in $down[@]; do
+      bindkey "$key" down-line-or-history
+   done
+}
+bindkey '^R' .history-incremental-search-backward
+bindkey '^S' .history-incremental-search-forward
+
 source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
 source ${(pkgs.fetchFromGitHub {
@@ -26,6 +42,7 @@ source ${(pkgs.fetchFromGitHub {
 	sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
 })}/nix-shell.plugin.zsh
 
+source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.

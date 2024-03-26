@@ -2,11 +2,21 @@ lua << EOF
 vim.g.mapleader = " "
 require 'legendary'.setup {
 	keymaps = {
-        {"<A-p>", "<cmd>Legendary<cr>"},
-        {"<C-s>", "<cmd>wa<cr>"},
-        {"<C-q>", "<cmd>wqa!<cr>"},
-        {"\\", '<cmd>split<cr><C-w>j', description="Split horizontal"},
-        {"|", '<cmd>vsplit<cr><C-w>l', description="Split vertical"},
+		{"<A-p>", "<cmd>Legendary<cr>"},
+		{"<C-s>", "<cmd>wa<cr>"},
+		{"<C-q>", "<cmd>wqa!<cr>"},
+		{"\\", '<cmd>split<cr><C-w>j', description="Split horizontal"},
+		{"|", '<cmd>vsplit<cr><C-w>l', description="Split vertical"},
+
+		{"gi", function() require('boo').boo() end },
+		-- goto-preview
+		{"gpd",  function()  require('goto-preview').goto_preview_definition()       end  },
+		{"gpt",  function()  require('goto-preview').goto_preview_type_definition()  end  },
+		{"gpi",  function()  require('goto-preview').goto_preview_implementation()   end  },
+		{"gpD",  function()  require('goto-preview').goto_preview_declaration()      end  },
+		{"gP",   function()  require('goto-preview').close_all_win()                 end  },
+		{"gpr",  function()  require('goto-preview').goto_preview_references()       end  },
+
 		--- Telescope
 		{"<leader>ft",  function()  require('telescope.builtin').builtin()     end},
 		{"<leader>ff",  function()  require('telescope.builtin').find_files()  end},
@@ -18,7 +28,7 @@ require 'legendary'.setup {
 		{"<leader>fd",  function()  require('telescope.builtin').lsp_definitions()      end},
 		{"<leader>fr",  function()  require('telescope.builtin').lsp_references()       end},
 		{"<leader>fi",  function()  require('telescope.builtin').lsp_implementations()  end},
-		{"<leader>L", "<Cmd>SymbolsOutline<cr>"},
+		{"<leader>L",   function()  require("nvim-navbuddy").open()                     end},
 		{"<leader>la", function()
 			if vim.bo.filetype == "java" then
 				vim.lsp.buf.code_action()
@@ -45,13 +55,12 @@ require 'legendary'.setup {
 
 		{"<leader>gg", "<cmd>LazyGit<cr>"},
 
-		---               Compiler Explorer
-		{"<F5>", "<cmd>CECompile<cr>" },
-
 		{"<F1>", "<cmd>Gen<cr>"},
 		{"<F1>", ":'<,'>Gen<cr>"},
 		{"<F2>", function() require('dropbar.api').pick() end},
-	}
+
+	},
+	commands = {},
 }
 
 EOF

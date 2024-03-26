@@ -45,7 +45,10 @@
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 	programs.nix-ld.enable = true;
-	programs.nix-ld.libraries = with pkgs; [];
+	programs.nix-ld.libraries = with pkgs; [
+		fontconfig
+		noto-fonts
+	];
 
 # Pick only one of the below networking options.
 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -192,6 +195,7 @@
 		bluez # bluetooth headphones
 		bc
 		sshfs
+		lynx
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
