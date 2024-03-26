@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+	networking.hostName = "BrianNixLaptop"; # Define your hostname.
+
 	services.fprintd = {
 		enable = true;
 		tod.enable = true;

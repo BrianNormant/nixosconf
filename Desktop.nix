@@ -5,6 +5,8 @@
 		patch = ./beyond.patch;
 	} ];
 
+	networking.hostName = "BrianNixDesktop"; # Define your hostname.
+
 # For logitech G29
 	hardware.new-lg4ff.enable = true;
 	hardware.usb-modeswitch.enable = true;
