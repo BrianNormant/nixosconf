@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
+	networking.hostName = "BrianNixLaptop"; # Define your hostname.
+	
 	boot.loader.systemd-boot.consoleMode = "max";
+
 	services.fprintd = {
 		enable = true;
 		tod.enable = true;
