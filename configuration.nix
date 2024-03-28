@@ -204,6 +204,7 @@
 		bc
 		sshfs
 		lynx
+		delta
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
