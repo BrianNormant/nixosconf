@@ -14,6 +14,9 @@
 		./nvim.nix
 	];
 
+# Screen sharing
+	xdg.portal.wlr.enable = true;
+
 # Use the recommanded option : systemd-boot
 	boot.loader.systemd-boot.enable = true;
 	boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -44,10 +47,14 @@
 	nix.settings.sandbox = "relaxed";
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+	# for gradle and jdtls
 	programs.nix-ld.enable = true;
 	programs.nix-ld.libraries = with pkgs; [
-		fontconfig
+		# For java swing
+		fontconfig 
 		noto-fonts
+		# for zutty
+		ucs-fonts
 	];
 
 # Pick only one of the below networking options.
@@ -97,6 +104,8 @@
 		powerOnBoot = true;
 	};
 
+	programs.thunar.enable = true;
+
 	users.users.brian = {
 		isNormalUser = true;
 		extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
@@ -109,7 +118,6 @@
 			vesktop
 			webcord-vencord
 			btop
-			xfce.thunar
 # Terminal Tools
 			kitty # terminal emulators
 #TODO ./zutty.nix

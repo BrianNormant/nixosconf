@@ -1,4 +1,21 @@
-{ pkgs, ... }: {
+{ pkgs, ... }: 
+let php-manual-html = pkgs.stdenv.mkDerivation {
+	pname = "php-manual-en-html";
+	version = "8.3@26-03-2024";
+
+	src = pkgs.fetchurl {
+		url = "https://www.php.net/distributions/manual/php_manual_en.tar.gz";
+		hash = "sha256-lh48iWMyb2hYs3vdHsh0ZEiovQ0MkOGq4fhTAkt0cO0=";
+	};
+
+	outputs = [ "out" ];
+
+	postInstall = ''
+		mkdir "$out"
+		mv *.html "$out"
+		'';
+};
+in {
 	programs.zsh = {
 		enable = true;
 		autosuggestions.enable = true;
@@ -13,7 +30,7 @@
 			man   =  "batman";
 			vim   =  "NVIM_APPNAME=nvim-simple  nvim";
 			gg    =  "lazygit";
-			man-php = "find ~/Downloads/php-chunked-xhtml -maxdepth 1 -type f | fzf | xargs lynx";
+			man-php = "find ${php-manual-html} -maxdepth 1 -type f -printf '%f\n' | fzf --reverse | xargs printf '${php-manual-html}/%s' | xargs lynx";
 		};
 		shellInit = ''
 
@@ -52,6 +69,9 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# fzf colorscheme
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#3c3836,bg:#fbf1c7,hl:#5f87af --color=fg+:#d65d0e,bg+:#fbf1c7,hl+:#076678 --color=info:#d79921,prompt:#cc241d,pointer:#076678 --color=marker:#79740e,spinner:#076678,header:#7c6f64'
 
 eval "$(zoxide init zsh)"
 (( ! ''${+functions[p10k]} )) || p10k finalize
