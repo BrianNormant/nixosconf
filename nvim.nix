@@ -139,9 +139,21 @@ telescope.setup {
 	},
 }
 telescope.load_extension('lsp_handlers')
-telescope.load_extension('rest')
 EOF
 			'';}
+			fzf-vim
+			{ plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "fzfx.nvim";
+				version = "lastest";
+				src = pkgs.fetchFromGitHub {
+					owner = "linrongbin16";
+					repo = "fzfx.nvim";
+					rev = "HEAD";
+					sha256 = "sha256-gY9P+XQhoraEM8OwHMakTpfBLFthkh99QCdf/JeN+Xo=";
+				};
+			  };
+			  config = "lua require(\"fzfx\").setup {}";
+			}
 			vim-wakatime
 			{ plugin = nvim-web-devicons;
 			  config = ''
@@ -283,6 +295,7 @@ vim.api.nvim_create_autocmd(
 EOF
 				''; }
 			# HTTP
+			/*
 			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
 				pname = "rest.nvim";
 				version = "1234";
@@ -303,7 +316,7 @@ package.path = package.path .. ";${xml2lua}/share/lua/5.1/?.lua" .. ";${xml2lua}
 
 require 'rest-nvim'.setup {}
 EOF
-			'';}
+			''; } */
 
 			# DataBase
 			vim-dadbod-ui
