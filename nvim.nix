@@ -427,7 +427,7 @@ EOF
 lua << EOF
 require('neotest').setup {
 	adapters = {
-		require( ${neotest-elixir.pname}),
+		require('${neotest-elixir.pname}'),
 		require('${neotest-java.pname}'),
 	},
 }
