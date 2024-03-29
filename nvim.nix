@@ -338,6 +338,19 @@ EOF
 					sha256 = "sha256-JYj54CLYyzI0jzzYGSSt3Y18EyWzpObOwz6fSLTJGko=";
 				};
 			}; config = ""; }
+			# Compiler and run
+			overseer-nvim
+			{ plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "compiler.nvim";
+				version = "26-03-2024";
+				src = pkgs.fetchFromGitHub {
+					owner = "Zeioth";
+					repo = "compiler.nvim";
+					rev = "a0fc34e";
+					sha256 = "sha256-KIIQ1rtL9A1tZpjNNKUb5yACXGS97uaLAzCd9AogAqk=";
+				};};
+			  config = "lua require('compiler').setup {}";}
+
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
 				pname = "neotest";
 				version = "HEAD";

@@ -42,6 +42,10 @@ require 'legendary'.setup {
 		{"<F3>", "<cmd>MurenFresh<cr>",  mode = "n"},
 		{"<F3>", ":'<,'>MurenFresh<cr>", mode = "v"},
 
+		--- Compiler
+		{"<F5>", "<cmd>CompilerOpen<cr>"},
+		{"<F6>", "<cmd>CompilerToggleResults<cr>"},
+
 		--- DAP
 		{"<F9>",   function()  require'dap'.toggle_breakpoint()  end,  description="DAP  Toggle breakpoint"},
 		{"<F10>",  function()  require'dap'.continue()           end,  description="DAP  Start/Resume"},
