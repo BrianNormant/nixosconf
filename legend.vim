@@ -38,9 +38,10 @@ require 'legendary'.setup {
 		end },
 
 
-		--- Muren
+		--- Muren And Spectre
 		{"<F3>", "<cmd>MurenFresh<cr>",  mode = "n"},
 		{"<F3>", ":'<,'>MurenFresh<cr>", mode = "v"},
+		{"<leader>S", function() require('spectre').toggle() end},
 
 		--- Compiler
 		{"<F5>", "<cmd>CompilerOpen<cr>"},
