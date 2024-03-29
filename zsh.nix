@@ -1,5 +1,21 @@
 { pkgs, ... }: 
-{
+let php-manual-html = pkgs.stdenv.mkDerivation {
+	pname = "php-manual-en-html";
+	version = "8.3@26-03-2024";
+
+	src = pkgs.fetchurl {
+		url = "https://www.php.net/distributions/manual/php_manual_en.tar.gz";
+		hash = "sha256-BgEN+j7UCFc7NViEzQTCdQkjrOYj+1XCZ+dvZ2NaE4o=";
+	};
+
+	outputs = [ "out" ];
+
+	postInstall = ''
+		mkdir "$out"
+		mv *.html "$out"
+		'';
+};
+in {
 	programs.zsh = {
 		enable = true;
 		autosuggestions.enable = true;
