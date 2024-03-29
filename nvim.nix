@@ -44,6 +44,7 @@ in {
 		];
 
 		plugins = with pkgs.vimPlugins; [
+			suda-vim
 			{ plugin = dressing-nvim;
 			  config = "lua require(\"dressing\").setup {}"; }
 			gruvbox-material
