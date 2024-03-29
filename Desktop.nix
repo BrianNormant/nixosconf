@@ -56,6 +56,6 @@
 	};
 
 # Special Rules
-	networking.firewall.allowedTCPPorts = [ 4269 ];
-	# networking.firewall.allowedUDPPorts = [];
+	networking.firewall.allowedTCPPorts = [ 4270 4269 ];
+	networking.firewall.allowedUDPPorts = [ 4270 ];
 }
