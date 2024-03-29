@@ -152,6 +152,9 @@ EOF
 			  };
 			  config = "lua require(\"fzfx\").setup {}";
 			}
+
+			{ plugin = nvim-spectre;
+			  config = "lua require('spectre').setup {}";}
 			vim-wakatime
 			{ plugin = nvim-web-devicons;
 			  config = ''
