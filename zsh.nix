@@ -5,7 +5,7 @@ let php-manual-html = pkgs.stdenv.mkDerivation {
 
 	src = pkgs.fetchurl {
 		url = "https://www.php.net/distributions/manual/php_manual_en.tar.gz";
-		hash = "sha256-lh48iWMyb2hYs3vdHsh0ZEiovQ0MkOGq4fhTAkt0cO0=";
+		hash = "sha256-BgEN+j7UCFc7NViEzQTCdQkjrOYj+1XCZ+dvZ2NaE4o=";
 	};
 
 	outputs = [ "out" ];
