@@ -29,7 +29,6 @@ in {
 			jq
 			html-tidy
 			tree-sitter
-			luajitPackages.luarocks
 		];
 
 		plugins = with pkgs.vimPlugins; [
@@ -383,7 +382,7 @@ EOF
 			  config = with pkgs.luajitPackages; ''
 
 lua << EOF
-package.path = package.path .. ";/home/brian/.luarocks/share/lua/5.1/?.lua" .. ";/home/brian/.luarocks/share/lua/5.1/?/init.lua"
+package.path = package.path .. ";${mimetypes}/share/lua/5.1/?.lua" .. ";${mimetypes}/share/lua/5.1/?/init.lua"
 package.path = package.path .. ";${nvim-nio}/share/lua/5.1/?.lua" .. ";${nvim-nio}/share/lua/5.1/?/init.lua"
 package.path = package.path .. ";${lua-curl}/share/lua/5.1/?.lua" .. ";${lua-curl}/share/lua/5.1/?/init.lua"
 package.path = package.path .. ";${xml2lua}/share/lua/5.1/?.lua" .. ";${xml2lua}/share/lua/5.1/?/init.lua"
