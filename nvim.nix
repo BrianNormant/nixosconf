@@ -153,6 +153,9 @@ EOF
 			  config = "lua require(\"fzfx\").setup {}";
 			}
 
+			{ plugin = true-zen-nvim;
+			  config = "lua require('true-zen').setup {}";}
+
 			{ plugin = nvim-spectre;
 			  config = "lua require('spectre').setup {}";}
 			vim-wakatime

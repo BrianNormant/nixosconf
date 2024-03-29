@@ -46,6 +46,7 @@ require 'legendary'.setup {
 		--- Compiler
 		{"<F5>", "<cmd>CompilerOpen<cr>"},
 		{"<F6>", "<cmd>CompilerToggleResults<cr>"},
+
 		--- Neotest
 		{"<F7>", function() require("neotest").run.run() end},
 		{"<F8>", function() require("neotest").run.run(vim.fn.extend("%")) end},
@@ -66,6 +67,13 @@ require 'legendary'.setup {
 		{"<F1>", "<cmd>Gen<cr>"},
 		{"<F1>", ":'<,'>Gen<cr>"},
 		{"<F2>", function() require('dropbar.api').pick() end},
+
+		---              UI settings
+		--- Treesitter
+		{"<leader>uh", "<cmd>TSToggle highlight<cr>"},
+		--- true-zen
+		{"<leader>uz", "<cmd>TZAtaraxis<cr>"},
+		{"<C-w>z",     "<cmd>TZFocus<cr>"},
 
 	},
 	commands = {},
