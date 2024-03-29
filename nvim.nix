@@ -39,17 +39,14 @@ in {
 			curl
 			jq
 			html-tidy
-			luajitPackages.luarocks
 			tree-sitter
+			luajitPackages.luarocks
 		];
 
 		plugins = with pkgs.vimPlugins; [
 			{ plugin = dressing-nvim;
 			  config = "lua require(\"dressing\").setup {}"; }
-			{ plugin = gruvbox-nvim; 
-			  config = "lua require('gruvbox').setup { contrast = 'soft'}"; }
-			{ plugin = bufferline-nvim;
-			  config = "lua require('bufferline').setup {}"; }
+			gruvbox-material
 			{ plugin = dropbar-nvim;
 			  config = "lua require('dropbar').setup {}"; }
 			ccc-nvim
@@ -356,9 +353,9 @@ vim.o.cursorline = true
 vim.o.number = true
 vim.o.relativenumber = true
 
-vim.cmd "colorscheme gruvbox"
+vim.cmd "colorscheme gruvbox-material"
 vim.cmd "COQnow"
-vim.o.laststatus = 3
+vim.cmd "set laststatus=3"
 		'';
 	};
 	
