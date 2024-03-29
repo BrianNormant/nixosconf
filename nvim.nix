@@ -314,6 +314,50 @@ package.path = package.path .. ";${xml2lua}/share/lua/5.1/?.lua" .. ";${xml2lua}
 require 'rest-nvim'.setup {}
 EOF
 			''; } */
+			# Elixir
+			{
+			  plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "nio";
+				version = "lastest";
+				src = pkgs.fetchFromGitHub {
+			     owner = "nvim-neotest";
+			     repo = "nvim-nio";
+			     rev = "HEAD";
+			     hash = "sha256-MHCrUisx3blgHWFyA5IHcSwKvC1tK1Pgy/jADBkoXX0=";
+			   };
+			  };
+			  config = "";
+			}
+			{ plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "neotest-elixir";
+				version = "lastest";
+				src = pkgs.fetchFromGitHub {
+					owner = "jfpedroza";
+					repo = "neotest-elixir";
+					rev = "3117ca5442c02998847131c39551b76a6ceac9d7";
+					sha256 = "sha256-JYj54CLYyzI0jzzYGSSt3Y18EyWzpObOwz6fSLTJGko=";
+				};
+			}; config = ""; }
+			{ plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "neotest";
+				version = "HEAD";
+				src = pkgs.fetchFromGitHub {
+			     owner = "nvim-neotest";
+			     repo = "neotest";
+			     rev = "HEAD";
+			     hash = "sha256-gmYk83oo0414jIXGJaLuJPcE2GGh2qqKNjCif9mzmnE=";
+			   };
+			};
+			  config = ''
+lua << EOF
+package.path = "/home/brian/.luarocks/share/lua/5.1/?/init.lua;" .. package.path 
+require('neotest').setup {
+	adapters = {
+		require('neotest-elixir'),
+	},
+}
+EOF
+			'';}
 
 			# DataBase
 			vim-dadbod-ui
@@ -339,6 +383,7 @@ EOF
 			nvim-treesitter-parsers.xml
 			nvim-treesitter-parsers.json
 			nvim-treesitter-parsers.graphql
+			nvim-treesitter-parsers.elixir
 			nvim-treesitter-parsers-http
 		];
 		extraLuaConfig = ''
