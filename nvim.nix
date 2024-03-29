@@ -47,7 +47,8 @@ in {
 			suda-vim
 			{ plugin = dressing-nvim;
 			  config = "lua require(\"dressing\").setup {}"; }
-			gruvbox-material
+			{ plugin = gruvbox-material;
+			  config = "colorscheme gruvbox-material"; }
 			{ plugin = dropbar-nvim;
 			  config = "lua require('dropbar').setup {}"; }
 			ccc-nvim
@@ -412,7 +413,6 @@ vim.o.cursorline = true
 vim.o.number = true
 vim.o.relativenumber = true
 
-vim.cmd "colorscheme gruvbox-material"
 vim.cmd "COQnow"
 vim.cmd "set laststatus=3"
 		'';
