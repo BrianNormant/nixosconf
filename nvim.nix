@@ -172,7 +172,16 @@ lua require("nvim-web-devicons").setup {}
 				config = "lua require('muren').setup {}"; }
 			{ plugin = oil-nvim;
 			  config = "lua require('oil').setup {}";}
-			{ plugin = coq_nvim;
+			{ plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "coq_nvim";
+				version = "03-01-24";
+				src = pkgs.fetchFromGitHub {
+					owner = "ms-jpq";
+					repo = "coq_nvim";
+					rev = "78bd6e9";
+					sha256 = "sha256-VJmHJWafCVTQx+jcN+9C313lIY7ZqDcLZ2x2wp6EGLY=";
+				};
+			};
 			  config = ''
 lua << EOF
 local coq = require 'coq'
@@ -413,6 +422,9 @@ EOF
 			   };
 			  };
 			  config = ""; }
+
+			neotest-elixir
+			neotest-java
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
 				pname = "neotest";
 				version = "20-03-24";
