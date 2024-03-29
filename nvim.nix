@@ -223,6 +223,7 @@ EOF
 			''; }
 			{ plugin = actions-preview-nvim;
 			  config = "lua require 'actions-preview'.setup {}";}
+			
 			# LSP
 			{ plugin = nvim-lspconfig;
 			  config = ''
@@ -239,10 +240,75 @@ lspconfig.nil_ls.setup(common_config)
 lspconfig.phpactor.setup(common_config)
 EOF
 		   '';}
-		   nvim-dap
-		   { plugin = nvim-dap-ui;
+			{ plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "symbol-usage.nvim";
+				version = "4-03-24";
+				src = pkgs.fetchFromGitHub {
+			     owner = "Wansmer";
+			     repo = "symbol-usage.nvim";
+			     rev = "4c79eff";
+			     hash = "sha256-CPUhvJZcmCKnLUX3NtpV8RE5mIMrN1wURJmTE4tO05k=";
+			   };
+			};
+			  config = ''
+lua << EOF
+local function h(name) return vim.api.nvim_get_hl(0, { name = name }) end
+
+-- hl-groups can have any name
+vim.api.nvim_set_hl(0, 'SymbolUsageRounding', { fg = h('CursorLine').bg, italic = true })
+vim.api.nvim_set_hl(0, 'SymbolUsageContent', { bg = h('CursorLine').bg, fg = h('Comment').fg, italic = true })
+vim.api.nvim_set_hl(0, 'SymbolUsageRef', { fg = h('Function').fg, bg = h('CursorLine').bg, italic = true })
+vim.api.nvim_set_hl(0, 'SymbolUsageDef', { fg = h('Type').fg, bg = h('CursorLine').bg, italic = true })
+vim.api.nvim_set_hl(0, 'SymbolUsageImpl', { fg = h('@keyword').fg, bg = h('CursorLine').bg, italic = true })
+
+local function text_format(symbol)
+  local res = {}
+
+  local round_start = { '', 'SymbolUsageRounding' }
+  local round_end = { '', 'SymbolUsageRounding' }
+
+  if symbol.references then
+    local usage = symbol.references <= 1 and 'usage' or 'usages'
+    local num = symbol.references == 0 and 'no' or symbol.references
+    table.insert(res, round_start)
+    table.insert(res, { '󰌹 ', 'SymbolUsageRef' })
+    table.insert(res, { ('%s %s'):format(num, usage), 'SymbolUsageContent' })
+    table.insert(res, round_end)
+  end
+
+  if symbol.definition then
+    if #res > 0 then
+      table.insert(res, { ' ', 'NonText' })
+    end
+    table.insert(res, round_start)
+    table.insert(res, { '󰳽 ', 'SymbolUsageDef' })
+    table.insert(res, { symbol.definition .. ' defs', 'SymbolUsageContent' })
+    table.insert(res, round_end)
+  end
+
+  if symbol.implementation then
+    if #res > 0 then
+      table.insert(res, { ' ', 'NonText' })
+    end
+    table.insert(res, round_start)
+    table.insert(res, { '󰡱 ', 'SymbolUsageImpl' })
+    table.insert(res, { symbol.implementation .. ' impls', 'SymbolUsageContent' })
+    table.insert(res, round_end)
+  end
+
+  return res
+end
+
+require('symbol-usage').setup({
+  text_format = text_format,
+})
+EOF
+			  '';}
+			# Debugger
+			nvim-dap
+			{ plugin = nvim-dap-ui;
 			 config = (builtins.readFile ./dap.vim); }
-		   { plugin = ( pkgs.vimUtils.buildVimPlugin {
+			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
 				pname = "gen-nvim";
 				version = "14-03-24";
 				src = pkgs.fetchFromGitHub {
@@ -306,29 +372,6 @@ require 'rest-nvim'.setup {}
 EOF
 			''; } */
 			# Elixir
-			{
-			  plugin = pkgs.vimUtils.buildVimPlugin {
-				pname = "nio";
-				version = "lastest";
-				src = pkgs.fetchFromGitHub {
-			     owner = "nvim-neotest";
-			     repo = "nvim-nio";
-			     rev = "33c62b3eadd8154169e42144de16ba4db6784bec";
-			     hash = "sha256-MHCrUisx3blgHWFyA5IHcSwKvC1tK1Pgy/jADBkoXX0=";
-			   };
-			  };
-			  config = "";
-			}
-			{ plugin = pkgs.vimUtils.buildVimPlugin {
-				pname = "neotest-elixir";
-				version = "lastest";
-				src = pkgs.fetchFromGitHub {
-					owner = "jfpedroza";
-					repo = "neotest-elixir";
-					rev = "3117ca5442c02998847131c39551b76a6ceac9d7";
-					sha256 = "sha256-JYj54CLYyzI0jzzYGSSt3Y18EyWzpObOwz6fSLTJGko=";
-				};
-			}; config = ""; }
 			# DataBase
 			vim-dadbod-ui
 			{ plugin = vim-dadbod;
@@ -359,7 +402,17 @@ EOF
 			  config = "lua require('compiler').setup {}";}
 
 			# Unit Test
-
+			{ plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "nio";
+				version = "lastest";
+				src = pkgs.fetchFromGitHub {
+			     owner = "nvim-neotest";
+			     repo = "nvim-nio";
+			     rev = "33c62b3eadd8154169e42144de16ba4db6784bec";
+			     hash = "sha256-MHCrUisx3blgHWFyA5IHcSwKvC1tK1Pgy/jADBkoXX0=";
+			   };
+			  };
+			  config = ""; }
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
 				pname = "neotest";
 				version = "20-03-24";
@@ -370,11 +423,12 @@ EOF
 			     hash = "sha256-gmYk83oo0414jIXGJaLuJPcE2GGh2qqKNjCif9mzmnE=";
 			   };
 			};
-			  config = ''
+			  config = with pkgs.vimPlugins; ''
 lua << EOF
 require('neotest').setup {
 	adapters = {
-		require('neotest-elixir'),
+		require( ${neotest-elixir.pname}),
+		require('${neotest-java.pname}'),
 	},
 }
 EOF
