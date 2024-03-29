@@ -340,6 +340,22 @@ EOF
 					sha256 = "sha256-JYj54CLYyzI0jzzYGSSt3Y18EyWzpObOwz6fSLTJGko=";
 				};
 			}; config = ""; }
+			# DataBase
+			vim-dadbod-ui
+			{ plugin = vim-dadbod;
+			  config = ''
+lua << EOF
+vim.g.db_ui_use_nerd_fonts = 1
+vim.g.dbs = {
+	['DB Oracle locale'] = "oracle://SYSTEM:welcome123@localhost:1521/FREE"
+}
+EOF
+			  ''; }
+			# Markdown, CSV,
+			markdown-preview-nvim
+			{ plugin = legendary-nvim;
+			  config = ( builtins.readFile ./legend.vim ); }
+
 			# Compiler and run
 			overseer-nvim
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
@@ -353,6 +369,8 @@ EOF
 				};};
 			  config = "lua require('compiler').setup {}";}
 
+			# Unit Test
+
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
 				pname = "neotest";
 				version = "HEAD";
@@ -365,7 +383,6 @@ EOF
 			};
 			  config = ''
 lua << EOF
-package.path = "/home/brian/.luarocks/share/lua/5.1/?/init.lua;" .. package.path 
 require('neotest').setup {
 	adapters = {
 		require('neotest-elixir'),
@@ -373,23 +390,6 @@ require('neotest').setup {
 }
 EOF
 			'';}
-
-			# DataBase
-			vim-dadbod-ui
-			{ plugin = vim-dadbod;
-			  config = ''
-lua << EOF
-vim.g.db_ui_use_nerd_fonts = 1
-vim.g.dbs = {
-	['DB Oracle locale'] = "oracle://SYSTEM:welcome123@localhost:1521/FREE"
-}
-EOF
-			  ''; }
-			# Markdown
-			markdown-preview-nvim
-			{ plugin = legendary-nvim;
-			  config = ( builtins.readFile ./legend.vim ); }
-
 			# Treesitter
 			nvim-treesitter
 			nvim-treesitter-parsers.java
