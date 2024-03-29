@@ -45,6 +45,9 @@ require 'legendary'.setup {
 		--- Compiler
 		{"<F5>", "<cmd>CompilerOpen<cr>"},
 		{"<F6>", "<cmd>CompilerToggleResults<cr>"},
+		--- Neotest
+		{"<F7>", function() require("neotest").run.run() end},
+		{"<F8>", function() require("neotest").run.run(vim.fn.extend("%")) end},
 
 		--- DAP
 		{"<F9>",   function()  require'dap'.toggle_breakpoint()  end,  description="DAP  Toggle breakpoint"},

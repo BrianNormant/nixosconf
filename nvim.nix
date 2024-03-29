@@ -9,17 +9,6 @@ nvim-treesitter-parsers-http = pkgs.vimPlugins.nvim-treesitter-parsers.http.over
 		sha256 = "sha256-Kh5CeVc6wtqRHb/RzFALk3pnnzzC/OR3qkDwIQH+XlA=";
 	};
 });
-/*
-nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.overrideAttrs (final: self: {
-	version = "HEAD";
-	src = pkgs.fetchFromGitHub {
-		owner = "nvim-treesitter";
-		repo  = "nvim-treesitter";
-		rev   = "HEAD";
-		sha256 = "sha256-U/0F/q2hfewO00nDBwdCGvQZoGv3EE0j1j47UO0u0p8=";
-	};
-});
-*/
 in {
 	home-manager.users.brian.programs.neovim = {
 		enable = true;
@@ -147,7 +136,7 @@ EOF
 				src = pkgs.fetchFromGitHub {
 					owner = "linrongbin16";
 					repo = "fzfx.nvim";
-					rev = "HEAD";
+					rev = "efb8813";
 					sha256 = "sha256-gY9P+XQhoraEM8OwHMakTpfBLFthkh99QCdf/JeN+Xo=";
 				};
 			  };
@@ -160,11 +149,11 @@ lua require("nvim-web-devicons").setup {}
 			''; }
 			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
 				pname = "icon-picker-nvim";
-				version = "HEAD";
+				version = "3-01-24";
 				src = pkgs.fetchFromGitHub {
 					owner = "ziontee113";
 					repo = "icon-picker.nvim";
-					rev = "HEAD";
+					rev = "3ee9a0e";
 					sha256 = "VZKsVeSmPR3AA8267Mtd5sSTZl2CAqnbgqceCptgp4w=";
 				};
 			} );
@@ -172,7 +161,7 @@ lua require("nvim-web-devicons").setup {}
 			lazygit-nvim
 			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
 				pname = "muren-nvim";
-				version = "HEAD";
+				version = "26-8-23";
 				src = pkgs.fetchFromGitHub {
 					owner = "AckslD";
 					repo = "muren.nvim";
@@ -255,7 +244,7 @@ EOF
 			 config = (builtins.readFile ./dap.vim); }
 		   { plugin = ( pkgs.vimUtils.buildVimPlugin {
 				pname = "gen-nvim";
-				version = "HEAD";
+				version = "14-03-24";
 				src = pkgs.fetchFromGitHub {
 					owner = "David-Kunz";
 					repo = "gen.nvim";
@@ -373,7 +362,7 @@ EOF
 
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
 				pname = "neotest";
-				version = "HEAD";
+				version = "20-03-24";
 				src = pkgs.fetchFromGitHub {
 			     owner = "nvim-neotest";
 			     repo = "neotest";
