@@ -52,6 +52,17 @@ in {
 			vim-surround
 			vim-repeat
 			vim-lastplace
+			{ plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "telepath-nvim";
+				version = "16-03-24";
+				src = pkgs.fetchFromGitHub {
+			     owner = "rasulomaroff";
+			     repo = "telepath.nvim";
+			     rev = "993dd93";
+			     hash = "sha256-495jGHbYU0uYV4i8MrMosgOG1nDEtkB1h5k3Ww5LP3o=";
+			   };
+			};
+			  config = "lua require('telepath').use_default_mappings()"; }
 			{ plugin = leap-nvim;
 			  config=''
 hi LeapBackdrop guifg=#888888
