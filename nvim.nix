@@ -324,7 +324,7 @@ EOF
 				src = pkgs.fetchFromGitHub {
 			     owner = "nvim-neotest";
 			     repo = "nvim-nio";
-			     rev = "HEAD";
+			     rev = "33c62b3eadd8154169e42144de16ba4db6784bec";
 			     hash = "sha256-MHCrUisx3blgHWFyA5IHcSwKvC1tK1Pgy/jADBkoXX0=";
 			   };
 			  };
@@ -359,7 +359,7 @@ EOF
 				src = pkgs.fetchFromGitHub {
 			     owner = "nvim-neotest";
 			     repo = "neotest";
-			     rev = "HEAD";
+			     rev = "e07fe8241112274aae9947b98d255763738a1d52";
 			     hash = "sha256-gmYk83oo0414jIXGJaLuJPcE2GGh2qqKNjCif9mzmnE=";
 			   };
 			};
