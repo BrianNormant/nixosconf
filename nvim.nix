@@ -188,6 +188,8 @@ lua require("nvim-web-devicons").setup {}
 				config = "lua require('muren').setup {}"; }
 			{ plugin = oil-nvim;
 			  config = "lua require('oil').setup {}";}
+			  # Fold
+
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
 				pname = "coq_nvim";
 				version = "03-01-24";
@@ -470,6 +472,7 @@ EOF
 			nvim-treesitter-parsers.json
 			nvim-treesitter-parsers.graphql
 			nvim-treesitter-parsers.elixir
+			nvim-treesitter-parsers.nix
 			nvim-treesitter-parsers-http
 		];
 		extraLuaConfig = ''
@@ -483,6 +486,9 @@ vim.opt.expandtab = false -- set to true to use space instead of tab
 vim.o.cursorline = true
 vim.o.number = true
 vim.o.relativenumber = true
+
+vim.o.foldenable = true
+vim.o.foldmethod = "syntax"
 
 vim.cmd "COQnow"
 vim.cmd "set laststatus=3"
