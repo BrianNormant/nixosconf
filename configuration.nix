@@ -8,7 +8,9 @@
 	imports = [ # Include the results of the hardware scan.
 		./hardware-configuration.nix
 		<home-manager/nixos>
-		./localimport.nix
+		(if (builtins.readFile /etc/machine-id) == "e0c725c9906148dcb7cd848c7e9fcd28\n"
+			then ./Desktop.nix
+			else ./Laptop.nix)
 
 		./zsh.nix
 		./nvim.nix
@@ -138,12 +140,12 @@
 			copyq # clipboard manager
 			dunst # notification daemom
 			wob   # Ligthweight overlay to show volume changes
-			rofi-wayland rofi-calc # Menu for desktop
 			playerctl
 			appimage-run
 
 # gaming
 			prismlauncher
+			gamemode
 		];
 	};
 	home-manager = {
@@ -182,6 +184,14 @@
 			enable = true;
 			userName = "BrianNixDesktop";
 			userEmail = "briannormant@gmail.com";
+		};
+
+		programs.rofi = {
+			enable = true;
+			package = pkgs.rofi;
+			plugins = with pkgs; [
+				rofi-calc
+			 ];
 		};
 
 		programs.firefox.enable = true;
