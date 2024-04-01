@@ -174,7 +174,20 @@ lua require("nvim-web-devicons").setup {}
 				};
 			} );
 			  config = "lua require('icon-picker').setup {}";}
+			
+			# Git
+			{ plugin = pkgs.vimUtils.buildVimPlugin {
+				pname = "blame.nvim";
+				version = "21-03-24";
+				src = pkgs.fetchFromGitHub {
+					  owner = "FabijanZulj";
+					  repo = "blame.nvim";
+					  rev = "7cb17b9";
+					  hash = "sha256-ATSUqLzjwdOtx25Ic+WzLFggw+H+Y/vcFaYo8axdYzY=";
+				};};
+			  config = "lua require ('blame').setup {}";}
 			lazygit-nvim
+
 			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
 				pname = "muren-nvim";
 				version = "26-8-23";
@@ -416,7 +429,8 @@ EOF
 			  config = ( builtins.readFile ./legend.vim ); }
 
 			# Compiler and run
-			overseer-nvim
+			{ plugin = overseer-nvim;
+			  config = "lua require('overseer').setup {}"; }
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
 				pname = "compiler.nvim";
 				version = "26-03-2024";

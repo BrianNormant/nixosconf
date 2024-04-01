@@ -24,7 +24,7 @@ require 'legendary'.setup {
 		{"<leader>fb",  '<cmd>FzfxBuffers<cr>'     },
 		{"<leader>f/",  '<cmd>FzfxBufLiveGrep<cr>' },
 
-		--- Telescope & LSP
+		--- Fzfx & LSP
 		{"<leader>fd",  '<cmd>FzfxLspDefinitions<cr>'   },
 		{"<leader>fr",  '<cmd>FzfxReferences<cr>'       },
 		{"<leader>fi",  '<cmd>FzfxImplementations<cr>'  },
@@ -36,6 +36,7 @@ require 'legendary'.setup {
 				require'actions-preview'.code_actions()
 			end
 		end },
+
 
 
 		--- Muren And Spectre
@@ -74,6 +75,8 @@ require 'legendary'.setup {
 		--- true-zen
 		{"<leader>uz", "<cmd>TZAtaraxis<cr>"},
 		{"<C-w>z",     "<cmd>TZFocus<cr>"},
+		--- blame
+		{"<leader>ub", "<cmd>ToggleBlame virtual<cr>"},
 
 	},
 	commands = {},
