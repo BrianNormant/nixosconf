@@ -6,6 +6,8 @@
 			Service.Type = "exec";
 			Service.Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/brian/bin";
 			Service.ExecStart = "/etc/profiles/per-user/brian/bin/" + command;
+			Service.Restart="on-failure";
+			Service.RestartSec="5s";
 		};
 	in {
 		waybar = createService {command = "waybar"; description = "start and manager waybar";};
