@@ -87,6 +87,7 @@ hostname:
 				exec = "/home/brian/.config/script/media.zsh";
 				format = "󰎄 {}";
 				interval = 5;
+				on-click = "systemctl --user start switch-playerctl.service";
 			};
 			"network#wifi" = {
 				interval = 10;

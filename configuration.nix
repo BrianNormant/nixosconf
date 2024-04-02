@@ -174,6 +174,9 @@
 			
 			".config/script/media.zsh".text = builtins.readFile ./fetch-and-format-media.zsh;
 			".config/script/media.zsh".executable = true;
+
+			".config/script/switch-playerctl.zsh".text = builtins.readFile ./switch-controlled-player.sh;
+			".config/script/switch-playerctl.zsh".executable = true;
 		};
 
 		home.stateVersion = "23.11";
