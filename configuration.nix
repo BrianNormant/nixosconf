@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
 	imports = [ # Include the results of the hardware scan.
@@ -154,15 +154,27 @@
 	};
 	home-manager.users.brian = { pkgs, ...}: {
 		home.packages = with pkgs; [
-			waybar
-			cava
-
 			#dev:
 			jetbrains.idea-community-src
 			android-studio
+		];
+		systemd.user = import ./brian-services.nix;
 
-			];
-		home.file.".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
+		home.file = {
+			".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
+			".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
+			
+			".config/hypr/wallpaper.nu".text = builtins.readFile ./wallpaper.nu;
+			".config/hypr/wallpaper.nu".executable = true;
+			
+
+			".config/hypr/brightness.nu".text = builtins.readFile ./brightness.nu;
+			".config/hypr/plugged.nu".text = builtins.readFile ./plugged.nu;
+			".config/hypr/volume.nu".text = builtins.readFile ./volume.nu;
+			
+			".config/script/media.zsh".text = builtins.readFile ./fetch-and-format-media.zsh;
+			".config/script/media.zsh".executable = true;
+		};
 
 		home.stateVersion = "23.11";
 		xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
@@ -194,7 +206,12 @@
 			 ];
 		};
 
+		services.wob.enable = true; # TODO connect wob to script
+
 		programs.firefox.enable = true;
+
+		programs.waybar = (import ./waybar.nix) config.networking.hostName;
+		wayland.windowManager.hyprland = (import ./hyprland.nix) config.networking.hostName;
 	};
 
 # List packages installed in system profile. To search, run:

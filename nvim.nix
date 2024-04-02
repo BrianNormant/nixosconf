@@ -36,7 +36,9 @@ in {
 			{ plugin = dressing-nvim;
 			  config = "lua require(\"dressing\").setup {}"; }
 			{ plugin = gruvbox-material;
-			  config = "colorscheme gruvbox-material"; }
+			  config = ''
+let g:gruvbox_material_background = 'soft'
+colorscheme gruvbox-material'';}
 			{ plugin = dropbar-nvim;
 			  config = "lua require('dropbar').setup {}"; }
 			ccc-nvim
@@ -278,8 +280,57 @@ lspconfig.ccls.setup(common_config)
 lspconfig.lua_ls.setup(common_config)
 lspconfig.nil_ls.setup(common_config)
 lspconfig.phpactor.setup(common_config)
+vim.api.nvim_create_autocmd('LspAttach', {
+		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+		callback = function(ev)
+			-- Buffer local mappings.
+			-- See `:help vim.lsp.*` for documentation on any of the below functions
+			local opts = { buffer = ev.buf }
+			vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+			vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+			vim.keymap.set('n', 'gR', vim.lsp.buf.rename, opts) -- May confict with virtual replace mode
+			vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+		end,
+})
 EOF
 		   '';}
+	
+			{ plugin = none-ls-nvim;
+			  config = ''
+lua << EOF
+local null_ls = require("null-ls")
+
+null_ls.setup({
+	sources = {
+	null_ls.builtins.formatting.stylua,
+	null_ls.builtins.diagnostics.eslint,
+	null_ls.builtins.completion.spell,
+	null_ls.builtins.formatting.tidy,
+	null_ls.builtins.formatting.textlint,
+	null_ls.builtins.formatting.surface,
+	null_ls.builtins.formatting.stylelint,
+	null_ls.builtins.formatting.sql_formatter,
+	null_ls.builtins.formatting.pretty_php,
+	null_ls.builtins.formatting.nixfmt,
+	null_ls.builtins.formatting.nimpretty,
+	null_ls.builtins.formatting.mix,
+	null_ls.builtins.formatting.google_java_format,
+	null_ls.builtins.formatting.dfmt,
+	null_ls.builtins.formatting.codespell,
+	null_ls.builtins.formatting.clang_format,
+	null_ls.builtins.diagnostics.zsh,
+	null_ls.builtins.diagnostics.vale,
+	null_ls.builtins.diagnostics.todo_comments,
+	null_ls.builtins.diagnostics.stylelint,
+	null_ls.builtins.diagnostics.statix,
+	null_ls.builtins.diagnostics.phpstan,
+	null_ls.builtins.diagnostics.gccdiag,
+	null_ls.builtins.diagnostics.credo,
+    },
+})
+
+EOF
+			'';}
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
 				pname = "symbol-usage.nvim";
 				version = "4-03-24";
@@ -427,7 +478,11 @@ EOF
 			markdown-preview-nvim
 			{ plugin = legendary-nvim;
 			  config = ( builtins.readFile ./legend.vim ); }
+	
 
+			# Nushell
+			{ plugin = nvim-nu;
+			  config = "lua require'nu'.setup{}";}
 			# Compiler and run
 			{ plugin = overseer-nvim;
 			  config = "lua require('overseer').setup {}"; }
@@ -453,7 +508,7 @@ EOF
 			     hash = "sha256-MHCrUisx3blgHWFyA5IHcSwKvC1tK1Pgy/jADBkoXX0=";
 			   };
 			  };
-			  config = ""; }
+			  config = ""; } 
 
 			neotest-elixir
 			neotest-java

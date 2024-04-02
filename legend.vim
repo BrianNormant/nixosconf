@@ -4,11 +4,16 @@ require 'legendary'.setup {
 	keymaps = {
 		{"<A-p>", "<cmd>Legendary<cr>"},
 		{"<C-s>", "<cmd>wa<cr>"},
-		{"<C-q>", "<cmd>wqa!<cr>"},
+		{"<C-q>", "<cmd>wqa<cr>"},
 		{"\\", '<cmd>split<cr><C-w>j', description="Split horizontal"},
 		{"|", '<cmd>vsplit<cr><C-w>l', description="Split vertical"},
 
+
+
+		--- Boo.nvim
+
 		{"gi", function() require('boo').boo() end },
+		
 		-- goto-preview
 		{"gpd",  function()  require('goto-preview').goto_preview_definition()       end  },
 		{"gpt",  function()  require('goto-preview').goto_preview_type_definition()  end  },
@@ -17,6 +22,10 @@ require 'legendary'.setup {
 		{"gP",   function()  require('goto-preview').close_all_win()                 end  },
 		{"gpr",  function()  require('goto-preview').goto_preview_references()       end  },
 
+		--- default neovim LSP
+		{"<leader>e", vim.diagnostic.open_float},
+
+		{"<leader>oo",  '<cmd>Oil<cr>'},
 		--- Fzfx
 		{"<leader>ft",  function() require('telescope.builtin').builtin() end},
 		{"<leader>ff",  '<cmd>FzfxFiles<cr>'       },
@@ -63,7 +72,9 @@ require 'legendary'.setup {
 		{"<C-e>", "<cmd>IconPickerInsert<cr>", mode="i"},
 		{"<C-e>", "<cmd>IconPickerNormal<cr>", mode="n"},
 
+		--- lazygit
 		{"<leader>gg", "<cmd>LazyGit<cr>"},
+		{"<leader>gG", "<cmd>FzfxGStatus<cr>"},
 
 		{"<F1>", "<cmd>Gen<cr>"},
 		{"<F1>", ":'<,'>Gen<cr>"},
@@ -77,6 +88,13 @@ require 'legendary'.setup {
 		{"<C-w>z",     "<cmd>TZFocus<cr>"},
 		--- blame
 		{"<leader>ub", "<cmd>ToggleBlame virtual<cr>"},
+		{"<leader>uu", function()
+			if vim.o.background == "dark" then
+				vim.o.background = "light"
+			else
+				vim.o.background = "dark"
+			end
+		end}
 
 	},
 	commands = {},
