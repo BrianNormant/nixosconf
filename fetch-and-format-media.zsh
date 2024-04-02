@@ -14,6 +14,7 @@ album=`fetch 'album'`
 
 
 if [[ -z $title ]]; then
+	printf "󰝛 " # keep the waybar displayed
 	exit
 elif [[ -n $artist && -n $album ]]; then	
 	#format='{ "title": "%s", "artist": "%s", "album" : "%s" }'
