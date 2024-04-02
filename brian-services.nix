@@ -21,6 +21,10 @@
 			Service.ExecStart = "/etc/profiles/per-user/brian/bin/nu /home/brian/.config/hypr/wallpaper.nu";
 			Unit.Description = "Cycle through wallpapers";
 		};
+		switch-playerctl = {
+			Service.Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/brian/bin";
+			Service.ExecStart = "/home/brian/.config/script/switch-playerctl.zsh";
+		};
 	};
 
 	timers = {

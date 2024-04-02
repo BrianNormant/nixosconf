@@ -1,6 +1,6 @@
 #!/run/current-system/sw/bin/zsh
 
-if [[ -z `playerctl --list-all` ]]; then
+if [[ -z `env playerctl --list-all` ]]; then
 	exit;
 fi
 
