@@ -8,9 +8,10 @@ hostname:
 			position = "top";
 			modules-left = [
 				"custom/hostname"
-					"cpu"
-					"disk"
-					"hyprland/workspaces"
+				"cpu"
+				"memory"
+				"disk"
+				"hyprland/workspaces"
 			];
 			modules-center = [
 				"custom/music"
@@ -28,6 +29,7 @@ hostname:
 			"custom/hostname" = { 
 				exec = "hostname"; 
 				format = " {}";
+				tooltip = false;
 			};
 			"hyprland/workspaces" = {
 				format = "{id}";
@@ -88,6 +90,7 @@ hostname:
 				format = "󰎄 {}";
 				interval = 5;
 				on-click = "systemctl --user start switch-playerctl.service";
+				max-length = 30;
 			};
 			"network#wifi" = {
 				interval = 10;
