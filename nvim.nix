@@ -39,8 +39,13 @@ in {
 			  config = ''
 let g:gruvbox_material_background = 'soft'
 colorscheme gruvbox-material'';}
+
 			{ plugin = dropbar-nvim;
-			  config = "lua require('dropbar').setup {}"; }
+			  config = ''
+hi WinBar   guisp=#665c54 gui=underline guibg=#313131
+hi WinBarNC guisp=#665c54 gui=underline guibg=#313131
+lua require('dropbar').setup {}''; }
+
 			ccc-nvim
 			{ plugin = gitsigns-nvim;
 			  config = "lua require('gitsigns').setup {}"; }
