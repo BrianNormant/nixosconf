@@ -13,9 +13,9 @@ def main [] {
     let monitors = $monitors | update wallpaper (ls $W_DIR | where type == file | select (random int 0..$SIZE)).name.0
 
     $monitors | each {|it|
-		hyprctl hyprpaper unload
         hyprctl hyprpaper preload  $"($it.wallpaper)"
         hyprctl hyprpaper wallpaper $"($it.monitor),($it.wallpaper)"
+		hyprctl hyprpaper unload $"$(it.wallpaper)"
     }
 
     # Pass if mpvpaper is running
