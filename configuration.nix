@@ -116,7 +116,7 @@
 # Burautique
 			onlyoffice-bin
 			hyprland hyprpaper hyprshot # Window manager
-			cmus
+			cmus yt-dlp picard # Music player, downloader and tagging
 			vesktop
 			webcord-vencord
 			btop
