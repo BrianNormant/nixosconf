@@ -29,6 +29,7 @@ in {
 			jq
 			html-tidy
 			tree-sitter
+			vscode-extensions.vscjava.vscode-java-debug
 		];
 
 		plugins = with pkgs.vimPlugins; [
@@ -437,6 +438,12 @@ local config = {
 	},
 
 	root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew'}),
+
+	init_options = {
+		bundles = {
+			vim.fn.glob("${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar", 1),
+		}
+	},
 }
 
 vim.api.nvim_create_autocmd(
@@ -444,7 +451,7 @@ vim.api.nvim_create_autocmd(
 	{ 	pattern = {'*.java'},
 		callback = function() 
 		jdtls.start_or_attach(config)
-		vim.defer_fn(jdtls.dap.setup_dap_main_class_configs, 3000) -- Wait for LSP to start
+		vim.defer_fn(function () require('jdtls.dap').setup_dap_main_class_configs() end, 3000) -- Wait for LSP to start
 		end,
 	})
 EOF
