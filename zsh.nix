@@ -73,10 +73,10 @@ if [[ -n $TMUX ]]; then
 	# fzf colorscheme
 	export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#3c3836,bg:#fbf1c7,hl:#5f87af --color=fg+:#d65d0e,bg+:#fbf1c7,hl+:#076678 --color=info:#d79921,prompt:#cc241d,pointer:#076678 --color=marker:#79740e,spinner:#076678,header:#7c6f64'
 
-	eval "$(zoxide init zsh)"
 	(( ! ''${+functions[p10k]} )) || p10k finalize
 fi
 
+eval "$(zoxide init zsh)"
 # Function to autoload the correct CURRENT_PLAYER
 function playerctl() {
 	eval `systemctl --user show-environment | grep CURRENT_PLAYER`
