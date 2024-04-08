@@ -25,4 +25,17 @@
 			CPU_MAX_PERF_ON_BAT  =  20;
 		};
 	};
+
+	home-manager.users.brian = {pkgs, ...}: {
+		services.unison.enable = true;
+		services.unison.pairs."Music" = {
+			roots = [ "/home/brian/Music"
+				"ssh://BrianNixDesktopI//home/brian/Music" ]; };
+		services.unison.pairs."Prog" = {
+			roots = [ "/home/brian/Prog"
+				"ssh://BrianNixDesktopI//home/brian/Prog" ]; };
+		services.unison.pairs."Wallpapers" = {
+			roots = [ "/home/brian/Wallpapers"
+				"ssh://BrianNixDesktopI//home/brian/Wallpapers" ]; };
+	};
 }
