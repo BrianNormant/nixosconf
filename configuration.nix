@@ -144,6 +144,9 @@
 			playerctl
 			appimage-run
 
+			unison # File sync
+
+
 # gaming
 			prismlauncher
 			gamemode
