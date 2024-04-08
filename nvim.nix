@@ -39,7 +39,7 @@ in {
 			  config = ''
 let g:gruvbox_material_background = 'soft'
 colorscheme gruvbox-material'';}
-
+			telescope-fzf-native-nvim
 			{ plugin = dropbar-nvim;
 			  config = ''
 hi WinBar   guisp=#665c54 gui=underline guibg=#313131
