@@ -442,7 +442,10 @@ local config = {
 vim.api.nvim_create_autocmd(
 	'BufEnter',
 	{ 	pattern = {'*.java'},
-		callback = function() jdtls.start_or_attach(config) end,
+		callback = function() 
+		jdtls.start_or_attach(config)
+		vim.defer_fn(jdtls.dap.setup_dap_main_class_configs, 3000) -- Wait for LSP to start
+		end,
 	})
 EOF
 				''; }
