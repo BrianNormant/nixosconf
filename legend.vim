@@ -26,6 +26,7 @@ require 'legendary'.setup {
 		{"<leader>e", vim.diagnostic.open_float},
 
 		{"<leader>oo",  '<cmd>Oil<cr>'},
+		
 		--- Fzfx
 		{"<leader>ft",  function() require('telescope.builtin').builtin() end},
 		{"<leader>ff",  '<cmd>FzfxFiles<cr>'       },
@@ -75,6 +76,9 @@ require 'legendary'.setup {
 		--- lazygit
 		{"<leader>gg", "<cmd>LazyGit<cr>"},
 		{"<leader>gG", "<cmd>FzfxGStatus<cr>"},
+
+		--- Term
+		{"<leader>tt", require('FTerm').toggle },
 
 		{"<F1>", "<cmd>Gen<cr>"},
 		{"<F1>", ":'<,'>Gen<cr>"},

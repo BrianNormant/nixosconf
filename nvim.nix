@@ -194,6 +194,8 @@ lua require("nvim-web-devicons").setup {}
 				};};
 			  config = "lua require ('blame').setup {}";}
 			lazygit-nvim
+			{ plugin = FTerm-nvim;
+			  config = "lua require('FTerm').setup {}";}
 
 			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
 				pname = "muren-nvim";
