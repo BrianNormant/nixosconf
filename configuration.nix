@@ -45,6 +45,7 @@
 		} ];
 	};
 
+
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -116,7 +117,7 @@
 # Burautique
 			onlyoffice-bin
 			hyprland hyprpaper hyprshot # Window manager
-			cmus
+			cmus yt-dlp picard # Music player, downloader and tagging
 			vesktop
 			webcord-vencord
 			btop
@@ -142,6 +143,9 @@
 			wob   # Ligthweight overlay to show volume changes
 			playerctl
 			appimage-run
+
+			unison # File sync
+
 
 # gaming
 			prismlauncher
@@ -235,6 +239,7 @@
 		sshfs
 		lynx
 		delta
+		python3
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts

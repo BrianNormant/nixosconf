@@ -29,6 +29,7 @@ in {
 			jq
 			html-tidy
 			tree-sitter
+			vscode-extensions.vscjava.vscode-java-debug
 		];
 
 		plugins = with pkgs.vimPlugins; [
@@ -39,8 +40,13 @@ in {
 			  config = ''
 let g:gruvbox_material_background = 'soft'
 colorscheme gruvbox-material'';}
+			telescope-fzf-native-nvim
 			{ plugin = dropbar-nvim;
-			  config = "lua require('dropbar').setup {}"; }
+			  config = ''
+hi WinBar   guisp=#665c54 gui=underline guibg=#313131
+hi WinBarNC guisp=#665c54 gui=underline guibg=#313131
+lua require('dropbar').setup {}''; }
+
 			ccc-nvim
 			{ plugin = gitsigns-nvim;
 			  config = "lua require('gitsigns').setup {}"; }
@@ -189,6 +195,8 @@ lua require("nvim-web-devicons").setup {}
 				};};
 			  config = "lua require ('blame').setup {}";}
 			lazygit-nvim
+			{ plugin = FTerm-nvim;
+			  config = "lua require('FTerm').setup {}";}
 
 			{ plugin = ( pkgs.vimUtils.buildVimPlugin {
 				pname = "muren-nvim";
@@ -430,12 +438,21 @@ local config = {
 	},
 
 	root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew'}),
+
+	init_options = {
+		bundles = {
+			vim.fn.glob("${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar", 1),
+		}
+	},
 }
 
 vim.api.nvim_create_autocmd(
 	'BufEnter',
 	{ 	pattern = {'*.java'},
-		callback = function() jdtls.start_or_attach(config) end,
+		callback = function() 
+		jdtls.start_or_attach(config)
+		vim.defer_fn(function () require('jdtls.dap').setup_dap_main_class_configs() end, 3000) -- Wait for LSP to start
+		end,
 	})
 EOF
 				''; }

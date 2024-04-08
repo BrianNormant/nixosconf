@@ -15,6 +15,7 @@ def main [] {
     $monitors | each {|it|
         hyprctl hyprpaper preload  $"($it.wallpaper)"
         hyprctl hyprpaper wallpaper $"($it.monitor),($it.wallpaper)"
+		hyprctl hyprpaper unload $"$(it.wallpaper)"
     }
 
     # Pass if mpvpaper is running

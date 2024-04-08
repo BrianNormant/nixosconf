@@ -32,8 +32,10 @@
 		enable = true;
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
-		gamescopeSession.enable = false;
+		gamescopeSession.enable = true;
 	};
+
+	/* Removed to test for IL2
 	nixpkgs.config.packageOverrides = pkgs: {
 		steam = pkgs.steam.override {
 			extraPkgs = pkgs: with pkgs; [
@@ -54,6 +56,7 @@
 			];
 		};
 	};
+	*/
 
 # Special Rules
 	networking.firewall.allowedTCPPorts = [ 4270 4269 ];
