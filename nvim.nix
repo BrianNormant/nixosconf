@@ -491,6 +491,17 @@ vim.g.dbs = {
 }
 EOF
 			  ''; }
+			(pkgs.vimUtils.buildVimPlugin {
+				pname = "dbext.vim";
+				version = "Jan 3, 2016";
+				src = pkgs.fetchFromGitHub {
+					owner = "vim-scripts";
+					repo = "dbext.vim";
+					rev = "14f3d53";
+					hash = "sha256-tl64aKJyK8WTJRif8q3LTUb/D/qUV4AiQ5wnZFzGuQ4=";
+				};
+			})
+
 			# Markdown, CSV,
 			markdown-preview-nvim
 			{ plugin = legendary-nvim;
