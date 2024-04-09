@@ -32,7 +32,7 @@
 		enable = true;
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
-		gamescopeSession.enable = true;
+		gamescopeSession.enable = false;
 	};
 
 	/* Removed to test for IL2
