@@ -111,7 +111,7 @@
 
 	users.users.brian = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+		extraGroups = [ "wheel" "docker" "kvm" "adbusers" ]; # Enable ‘sudo’ for the user.
 		shell = pkgs.zsh;
 		packages = with pkgs; [
 # Burautique
@@ -256,6 +256,7 @@
 
 # Programs enabled
 	programs.dconf.enable = true;
+	programs.adb.enable = true;
 
 
 	programs.tmux = {
