@@ -11,12 +11,22 @@ fn fetch() {
 title=`fetch 'title'`
 artist=`fetch 'artist'`
 album=`fetch 'album'`
+eval `systemctl --user show-environment | grep CURRENT_PLAYER`
+
+case $CURRENT_PLAYER in
+	firefox*)
+		echo -n "󱉺 "
+		;;
+	cmus*)
+		echo -n "󰎄 "
+		;;
+	*)
+		echo -n "󰝛 "
+		;;
+esac
 
 
-if [[ -z $title ]]; then
-	printf "󰝛 " # keep the waybar displayed
-	exit
-elif [[ -n $artist && -n $album ]]; then	
+if [[ -n $artist && -n $album ]]; then	
 	#format='{ "title": "%s", "artist": "%s", "album" : "%s" }'
 	format='%s by %s from %s'
 	

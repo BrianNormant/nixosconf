@@ -87,7 +87,7 @@ hostname:
 
 			"custom/music" = {
 				exec = "/home/brian/.config/script/media.zsh";
-				format = "󰎄 {}";
+				format = "{}";
 				interval = 5;
 				on-click = "systemctl --user start switch-playerctl.service";
 				max-length = 30;
