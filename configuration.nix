@@ -16,6 +16,8 @@
 		./nvim.nix
 	];
 
+	nix.settings.trusted-users = [ "root" "brian" ];
+
 # Screen sharing
 	xdg.portal.wlr.enable = true;
 
@@ -29,6 +31,7 @@
 			libGL
 			vaapiVdpau
 			libva
+			libvdpau-va-gl
 		];
 		driSupport = true;
 		driSupport32Bit = true;
@@ -118,6 +121,7 @@
 			onlyoffice-bin
 			hyprland hyprpaper hyprshot # Window manager
 			cmus yt-dlp picard # Music player, downloader and tagging
+			vlc
 			vesktop
 			webcord-vencord
 			btop
@@ -150,6 +154,9 @@
 # gaming
 			prismlauncher
 			gamemode
+
+			winetricks
+			wineWowPackages.stable
 		];
 	};
 	home-manager = {
@@ -163,6 +170,26 @@
 			android-studio
 		];
 		systemd.user = import ./brian-services.nix;
+
+		xdg.configFile."openvr/openvrpaths.vrpath".text = ''
+  {
+    "config" :
+    [
+      "/home/brian/.steam/config"
+    ],
+    "external_drivers" : null,
+    "jsonid" : "vrpathreg",
+    "log" :
+    [
+      "/home/brian/.steam/logs"
+    ],
+    "runtime" :
+    [
+      "${pkgs.opencomposite}/lib/opencomposite"
+    ],
+    "version" : 1
+  }
+'';
 
 		home.file = {
 			".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";

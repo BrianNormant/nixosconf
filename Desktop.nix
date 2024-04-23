@@ -1,5 +1,5 @@
 { pkgs, ... }:
-{
+ {
 	boot.kernelPatches = [ {
 		name = "beyondfix";
 		patch = ./beyond.patch;
@@ -11,8 +11,30 @@
 	hardware.new-lg4ff.enable = true;
 	hardware.usb-modeswitch.enable = true;
 
-
 # Bg running services and daemons
+	services.monado = 
+		let monado-lastest = pkgs.monado.overrideAttrs (final: self: {
+				version = "lastest";
+				src = pkgs.fetchFromGitLab {
+				domain = "gitlab.freedesktop.org";
+				owner = "monado";
+				repo = "monado";
+				rev = "79fef083";
+				hash = "sha256-yTpflFA+z7TUtBTojiN2iAHZ0b5L4tE1M0S7BlgYM1c=";
+				};
+				}); 
+	in {
+		# package = monado-lastest;
+		enable = true;
+		highPriority = true;
+		defaultRuntime = true;
+	};
+	systemd.user.services.monado.environment = {
+		STEAMVR_LH_ENABLE = "1";
+		XRT_COMPOSITOR_COMPUTE = "1";
+		OXR_DEBUG_IPD_MM = "65";
+	};
+
 	services.ollama = {
 		enable = true;
 		acceleration = "rocm";
@@ -33,6 +55,35 @@
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
 		gamescopeSession.enable = false;
+	};
+
+# Clip last 30 seconds
+	users.users.brian.packages = 
+		let gpu-screen-recorder = pkgs.gpu-screen-recorder.overrideAttrs (final: self: {
+			postInstall = ''
+			install -Dt $out/bin gpu-screen-recorder gsr-kms-server
+			mkdir $out/bin/.wrapped
+			mv $out/bin/gpu-screen-recorder $out/bin/.wrapped/
+			makeWrapper "$out/bin/.wrapped/gpu-screen-recorder" "$out/bin/gpu-screen-recorder" \
+			--prefix LD_LIBRARY_PATH : ${pkgs.libglvnd}/lib \
+			--suffix PATH : $out/bin
+			'';
+		}); in [ gpu-screen-recorder ];
+	security.wrappers."gsr-kms-server" = 
+		let gpu-screen-recorder = pkgs.gpu-screen-recorder.overrideAttrs (final: self: {
+			postInstall = ''
+			install -Dt $out/bin gpu-screen-recorder gsr-kms-server
+			mkdir $out/bin/.wrapped
+			mv $out/bin/gpu-screen-recorder $out/bin/.wrapped/
+			makeWrapper "$out/bin/.wrapped/gpu-screen-recorder" "$out/bin/gpu-screen-recorder" \
+			--prefix LD_LIBRARY_PATH : ${pkgs.libglvnd}/lib \
+			--suffix PATH : $out/bin
+			'';
+		}); in {
+		owner = "root";
+		group = "root";
+		capabilities = "cap_sys_admin+ep";
+		source = "${gpu-screen-recorder}/bin/gsr-kms-server";
 	};
 
 	/* Removed to test for IL2

@@ -25,6 +25,10 @@
 			Service.Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/brian/bin";
 			Service.ExecStart = "/home/brian/.config/script/switch-playerctl.zsh";
 		};
+		gpu-screen-recorder = {
+			Service.Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/brian/bin";
+			Service.ExecStart = "gpu-screen-recorder -w HDMI-A-1 -f 30 -r 30 -c mp4 -o /home/brian/Videos";
+		};
 	};
 
 	timers = {

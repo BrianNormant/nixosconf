@@ -17,6 +17,7 @@ hostname:{
 			"systemctl --user start cycle-paper.service" # Set the background
 			"systemctl --user start wob.service"
 			"systemctl --user start wob.socket"
+			"systemctl --user start gpu-screen-recorder.socket"
 			"/etc/profiles/per-user/brian/bin/webcord"
 		];
 		monitor = if hostname == "BrianNixDesktop" 
@@ -216,6 +217,9 @@ bind = $mainMod ALT, 8, pin, 8
 bind = $mainMod ALT, 9, pin, 9
 bind = $mainMod ALT, 0, pin, 10
 
+# Capture last 30s
+bind = ALT, X, exec, replay-sorcery save
+
 # Move/resize windows with mainMod + LMB/RMB and dragging
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod, mouse:273, resizewindow
@@ -249,7 +253,7 @@ bind = $mainMod SHIFT, S, exec, $HOME/.config/rofi/applets/bin/screenshot.sh
 bind = ,Print, exec, hyprshot -c -m output -o ~/Screenshots
 bind = ,XF86Calculator, exec, kitty --class PopUp bc # calculator
 bind = CONTROL SHIFT, Escape, exec, kitty --class ProcessManager btop
-bind = $mainMod SHIFT, X, exec, replay-sorcery save
+bind = $mainMod SHIFT, X, exec, pkill -USR1 gpu-screen-reco
 
 #Special keys
 bind = ,XF86AudioPlay, exec, playerctl play-pause         # Media Control Keys
