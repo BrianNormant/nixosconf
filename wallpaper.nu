@@ -1,7 +1,7 @@
 #!env nu
 
 def main [] {
-    let W_DIR = "~/Wallpapers"
+    let W_DIR = "Wallpapers"
     let SIZE = (ls $W_DIR | length) - 1
     # let T_MAX = 20
     # let T_MIN = 10
@@ -15,7 +15,7 @@ def main [] {
     $monitors | each {|it|
         hyprctl hyprpaper preload  $"($it.wallpaper)"
         hyprctl hyprpaper wallpaper $"($it.monitor),($it.wallpaper)"
-		hyprctl hyprpaper unload $"$(it.wallpaper)"
+		hyprctl hyprpaper unload $"$($it.wallpaper)"
     }
 
     # Pass if mpvpaper is running
