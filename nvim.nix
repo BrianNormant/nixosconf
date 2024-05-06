@@ -20,7 +20,7 @@ in {
 			ripgrep
 			fswatch
 			fd
-			yarn nodejs_21
+			yarn nodePackages_latest.nodejs
 			gdb
 			lua-language-server
 			nil

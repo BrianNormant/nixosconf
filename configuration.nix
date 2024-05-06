@@ -17,6 +17,7 @@
 	];
 
 	nix.settings.trusted-users = [ "root" "brian" ];
+	hardware.usb-modeswitch.enable = true;
 
 # Screen sharing
 	xdg.portal.wlr.enable = true;
@@ -24,6 +25,8 @@
 # Use the recommanded option : systemd-boot
 	boot.loader.systemd-boot.enable = true;
 	boot.kernelPackages = pkgs.linuxPackages_latest;
+	nixpkgs.config.allowUnfree = true;
+	nix.settings.sandbox = "relaxed";
 
 	hardware.opengl = {
 		enable = true;
@@ -49,8 +52,6 @@
 	};
 
 
-	nixpkgs.config.allowUnfree = true;
-	nix.settings.sandbox = "relaxed";
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 	# for gradle and jdtls
@@ -140,7 +141,6 @@
 			lazygit
 			nushell
 			gh glab # Github and gitlab CLI tool
-			oterm
 #Other
 			copyq # clipboard manager
 			dunst # notification daemom
@@ -156,7 +156,7 @@
 			gamemode
 
 			winetricks
-			wineWowPackages.stable
+			wineWowPackages.wayland
 		];
 	};
 	home-manager = {
@@ -260,13 +260,14 @@
 		acpi
 		unzip
 		p7zip
-		neofetch # Extrement important!!!
+		fastfetch # Extrement important!!!
 		bluez # bluetooth headphones
 		bc
 		sshfs
 		lynx
 		delta
 		python3
+		usb-modeswitch
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
