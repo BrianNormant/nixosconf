@@ -28,17 +28,17 @@
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 
-	hardware.opengl = {
+	hardware.graphics = {
 		enable = true;
-		extraPackages = with pkgs; [
-			libGL
-			vaapiVdpau
-			libva
-			libvdpau-va-gl
-		];
-		driSupport = true;
-		driSupport32Bit = true;
-		setLdLibraryPath = true;
+		# extraPackages = with pkgs; [
+		# 	libGL
+		# 	vaapiVdpau
+		# 	libva
+		# 	libvdpau-va-gl
+		# ];
+		# driSupport = true;
+		# driSupport32Bit = true;
+		# setLdLibraryPath = true;
 	};
 
 	security = {
