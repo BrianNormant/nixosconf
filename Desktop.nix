@@ -24,7 +24,7 @@
 				};
 				}); 
 	in {
-		# package = monado-lastest;
+		package = monado-lastest;
 		enable = true;
 		highPriority = true;
 		defaultRuntime = true;
