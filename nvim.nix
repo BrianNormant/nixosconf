@@ -33,7 +33,7 @@ in {
 		];
 
 		plugins = with pkgs.vimPlugins; [
-			suda-vim
+			vim-suda
 			{ plugin = dressing-nvim;
 			  config = "lua require(\"dressing\").setup {}"; }
 			{ plugin = gruvbox-material;
