@@ -1,21 +1,20 @@
 #!env nu
 
 def main [] {
-    let W_DIR = "Wallpapers"
+    let W_DIR = "/home/brian/Wallpapers"
     let SIZE = (ls $W_DIR | length) - 1
     # let T_MAX = 20
     # let T_MIN = 10
 
-    # Find monitors
-    mut monitors = hyprctl monitors | lines | where ($it =~ 'Monitor') | parse "Monitor {monitor} (ID {ID}):" | select monitor | insert wallpaper "FILE"
 
-    # Update to new wallpapers
-    let monitors = $monitors | update wallpaper (ls $W_DIR | where type == file | select (random int 0..$SIZE)).name.0
+	# Find monitors and select random wallpapers for each one
+	let monitors = hyprctl monitors | parse "Monitor {monitor} ({id}):" | get monitor | each {|e| [ (ls ~/Wallpapers | where type == file | select (random int 0..50 )).name.0 $e ] }
 
+	# apply each wallpaper to each monitor
     $monitors | each {|it|
-        hyprctl hyprpaper preload  $"($it.wallpaper)"
-        hyprctl hyprpaper wallpaper $"($it.monitor),($it.wallpaper)"
-		hyprctl hyprpaper unload $"$($it.wallpaper)"
+        hyprctl hyprpaper preload  $"($it.0)"
+        hyprctl hyprpaper wallpaper $"($it.1),($it.0)"
+		hyprctl hyprpaper unload $"$($it.0)"
     }
 
     # Pass if mpvpaper is running
