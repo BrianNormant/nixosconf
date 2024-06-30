@@ -5,6 +5,7 @@ hostname:{
 	];
 
 	xwayland.enable = true;
+	plugins = [ ];
 	settings = {
 
 		exec-once = [
@@ -20,15 +21,11 @@ hostname:{
 			"systemctl --user start gpu-screen-recorder.socket"
 			"/etc/profiles/per-user/brian/bin/webcord"
 		];
-		monitor = if hostname == "BrianNixDesktop" 
-			then ",preferred,auto,1"
-			else ",preferred,auto,2";
-		
 		input = {
 			kb_layout = "us,us";
 			kb_variant = ",intl";
 			kb_options = "grp:shifts_toggle";
-			scroll_button = 274;
+			# scroll_button = 274;
 			follow_mouse = 1;
 
 			touchpad.tap-and-drag = 0;
@@ -269,6 +266,10 @@ bind = ,XF86MonBrightnessDown, exec, nu ~/.config/hypr/brightness.nu -5
 bind = ,XF86MonBrightnessUp, exec, nu ~/.config/hypr/brightness.nu 5
 bind = ,XF86Messenger, exec, vesktop
 
-	'';
-
+	'' + (  if hostname == "BrianNixDesktop" 
+		then ''
+		monitor = DP-2,preferred,0x0,1,transform,1,bitdepth,10
+		monitor = DP-1,3840x2160@144,1080x0,1,bitdepth,10,vrr,1
+		monitor = HDMI-A-1,preferred,4920x960,1,bitdepth,10 ''
+		else ",preferred,auto,2" ) ;
 }
