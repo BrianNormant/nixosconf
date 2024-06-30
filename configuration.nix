@@ -192,7 +192,6 @@
 '';
 
 		home.file = {
-			".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
 			".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
 			
 			".config/hypr/wallpaper.nu".text = builtins.readFile ./wallpaper.nu;
@@ -213,16 +212,18 @@
 		home.stateVersion = "23.11";
 		xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
 
+		home.pointerCursor = {
+			name = "phinger-cursors-dark";
+			package = pkgs.phinger-cursors;
+			size = 32;
+			gtk.enable = true;
+		};
+
 		gtk = {
 			enable = true;
 			theme = {
 				name = "gruvbox-dark";
 				package = pkgs.gruvbox-dark-gtk;
-			};
-			cursorTheme = {
-				name = "phinger-cursors";
-				package = pkgs.phinger-cursors;
-				size = 16;
 			};
 		};
 
