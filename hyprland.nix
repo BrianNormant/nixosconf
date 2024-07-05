@@ -85,9 +85,6 @@ hostname:{
 			"size 80% 80%, class:(vesktop)"
 			"center, class:(vesktop)"
 
-			"rounding 0, class:(Rofi)"
-			"noborder, class:(Rofi)"
-
 			"fullscreen, title:(Picture-in-Picture)"
 #"keepaspectratio, title:(Picture-in-Picture)"
 #"move 73% 4%, title:(Picture-in-Picture)"
@@ -235,15 +232,18 @@ bind = $mainMod SHIFT, I, exec, firefox -private-window # Alternative Web Browse
 bind = $mainMod ALT, I, exec, $HOME/.config/rofi/applets/bin/quicklinks.sh
 
 # Runners
-bind = $mainMod, D, exec, $HOME/.config/rofi/scripts/launcher_t4
-bind = $mainMod, R, exec, $HOME/.config/rofi/bin/apps.sh
+bind = $mainMod, D, exec, $HOME/.config/rofi/scripts/launcher_t3
+bind = $mainMod, R, exec, $HOME/.config/rofi/applets/bin/apps.sh
 bind = $mainMod ALT, 1, exec, $HOME/.config/rofi/applets/bin/cmus.sh
 bind = $mainMod ALT, 2, exec, $HOME/.config/rofi/applets/bin/volume.sh
 bind = $mainMod ALT, 3, exec, $HOME/.config/rofi/applets/bin/battery.sh
 bind = $mainMod ALT, 4, exec, $HOME/.config/rofi/applets/bin/brightness.sh
-bind = $mainMod, Escape, exec, $HOME/.config/rofi/scripts/powermenu_t3
+bind = $mainMod, Escape, exec, $HOME/.config/rofi/scripts/powermenu_t1
 bind = $mainMod, grave, exec, rofi -show calc # Calculator
 bind = $mainMod, Tab, exec, rofi -show window
+bind = $mainMod, semicolon, exec, rofi -show emoji
+bind = $mainMod, S, exec, /etc/nixos/rofi-systemd.sh
+bind = $mainMod SHIFT, S, exec, /etc/nixos/rofi-bluetooth.sh
 
 # Screenshot
 bind = $mainMod SHIFT, S, exec, $HOME/.config/rofi/applets/bin/screenshot.sh

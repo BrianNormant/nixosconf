@@ -235,10 +235,23 @@
 
 		programs.rofi = {
 			enable = true;
-			package = pkgs.rofi;
-			plugins = with pkgs; [
-				rofi-calc
-			 ];
+			package = pkgs.rofi-wayland;
+			plugins = let
+				build-against-rofi-wayland = plugin: plugin.overrideAttrs ( final: self: {
+					version = "wayland";
+					buildInputs = with pkgs; [
+						rofi-wayland-unwrapped # here we replace rofi by rofi-wayland
+						libqalculate
+						glib
+						cairo
+					];
+				});
+
+				rofi-wayland-plugins = with pkgs; [
+					rofi-calc
+					rofi-emoji
+				];
+			in builtins.map build-against-rofi-wayland rofi-wayland-plugins;
 		};
 
 		services.wob.enable = true; # TODO connect wob to script
@@ -269,6 +282,7 @@
 		delta
 		python3
 		usb-modeswitch
+		jq
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
