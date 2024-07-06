@@ -332,6 +332,7 @@
 				libkrb5
 				keyutils
 				libxml2
+				mangohud
 			];
 		};
 	};
