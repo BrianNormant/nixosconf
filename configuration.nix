@@ -120,7 +120,8 @@
 		packages = with pkgs; [
 # Burautique
 			onlyoffice-bin
-			hyprland hyprpaper hyprshot # Window manager
+			pavucontrol
+			hyprland hyprpaper hyprshot hyprlock hypridle# Window manager
 			cmus yt-dlp picard # Music player, downloader and tagging
 			vlc
 			vesktop
@@ -207,6 +208,9 @@
 
 			".config/script/switch-playerctl.zsh".text = builtins.readFile ./switch-controlled-player.sh;
 			".config/script/switch-playerctl.zsh".executable = true;
+
+			".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if config.networking.hostName == "BrianNixDesktop" then "DP-1" else "eDP-1");
+			".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
 		};
 
 		home.stateVersion = "23.11";

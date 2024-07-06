@@ -20,6 +20,7 @@ hostname:{
 			"systemctl --user start wob.socket"
 			"systemctl --user start gpu-screen-recorder.socket"
 			"/etc/profiles/per-user/brian/bin/webcord"
+			"hypridle"
 		];
 		input = {
 			kb_layout = "us,us";
@@ -98,18 +99,24 @@ hostname:{
 
 
 	extraConfig = ''
-animations {
-	enabled = true
-	bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+#animations {
+#	enabled = true
+#	bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+#
+#	animation = windows, 1, 7, myBezier # Open window
+#	animation = windowsOut, 1, 7, default, popin 50% # close window
+#	animation = border, 1, 10, default # ?
+#	animation = borderangle, 1, 8, default # ?
+#	animation = fade, 1, 7, default # ?
+#	animation = workspaces, 1, 6, default, slide
+#	animation = specialWorkspace, 1, 6, default, slidevert
+#}
 
-	animation = windows, 1, 7, myBezier # Open window
-	animation = windowsOut, 1, 7, default, popin 50% # close window
-	animation = border, 1, 10, default # ?
-	animation = borderangle, 1, 8, default # ?
-	animation = fade, 1, 7, default # ?
-	animation = workspaces, 1, 6, default, slide
-	animation = specialWorkspace, 1, 6, default, slidevert
+misc {
+	mouse_move_enables_dpms = false
+	key_press_enables_dpms = true
 }
+
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 $mainMod = SUPER
@@ -235,7 +242,7 @@ bind = $mainMod ALT, I, exec, $HOME/.config/rofi/applets/bin/quicklinks.sh
 bind = $mainMod, D, exec, $HOME/.config/rofi/scripts/launcher_t3
 bind = $mainMod, R, exec, $HOME/.config/rofi/applets/bin/apps.sh
 bind = $mainMod ALT, 1, exec, $HOME/.config/rofi/applets/bin/cmus.sh
-bind = $mainMod ALT, 2, exec, $HOME/.config/rofi/applets/bin/volume.sh
+bind = $mainMod ALT, 2, exec, pavucontrol
 bind = $mainMod ALT, 3, exec, $HOME/.config/rofi/applets/bin/battery.sh
 bind = $mainMod ALT, 4, exec, $HOME/.config/rofi/applets/bin/brightness.sh
 bind = $mainMod, Escape, exec, $HOME/.config/rofi/scripts/powermenu_t1
@@ -243,7 +250,7 @@ bind = $mainMod, grave, exec, rofi -show calc # Calculator
 bind = $mainMod, Tab, exec, rofi -show window
 bind = $mainMod, semicolon, exec, rofi -show emoji
 bind = $mainMod, S, exec, /etc/nixos/rofi-systemd.sh
-bind = $mainMod SHIFT, S, exec, /etc/nixos/rofi-bluetooth.sh
+bind = $mainMod SHIFT, semicolon, exec, /etc/nixos/rofi-bluetooth.sh
 
 # Screenshot
 bind = $mainMod SHIFT, S, exec, $HOME/.config/rofi/applets/bin/screenshot.sh
@@ -268,8 +275,8 @@ bind = ,XF86Messenger, exec, vesktop
 
 	'' + (  if hostname == "BrianNixDesktop" 
 		then ''
-		monitor = DP-2,preferred,0x0,1,transform,1,bitdepth,10
-		monitor = DP-1,3840x2160@144,1080x0,1,bitdepth,10,vrr,1
-		monitor = HDMI-A-1,preferred,4920x960,1,bitdepth,10 ''
+		monitor = DP-1,3840x2160@144,auto,1,bitdepth,10
+		monitor = DP-2,preferred,auto-left,1,transform,1,bitdepth,10
+		monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,10 ''
 		else ",preferred,auto,2" ) ;
 }
