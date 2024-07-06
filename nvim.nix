@@ -524,42 +524,6 @@ EOF
 					sha256 = "sha256-KIIQ1rtL9A1tZpjNNKUb5yACXGS97uaLAzCd9AogAqk=";
 				};};
 			  config = "lua require('compiler').setup {}";}
-
-			# Unit Test
-			{ plugin = pkgs.vimUtils.buildVimPlugin {
-				pname = "nio";
-				version = "lastest";
-				src = pkgs.fetchFromGitHub {
-			     owner = "nvim-neotest";
-			     repo = "nvim-nio";
-			     rev = "33c62b3eadd8154169e42144de16ba4db6784bec";
-			     hash = "sha256-MHCrUisx3blgHWFyA5IHcSwKvC1tK1Pgy/jADBkoXX0=";
-			   };
-			  };
-			  config = ""; } 
-
-			neotest-elixir
-			neotest-java
-			{ plugin = pkgs.vimUtils.buildVimPlugin {
-				pname = "neotest";
-				version = "20-03-24";
-				src = pkgs.fetchFromGitHub {
-			     owner = "nvim-neotest";
-			     repo = "neotest";
-			     rev = "e07fe8241112274aae9947b98d255763738a1d52";
-			     hash = "sha256-gmYk83oo0414jIXGJaLuJPcE2GGh2qqKNjCif9mzmnE=";
-			   };
-			};
-			  config = with pkgs.vimPlugins; ''
-lua << EOF
-require('neotest').setup {
-	adapters = {
-		require('${neotest-elixir.pname}'),
-		require('${neotest-java.pname}'),
-	},
-}
-EOF
-			'';}
 			# Treesitter
 			nvim-treesitter
 			nvim-treesitter-parsers.java
