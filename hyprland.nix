@@ -95,6 +95,10 @@ hostname:{
 			"keepaspectratio, title:(reStream)"
 			"size 90% 90%, title:(reStream)"
 			"center, title:(reStream)"
+
+			"idleinhibit fullscreen, class:^(*)$"
+			"idleinhibit fullscreen, title:^(*)$"
+			"idleinhibit fullscreen, fullscreen:1"
 		];
 	};
 
