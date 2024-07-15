@@ -18,9 +18,10 @@ hostname:{
 			"systemctl --user start cycle-paper.service" # Set the background
 			"systemctl --user start wob.service"
 			"systemctl --user start wob.socket"
-			"systemctl --user start gpu-screen-recorder.socket"
-			"/etc/profiles/per-user/brian/bin/webcord"
+			"gpu-screen-recorder -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh"
 			"hypridle"
+			"steam"
+			"vesktop"
 		];
 		input = {
 			kb_layout = "us,us";
