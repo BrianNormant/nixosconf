@@ -233,7 +233,6 @@ bind = $mainMod, Return, exec, kitty zsh ~/.config/tmux.zsh # Open Terminal
 bind = $mainMod, T, exec, kitty --class PopUp zsh ~/.config/tmux.zsh # Terminal PopUp
 bind = $mainMod ALT, Return, exec, zutty # Alternative, simpler terminal
 bind = $mainMod, E, exec, kitty --class Explorer vifm ~ ~# File Explorer
-bind = $mainMod, G, exec, kitty --class Explorer lazygit # File Explorer
 bind = $mainMod, V, exec, copyq toggle
 bind = $mainMod, I, exec, firefox # Web Browser
 bind = $mainMod SHIFT, I, exec, firefox -private-window # Alternative Web Browser
