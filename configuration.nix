@@ -121,7 +121,7 @@
 			onlyoffice-bin
 			pavucontrol
 			hyprland hyprpaper hyprshot hyprlock hypridle# Window manager
-			cmus yt-dlp picard # Music player, downloader and tagging
+			cmus yt-dlp # picard # Music player, downloader and tagging
 			vlc
 			vesktop
 			webcord-vencord
