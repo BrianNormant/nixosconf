@@ -166,8 +166,8 @@
 	home-manager.users.brian = { pkgs, ...}: {
 		home.packages = with pkgs; [
 			#dev:
-			jetbrains.idea-community-src
-			android-studio
+			# jetbrains.idea-community-src
+			# android-studio
 		];
 		systemd.user = import ./brian-services.nix;
 
