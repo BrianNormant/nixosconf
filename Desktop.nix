@@ -12,32 +12,22 @@
 	hardware.usb-modeswitch.enable = true;
 
 # Bg running services and daemons
-	services.monado = 
-		let monado-lastest = pkgs.monado.overrideAttrs (final: self: {
-				version = "lastest";
-				src = pkgs.fetchFromGitLab {
-				domain = "gitlab.freedesktop.org";
-				owner = "monado";
-				repo = "monado";
-				rev = "79fef083";
-				hash = "sha256-yTpflFA+z7TUtBTojiN2iAHZ0b5L4tE1M0S7BlgYM1c=";
-				};
-				}); 
-	in {
-		package = monado-lastest;
+	services.monado = {
+		package = pkgs.monado;
 		enable = true;
 		highPriority = true;
 		defaultRuntime = true;
 	};
+	
 	systemd.user.services.monado.environment = {
 		STEAMVR_LH_ENABLE = "1";
 		XRT_COMPOSITOR_COMPUTE = "1";
-		OXR_DEBUG_IPD_MM = "65";
+		XRT_COMPOSITOR_SCALE_PERCENTAGE = "100";
 	};
 
 	services.ollama = {
 		enable = true;
-		acceleration = "rocm";
+		# acceleration = "rocm";
 	};
 	services.openssh = {
 		enable = true;

@@ -172,26 +172,6 @@
 		];
 		systemd.user = import ./brian-services.nix;
 
-		xdg.configFile."openvr/openvrpaths.vrpath".text = ''
-  {
-    "config" :
-    [
-      "/home/brian/.steam/config"
-    ],
-    "external_drivers" : null,
-    "jsonid" : "vrpathreg",
-    "log" :
-    [
-      "/home/brian/.steam/logs"
-    ],
-    "runtime" :
-    [
-      "${pkgs.opencomposite}/lib/opencomposite"
-    ],
-    "version" : 1
-  }
-'';
-
 		home.file = {
 			".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
 			
