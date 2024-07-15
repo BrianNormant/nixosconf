@@ -188,6 +188,8 @@
 
 			".config/script/switch-playerctl.zsh".text = builtins.readFile ./switch-controlled-player.sh;
 			".config/script/switch-playerctl.zsh".executable = true;
+			".config/script/replay.sh".text = builtins.readFile ./replay.sh;
+			".config/script/replay.sh".executable = true;
 
 			".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if config.networking.hostName == "BrianNixDesktop" then "DP-1" else "eDP-1");
 			".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;

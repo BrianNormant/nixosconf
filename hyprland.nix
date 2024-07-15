@@ -257,7 +257,7 @@ bind = $mainMod SHIFT, S, exec, $HOME/.config/rofi/applets/bin/screenshot.sh
 bind = ,Print, exec, hyprshot -c -m output -o ~/Screenshots
 bind = ,XF86Calculator, exec, kitty --class PopUp bc # calculator
 bind = CONTROL SHIFT, Escape, exec, kitty --class ProcessManager btop
-bind = $mainMod SHIFT, X, exec, pkill -USR1 gpu-screen-reco
+bind = ALT, X, exec, pkill -SIGUSR1 gpu-screen-reco
 
 #Special keys
 bind = ,XF86AudioPlay, exec, playerctl play-pause         # Media Control Keys
