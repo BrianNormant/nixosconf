@@ -30,14 +30,13 @@
 
 	hardware.graphics = {
 		enable = true;
+		enable32Bit = true;
 		# extraPackages = with pkgs; [
 		# 	libGL
 		# 	vaapiVdpau
 		# 	libva
 		# 	libvdpau-va-gl
 		# ];
-		# driSupport = true;
-		# driSupport32Bit = true;
 		# setLdLibraryPath = true;
 	};
 
