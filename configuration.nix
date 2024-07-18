@@ -30,14 +30,13 @@
 
 	hardware.graphics = {
 		enable = true;
+		enable32Bit = true;
 		# extraPackages = with pkgs; [
 		# 	libGL
 		# 	vaapiVdpau
 		# 	libva
 		# 	libvdpau-va-gl
 		# ];
-		# driSupport = true;
-		# driSupport32Bit = true;
 		# setLdLibraryPath = true;
 	};
 
@@ -122,7 +121,7 @@
 			onlyoffice-bin
 			pavucontrol
 			hyprland hyprpaper hyprshot hyprlock hypridle# Window manager
-			cmus yt-dlp picard # Music player, downloader and tagging
+			cmus yt-dlp # picard # Music player, downloader and tagging
 			vlc
 			vesktop
 			webcord-vencord
@@ -167,30 +166,10 @@
 	home-manager.users.brian = { pkgs, ...}: {
 		home.packages = with pkgs; [
 			#dev:
-			jetbrains.idea-community-src
-			android-studio
+			# jetbrains.idea-community-src
+			# android-studio
 		];
 		systemd.user = import ./brian-services.nix;
-
-		xdg.configFile."openvr/openvrpaths.vrpath".text = ''
-  {
-    "config" :
-    [
-      "/home/brian/.steam/config"
-    ],
-    "external_drivers" : null,
-    "jsonid" : "vrpathreg",
-    "log" :
-    [
-      "/home/brian/.steam/logs"
-    ],
-    "runtime" :
-    [
-      "${pkgs.opencomposite}/lib/opencomposite"
-    ],
-    "version" : 1
-  }
-'';
 
 		home.file = {
 			".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
@@ -208,6 +187,8 @@
 
 			".config/script/switch-playerctl.zsh".text = builtins.readFile ./switch-controlled-player.sh;
 			".config/script/switch-playerctl.zsh".executable = true;
+			".config/script/replay.sh".text = builtins.readFile ./replay.sh;
+			".config/script/replay.sh".executable = true;
 
 			".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if config.networking.hostName == "BrianNixDesktop" then "DP-1" else "eDP-1");
 			".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;

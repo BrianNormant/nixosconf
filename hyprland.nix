@@ -18,9 +18,10 @@ hostname:{
 			"systemctl --user start cycle-paper.service" # Set the background
 			"systemctl --user start wob.service"
 			"systemctl --user start wob.socket"
-			"systemctl --user start gpu-screen-recorder.socket"
-			"/etc/profiles/per-user/brian/bin/webcord"
+			"gpu-screen-recorder -w DP-1 -f 60 -r 30 -c mp4 -o /home/brian/Videos -sc ~/.config/script/replay.sh"
 			"hypridle"
+			"steam"
+			"vesktop"
 		];
 		input = {
 			kb_layout = "us,us";
@@ -94,6 +95,10 @@ hostname:{
 			"keepaspectratio, title:(reStream)"
 			"size 90% 90%, title:(reStream)"
 			"center, title:(reStream)"
+
+			"idleinhibit fullscreen, class:^(*)$"
+			"idleinhibit fullscreen, title:^(*)$"
+			"idleinhibit fullscreen, fullscreen:1"
 		];
 	};
 
@@ -232,7 +237,6 @@ bind = $mainMod, Return, exec, kitty zsh ~/.config/tmux.zsh # Open Terminal
 bind = $mainMod, T, exec, kitty --class PopUp zsh ~/.config/tmux.zsh # Terminal PopUp
 bind = $mainMod ALT, Return, exec, zutty # Alternative, simpler terminal
 bind = $mainMod, E, exec, kitty --class Explorer vifm ~ ~# File Explorer
-bind = $mainMod, G, exec, kitty --class Explorer lazygit # File Explorer
 bind = $mainMod, V, exec, copyq toggle
 bind = $mainMod, I, exec, firefox # Web Browser
 bind = $mainMod SHIFT, I, exec, firefox -private-window # Alternative Web Browser
@@ -257,7 +261,7 @@ bind = $mainMod SHIFT, S, exec, $HOME/.config/rofi/applets/bin/screenshot.sh
 bind = ,Print, exec, hyprshot -c -m output -o ~/Screenshots
 bind = ,XF86Calculator, exec, kitty --class PopUp bc # calculator
 bind = CONTROL SHIFT, Escape, exec, kitty --class ProcessManager btop
-bind = $mainMod SHIFT, X, exec, pkill -USR1 gpu-screen-reco
+bind = ALT, X, exec, pkill -SIGUSR1 gpu-screen-reco
 
 #Special keys
 bind = ,XF86AudioPlay, exec, playerctl play-pause         # Media Control Keys

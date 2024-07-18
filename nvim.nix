@@ -16,7 +16,7 @@ in {
 		extraPackages = with pkgs; [
 			jdt-language-server
 			ccls
-			phpactor
+			# phpactor
 			ripgrep
 			fswatch
 			fd
@@ -303,7 +303,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 EOF
 		   '';}
 	
-			{ plugin = none-ls-nvim;
+			/* { plugin = none-ls-nvim;
 			  config = ''
 lua << EOF
 local null_ls = require("null-ls")
@@ -338,7 +338,7 @@ null_ls.setup({
 })
 
 EOF
-			'';}
+			'';} */
 			{ plugin = pkgs.vimUtils.buildVimPlugin {
 				pname = "symbol-usage.nvim";
 				version = "4-03-24";

@@ -27,7 +27,7 @@
 		};
 		gpu-screen-recorder = {
 			Service.Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/brian/bin";
-			Service.ExecStart = "gpu-screen-recorder -w 'DP-01' -f 30 -r 30 -c mp4 -o /home/brian/Videos";
+			Service.ExecStart = "/etc/profiles/per-user/brian/bin/gpu-screen-recorder -w 'DP-1' -f 30 -r 30 -c mp4 -o /home/brian/Videos";
 		};
 	};
 

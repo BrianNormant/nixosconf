@@ -8,7 +8,8 @@ background {
 	monitor = ${monitor}
 	path = ~/Wallpapers/lockscreen.jpg
 	blur_passes = 3
-} '' + ( if monitor == "DP-1" then ''
+} 
+'' + ( if monitor == "DP-1" then ''
 background {
 	monitor = HDMI-A-1
 	path = ~/Wallpapers/gunlockscreen.jpg
@@ -18,7 +19,8 @@ background {
 	monitor = DP-2
 	path = ~/Wallpapers/916lockscreen.jpg
 	blur_passes = 3
-} '' else "" ) + ''
+} 
+'' else "" ) + ''
 
 input-field {
 	monitor = ${monitor}
