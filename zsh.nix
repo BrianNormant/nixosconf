@@ -205,7 +205,7 @@
 
 				src = pkgs.fetchurl {
 					url = "https://www.php.net/distributions/manual/php_manual_en.tar.gz";
-					hash = "sha256-Df7IsVjjsDPeLDSzKwm/EicmFGEXlTRQDLMAZZUT5WU=";
+					hash = "sha256-BrZcMg8rcgoRrXvBC3YQ/yajb+WcwlZVhBtN4SQzzKk=";
 				};
 
 				outputs = [ "out" ];

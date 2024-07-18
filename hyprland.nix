@@ -278,5 +278,5 @@ bind = ,XF86Messenger, exec, vesktop
 		monitor = DP-1,3840x2160@144,auto,1,bitdepth,10
 		monitor = DP-2,preferred,auto-left,1,transform,1,bitdepth,10
 		monitor = HDMI-A-1,preferred,auto-right,1,bitdepth,10 ''
-		else ",preferred,auto,2" ) ;
+		else "monitor = ,preferred,auto,2" ) ;
 }
