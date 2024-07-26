@@ -30,13 +30,8 @@
 
 	hardware.graphics = {
 		enable = true;
-		enable32Bit = true;
-		# extraPackages = with pkgs; [
-		# 	libGL
-		# 	vaapiVdpau
-		# 	libva
-		# 	libvdpau-va-gl
-		# ];
+		# enable32Bit = true;
+		extraPackages = with pkgs; [ libGL ];
 		# setLdLibraryPath = true;
 	};
 
@@ -61,6 +56,7 @@
 		noto-fonts
 		# for zutty
 		ucs-fonts
+		xorg.libxcb
 	];
 
 # Pick only one of the below networking options.
@@ -268,6 +264,7 @@
 		python3
 		usb-modeswitch
 		jq
+		gamescope
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
