@@ -5,6 +5,7 @@
 		autosuggestions.enable = true;
 		syntaxHighlighting.enable = true;
 		shellAliases = {
+			rimsort = "nix run github:vinnymeller/nixpkgs/init-rimsort#rimsort --extra-experimental-features 'nix-command flakes' --impure";
 			ls    =  "lsd";
 			l     =  "lsd -la";
 			ll    =  "lsd -l";
