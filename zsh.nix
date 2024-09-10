@@ -199,7 +199,7 @@
 			gwtrm = "git worktree remove";
 			gstu = "gsta --include-untracked";
 
-			man-php = let php-manual-html = pkgs.stdenv.mkDerivation {
+			/* man-php = let php-manual-html = pkgs.stdenv.mkDerivation {
 				pname = "php-manual-en-html";
 				version = "8.3@26-03-2024";
 
@@ -214,7 +214,7 @@
 					mkdir "$out"
 					mv *.html "$out"
 					'';
-			}; in "find ${php-manual-html} -maxdepth 1 -type f -printf '%f\n' | fzf --reverse | xargs printf '${php-manual-html}/%s' | xargs lynx";
+			}; in "find ${php-manual-html} -maxdepth 1 -type f -printf '%f\n' | fzf --reverse | xargs printf '${php-manual-html}/%s' | xargs lynx"; */
 		};
 		shellInit = ''
 
