@@ -2,10 +2,11 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
 	nix.settings.trusted-users = [ "root" "brian" ];
+	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 	hardware.usb-modeswitch.enable = true;
 
 # Screen sharing
@@ -17,9 +18,9 @@
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 
-	hardware.graphics = {
-		enable = true;
-	};
+	# hardware.graphics = {
+	# 	enable = true;
+	# };
 
 	security = {
 		sudo.enable = true;
@@ -142,6 +143,7 @@
 
 			winetricks
 			wineWowPackages.wayland
+
 		];
 	};
 
@@ -183,7 +185,12 @@
 # Programs enabled
 	programs.dconf.enable = true;
 	programs.adb.enable = true;
-
+	programs.nh = {
+		enable = true;
+		clean.enable = true;
+		# clean.extraArgs = "--keep-since 4d --keep 3";
+		flake = "/home/brian/nixos-config";
+	};
 
 	programs.tmux = {
 		enable = true;
@@ -194,6 +201,7 @@
 
 
 	programs.neovim = {
+		package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
 		enable = true;
 		defaultEditor = true;
 		viAlias = true;
