@@ -7,9 +7,10 @@
 {
 	imports = [ # Include the results of the hardware scan.
 		./hardware-configuration.nix
-		(if (builtins.readFile /etc/machine-id) == "e0c725c9906148dcb7cd848c7e9fcd28\n"
-			then ./Desktop.nix
-			else ./Laptop.nix)
+		# (if (builtins.readFile /etc/machine-id) == "e0c725c9906148dcb7cd848c7e9fcd28\n"
+		# 	then ./Desktop.nix
+		# 	else ./Laptop.nix)
+		./Laptop.nix
 		./zsh.nix
 	];
 
