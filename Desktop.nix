@@ -1,5 +1,6 @@
-{ pkgs, ... }:
- {
+{ config, pkgs, ... }:
+
+{
 	boot.kernelPatches = [ {
 		name = "beyondfix";
 		patch = ./beyond.patch;

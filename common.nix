@@ -2,18 +2,9 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-	imports = [ # Include the results of the hardware scan.
-		./hardware-configuration.nix
-		# (if (builtins.readFile /etc/machine-id) == "e0c725c9906148dcb7cd848c7e9fcd28\n"
-		# 	then ./Desktop.nix
-		# 	else ./Laptop.nix)
-		./Laptop.nix
-		./zsh.nix
-	];
-
 	nix.settings.trusted-users = [ "root" "brian" ];
 	hardware.usb-modeswitch.enable = true;
 
@@ -26,16 +17,8 @@
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 
-	hardware.opengl = {
+	hardware.graphics = {
 		enable = true;
-		# enable32Bit = true;
-		# extraPackages = with pkgs; [
-		# 	libGL
-		# 	vaapiVdpau
-		# 	libva
-		# 	libvdpau-va-gl
-		# ];
-		# setLdLibraryPath = true;
 	};
 
 	security = {
@@ -280,12 +263,6 @@
 # networking.firewall.allowedUDPPorts = [ ... ];
 # Or disable the firewall altogether.
 # networking.firewall.enable = false;
-
-# Copy the NixOS configuration file and link it from the resulting system
-# (/run/current-system/configuration.nix). This is useful in case you
-# accidentally delete configuration.nix.
-# I guess it's easier to put in a git repo, making rollbacking changes even easier
-	system.copySystemConfiguration = true;
 
 # This option defines the first version of NixOS you have installed on this particular machine,
 # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
