@@ -7,11 +7,9 @@
 {
 	imports = [ # Include the results of the hardware scan.
 		./hardware-configuration.nix
-		<home-manager/nixos>
 		(if (builtins.readFile /etc/machine-id) == "e0c725c9906148dcb7cd848c7e9fcd28\n"
 			then ./Desktop.nix
 			else ./Laptop.nix)
-
 		./zsh.nix
 		./nvim.nix
 	];
@@ -28,9 +26,9 @@
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 
-	hardware.graphics = {
+	hardware.opengl = {
 		enable = true;
-		enable32Bit = true;
+		# enable32Bit = true;
 		# extraPackages = with pkgs; [
 		# 	libGL
 		# 	vaapiVdpau
@@ -162,93 +160,6 @@
 			winetricks
 			wineWowPackages.wayland
 		];
-	};
-	home-manager = {
-		useUserPackages = true;
-		useGlobalPkgs = true;
-	};
-	home-manager.users.brian = { pkgs, ...}: {
-		home.packages = with pkgs; [
-			#dev:
-			# jetbrains.idea-community-src
-			# android-studio
-		];
-		systemd.user = import ./brian-services.nix;
-
-		home.file = {
-			".config/nvim-simple/init.lua".text = builtins.readFile ./nvim-simple.lua;
-			
-			".config/hypr/wallpaper.nu".text = builtins.readFile ./wallpaper.nu;
-			".config/hypr/wallpaper.nu".executable = true;
-			
-
-			".config/hypr/brightness.nu".text = builtins.readFile ./brightness.nu;
-			".config/hypr/plugged.nu".text = builtins.readFile ./plugged.nu;
-			".config/hypr/volume.nu".text = builtins.readFile ./volume.nu;
-			
-			".config/script/media.zsh".text = builtins.readFile ./fetch-and-format-media.zsh;
-			".config/script/media.zsh".executable = true;
-
-			".config/script/switch-playerctl.zsh".text = builtins.readFile ./switch-controlled-player.sh;
-			".config/script/switch-playerctl.zsh".executable = true;
-			".config/script/replay.sh".text = builtins.readFile ./replay.sh;
-			".config/script/replay.sh".executable = true;
-
-			".config/hypr/hyprlock.conf".text = (import ./hyprlock.nix) (if config.networking.hostName == "BrianNixDesktop" then "DP-1" else "eDP-1");
-			".config/hypr/hypridle.conf".text = builtins.readFile ./hypridle.conf;
-		};
-
-		home.stateVersion = "23.11";
-		xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-gtk ];
-
-		home.pointerCursor = {
-			name = "phinger-cursors-dark";
-			package = pkgs.phinger-cursors;
-			size = 32;
-			gtk.enable = true;
-		};
-
-		gtk = {
-			enable = true;
-			theme = {
-				name = "gruvbox-dark";
-				package = pkgs.gruvbox-dark-gtk;
-			};
-		};
-
-		programs.git = {
-			enable = true;
-			userName = "BrianNixDesktop";
-			userEmail = "briannormant@gmail.com";
-		};
-
-		programs.rofi = {
-			enable = true;
-			package = pkgs.rofi-wayland;
-			plugins = let
-				build-against-rofi-wayland = plugin: plugin.overrideAttrs ( final: self: {
-					version = "wayland";
-					buildInputs = with pkgs; [
-						rofi-wayland-unwrapped # here we replace rofi by rofi-wayland
-						libqalculate
-						glib
-						cairo
-					];
-				});
-
-				rofi-wayland-plugins = with pkgs; [
-					rofi-calc
-					rofi-emoji
-				];
-			in builtins.map build-against-rofi-wayland rofi-wayland-plugins;
-		};
-
-		services.wob.enable = true; # TODO connect wob to script
-
-		programs.firefox.enable = true;
-
-		programs.waybar = (import ./waybar.nix) config.networking.hostName;
-		wayland.windowManager.hyprland = (import ./hyprland.nix) config.networking.hostName;
 	};
 
 # List packages installed in system profile. To search, run:
