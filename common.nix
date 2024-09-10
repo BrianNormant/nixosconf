@@ -199,12 +199,12 @@
 		extraConfig = ( builtins.readFile ./tmux.conf );
 	};
 
-	nixpkgs.overlays = inputs.neovim-nightly-overlay.overlays.default;
 	programs.neovim = {
 		enable = true;
 		defaultEditor = true;
 		viAlias = true;
 		vimAlias = true;
+		package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
 
 		withPython3 = true;
 		configure = {
