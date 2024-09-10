@@ -553,6 +553,25 @@ vim.o.foldmethod = "syntax"
 
 vim.cmd "COQnow"
 vim.cmd "set laststatus=3"
+
+vim.cmd [[
+function! DiffRegsFunc(...)
+    let l:left = a:0 == 2 ? a:1 : "@0"
+    let l:right = a:0 == 2 ? a:2 : "@1"
+
+    tabnew
+    exe 'put! ='. l:left
+    vnew
+    exe 'put! ='. l:right
+
+    windo setlocal buftype=nofile
+    windo setlocal bufhidden=delete
+    windo setlocal noswapfile
+    windo diffthis
+    winc t
+endfunction
+com -nargs=* DiffRegs call DiffRegsFunc(<f-args>)
+]]
 		'';
 	};
 	
