@@ -43,6 +43,7 @@
 		noto-fonts
 		# for zutty
 		ucs-fonts
+		xorg.libxcb
 	];
 
 # Pick only one of the below networking options.
@@ -168,6 +169,7 @@
 		python3
 		usb-modeswitch
 		jq
+		gamescope
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
