@@ -11,7 +11,6 @@
 			then ./Desktop.nix
 			else ./Laptop.nix)
 		./zsh.nix
-		./nvim.nix
 	];
 
 	nix.settings.trusted-users = [ "root" "brian" ];
@@ -209,6 +208,36 @@
 		extraConfig = ( builtins.readFile ./tmux.conf );
 	};
 
+
+	programs.neovim = {
+		enable = true;
+		defaultEditor = true;
+		viAlias = true;
+		vimAlias = true;
+
+		withPython3 = true;
+		configure = {
+			customRC = ''
+			luafile ${./nvim.lua}
+			let g:gruvbox_italic=1
+			let g:gruvbox_contrast_dark="soft"
+
+			colorscheme gruvbox
+			hi CurrentWord cterm=underline
+			hi CurrentWordTwins cterm=underline
+			'';
+			packages.myVimPackage = with pkgs.vimPlugins; {
+				opt = [];
+				start = [
+					gruvbox
+					comment-nvim
+					vim-surround
+					vim_current_word
+					vim-wordy
+				];
+			};
+		};
+	};
 	programs.hyprland.enable = true;
 	programs.git.enable = true;
 
@@ -232,6 +261,10 @@
 			];
 		};
 	};
+
+	nixpkgs.overlays = [
+		(import (builtins.fetchTarball { url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz"; }))
+	];
 
 # Some programs need SUID wrappers, can be configured further or are
 # started in user sessions.
