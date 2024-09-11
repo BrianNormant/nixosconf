@@ -24,7 +24,7 @@
 				modules = [ 
 					./Desktop.nix 
 					./common.nix
-					./hardware-configuration.nix
+					./hardware-Desktop.nix
 					./zsh.nix
 				];
 			};
