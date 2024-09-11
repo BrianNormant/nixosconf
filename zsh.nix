@@ -221,24 +221,16 @@
 
 
 if [[ -n $TMUX ]]; then
-	source ${pkgs.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-	# Disable zsh-autocomplete keybinds
-	() {
-	   local -a prefix=( '\e'{\[,O} )
-	   local -a up=( ''${^prefix}A ) down=( ''${^prefix}B )
-	   local key=
-	   for key in $up[@]; do
-		  bindkey "$key" up-line-or-history
-	   done
-	   for key in $down[@]; do
-		  bindkey "$key" down-line-or-history
-	   done
-	}
-	bindkey '^R' .history-incremental-search-backward
-	bindkey '^S' .history-incremental-search-forward
-
+	# https://media.dev.to/cdn-cgi/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F6h5zkg28xk2u7610qwoj.jpeg
+	# source ${pkgs.zsh-autocomplete}/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+	
+	source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+	
 	source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+	zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+	
 	source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
+	
 	source ${(pkgs.fetchFromGitHub {
 		owner = "chisui";
 		repo = "zsh-nix-shell";
@@ -257,7 +249,7 @@ if [[ -n $TMUX ]]; then
 	[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 	# fzf colorscheme
-	export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#3c3836,bg:#fbf1c7,hl:#5f87af --color=fg+:#d65d0e,bg+:#fbf1c7,hl+:#076678 --color=info:#d79921,prompt:#cc241d,pointer:#076678 --color=marker:#79740e,spinner:#076678,header:#7c6f64'
+	# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#3c3836,bg:#fbf1c7,hl:#5f87af --color=fg+:#d65d0e,bg+:#fbf1c7,hl+:#076678 --color=info:#d79921,prompt:#cc241d,pointer:#076678 --color=marker:#79740e,spinner:#076678,header:#7c6f64'
 
 	(( ! ''${+functions[p10k]} )) || p10k finalize
 fi
