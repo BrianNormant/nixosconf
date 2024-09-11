@@ -14,7 +14,7 @@
 				modules = [ 
 					./Laptop.nix 
 					./common.nix
-					./hardware-configuration.nix
+					./hardware-Laptop.nix
 					./zsh.nix
 				];
 			};

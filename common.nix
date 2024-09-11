@@ -7,6 +7,9 @@
 {
 	nix.settings.trusted-users = [ "root" "brian" ];
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
+	nix.extraOptions = ''
+    	plugin-files = ${pkgs.nix-doc}/lib/libnix_doc_plugin.so
+  	'';
 	hardware.usb-modeswitch.enable = true;
 
 # Screen sharing
