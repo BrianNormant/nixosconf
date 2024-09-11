@@ -7,9 +7,16 @@
 {
 	nix.settings.trusted-users = [ "root" "brian" ];
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
-	nix.extraOptions = ''
-    	plugin-files = ${pkgs.nix-doc}/lib/libnix_doc_plugin.so
-  	'';
+	nix.registry = {
+		nixpkgs.to = {
+			type = "path";
+			path = pkgs.path;
+			narHash = builtins.readFile
+				(pkgs.runCommandLocal "get-nixpkgs-hash"
+				 { nativeBuildInputs = [ pkgs.nix ]; }
+				 "nix-hash --type sha256 --sri ${pkgs.path} > $out");
+		};
+	};
 	hardware.usb-modeswitch.enable = true;
 
 # Screen sharing
