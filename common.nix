@@ -215,6 +215,7 @@
 
 	programs.hyprland.enable = true;
 
+
 	programs.neovim = {
 		enable = true;
 		defaultEditor = true;
@@ -246,7 +247,7 @@
 		};
 	};
 
-	environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Hint electron to use wayland:
+	# environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Hint electron to use wayland:
 
 	nixpkgs.config.packageOverrides = pkgs: {
 		steam = pkgs.steam.override {

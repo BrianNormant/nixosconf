@@ -40,12 +40,12 @@
 	virtualisation.docker.enable = true;
 
 # Games
-	programs.gamescope.enable = true;
+	# programs.gamescope.enable = true;
 	programs.steam = {
 		enable = true;
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
-		gamescopeSession.enable = false;
+		# gamescopeSession.enable = false;
 	};
 
 # Clip last 30 seconds
@@ -75,28 +75,6 @@
 		group = "root";
 		capabilities = "cap_sys_admin+ep";
 		source = "${gpu-screen-recorder}/bin/gsr-kms-server";
-	};
-
-	/* Removed to test for IL2
-	nixpkgs.config.packageOverrides = pkgs: {
-		steam = pkgs.steam.override {
-			extraPkgs = pkgs: with pkgs; [
-				xorg.libXcursor
-				xorg.libXi
-				xorg.libXinerama
-				xorg.libXScrnSaver
-				libpng
-				libpulseaudio
-				libvorbis
-				stdenv.cc.cc.lib
-				libkrb5
-				keyutils
-				libxml2
-				
-				gamemode
-				mangohud
-			];
-		};
 	};
 	*/
 
