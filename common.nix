@@ -21,6 +21,7 @@
 
 # Screen sharing
 	xdg.portal.wlr.enable = true;
+	# xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-hyprland ];
 
 # Use the recommanded option : systemd-boot
 	boot.loader.systemd-boot.enable = true;
@@ -28,9 +29,10 @@
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 
-	# hardware.graphics = {
-	# 	enable = true;
-	# };
+	hardware.graphics = {
+		enable = true;
+		enable32Bit = true;
+	};
 
 	security = {
 		sudo.enable = true;
@@ -117,7 +119,7 @@
 # Burautique
 			onlyoffice-bin
 			pavucontrol
-			hyprland hyprpaper hyprshot hyprlock hypridle# Window manager
+			hyprpaper hyprshot hyprlock hypridle# Window manager
 			cmus yt-dlp # picard # Music player, downloader and tagging
 			vlc
 			vesktop
@@ -211,6 +213,8 @@
 		extraConfig = ( builtins.readFile ./tmux.conf );
 	};
 
+	programs.hyprland.enable = true;
+
 	programs.neovim = {
 		enable = true;
 		defaultEditor = true;
@@ -241,8 +245,6 @@
 			};
 		};
 	};
-	programs.hyprland.enable = true;
-	programs.git.enable = true;
 
 	environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Hint electron to use wayland:
 

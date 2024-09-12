@@ -39,7 +39,6 @@
 	};
 	virtualisation.docker.enable = true;
 
-
 # Games
 	programs.gamescope.enable = true;
 	programs.steam = {

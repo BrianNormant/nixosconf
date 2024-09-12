@@ -50,11 +50,6 @@
       fsType = "btrfs";
     };
 
-  fileSystems."/var/lib/docker/overlay2/fa4d41701bdfdb4652e2f2629808fb9fadbc30ef4a5159e7e59dfcce7527224f/merged" =
-    { device = "overlay";
-      fsType = "overlay";
-    };
-
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
