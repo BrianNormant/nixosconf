@@ -60,7 +60,26 @@
 
 # Pick only one of the below networking options.
 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-	networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+	networking.networkmanager = { 
+		enable = true;  # Easiest to use and most distros use this by default.
+		plugins = with pkgs; [ networkmanager-openvpn ];
+	};
+
+	# pour le vpn de l'ets:
+	/*
+	nmcli connection add \
+connection.id ETSVPN \
+connection.type vpn \
+vpn.user-name 'brian.normant.1@ens.etsmtl.ca' \
+vpn.service-type openconnect \
+vpn.data cookie-flags=2,gateway=accesvpn.etsmtl.ca,protocol=anyconnect,useragent=AnyConnect \
+vpn.secrets gateway=accesvpn.etsmtl.ca,gwcert=
+
+Ensuite, utilier le package networkmanagerapplet pour login.
+networkmanager-applet
+
+nmcli con up ETSVPN
+	*/
 
 # Set your time zone.
 	time.timeZone = "America/Montreal";
@@ -278,6 +297,23 @@
 
 # Open ports in the firewall.
 	networking.firewall.allowedTCPPorts = [];
+
+# ETS vpn with OpenConnect
+	/*
+	services.openvpn.servers = {
+		etsVPN = {
+			config = ''
+				client
+				remote accesvpn.etsmtl.ca
+				dev tun
+				# useragent AnyConnect
+			'';
+			# up = "echo nameserver $nameserver | ${pkgs.openresolv}/sbin/resolvconf -m 0 -a $dev";
+			# down = "${pkgs.openresolv}/sbin/resolvconf -d $dev";
+			autoStart = false;
+		};
+	};*/
+
 # networking.firewall.allowedUDPPorts = [ ... ];
 # Or disable the firewall altogether.
 # networking.firewall.enable = false;

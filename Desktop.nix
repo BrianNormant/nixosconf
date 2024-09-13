@@ -76,7 +76,6 @@
 		capabilities = "cap_sys_admin+ep";
 		source = "${gpu-screen-recorder}/bin/gsr-kms-server";
 	};
-	*/
 
 # Special Rules
 	networking.firewall.allowedTCPPorts = [ 4270 4269 ];
