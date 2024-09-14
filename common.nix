@@ -19,10 +19,6 @@
 	};
 	hardware.usb-modeswitch.enable = true;
 
-# Screen sharing
-	xdg.portal.wlr.enable = true;
-	# xdg.portal.configPackages = [ pkgs.xdg-desktop-portal-hyprland ];
-
 # Use the recommanded option : systemd-boot
 	boot.loader.systemd-boot.enable = true;
 	boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -147,7 +143,6 @@ nmcli con up ETSVPN
 # Terminal Tools
 			kitty # terminal emulators
 #TODO ./zutty.nix
-			lsd
 			zoxide
 			tldr
 			dust
@@ -157,7 +152,6 @@ nmcli con up ETSVPN
 
 			vifm
 			lazygit
-			nushell
 			gh glab # Github and gitlab CLI tool
 #Other
 			copyq # clipboard manager
@@ -232,6 +226,10 @@ nmcli con up ETSVPN
 		extraConfig = ( builtins.readFile ./tmux.conf );
 	};
 
+	# Hyprland
+	
+	xdg.portal.wlr.enable = true;
+	
 	programs.hyprland.enable = true;
 
 
