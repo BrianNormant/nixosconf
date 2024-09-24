@@ -228,8 +228,6 @@ nmcli con up ETSVPN
 
 	# Hyprland
 	
-	xdg.portal.wlr.enable = true;
-	
 	programs.hyprland.enable = true;
 
 
