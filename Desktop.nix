@@ -49,7 +49,7 @@
 	};
 
 # Clip last 30 seconds
-	users.users.brian.packages = 
+	users.users.brian.packages =
 		let gpu-screen-recorder = pkgs.gpu-screen-recorder.overrideAttrs (final: self: {
 			postInstall = ''
 			install -Dt $out/bin gpu-screen-recorder gsr-kms-server
@@ -60,7 +60,7 @@
 			--suffix PATH : $out/bin
 			'';
 		}); in [ gpu-screen-recorder ];
-	security.wrappers."gsr-kms-server" = 
+	security.wrappers."gsr-kms-server" =
 		let gpu-screen-recorder = pkgs.gpu-screen-recorder.overrideAttrs (final: self: {
 			postInstall = ''
 			install -Dt $out/bin gpu-screen-recorder gsr-kms-server
