@@ -257,6 +257,7 @@ function playerctl() {
 }
 
 export ELECTRON_OZONE_PLATFORM_HINT=wayland
+export NIXOS_OZONE_WL=1
 '';
 	};
 }
