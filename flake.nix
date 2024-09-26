@@ -2,8 +2,9 @@
 	inputs = {
 		neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+		stablepkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 	};
-	outputs = { self, nixpkgs, neovim-nightly-overlay }@inputs: {
+	outputs = { self, nixpkgs, stablepkgs, neovim-nightly-overlay, ... }@inputs: {
 		nixosConfigurations = {
 # (if (builtins.readFile /etc/machine-id) == "e0c725c9906148dcb7cd848c7e9fcd28\n"
 # 	then ./Desktop.nix
