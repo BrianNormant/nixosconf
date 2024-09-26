@@ -2,17 +2,9 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ inputs, pkgs, stablepkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
-	nixpkgs.overlays = [
-		(final: _: {
-			stable = import inputs.stablepkgs {
-				inherit (final.stdenv.hostPlatform) system;
-				inherit (final) config;
-			};
-		})
-	];
 	nix.settings.trusted-users = [ "root" "brian" ];
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 	nix.registry = {
@@ -236,11 +228,7 @@ nmcli con up ETSVPN
 	};
 
 	# Hyprland
-	
-	programs.hyprland = { 
-		enable = true;
-		package = pkgs.stable.hyprland;
-	};
+	programs.hyprland.enable = true;
 
 
 	programs.neovim = {

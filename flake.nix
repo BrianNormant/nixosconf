@@ -2,9 +2,8 @@
 	inputs = {
 		neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-		stablepkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 	};
-	outputs = { self, nixpkgs, stablepkgs, neovim-nightly-overlay, ... }@inputs: {
+	outputs = { self, nixpkgs, neovim-nightly-overlay, ... }@inputs: {
 		nixosConfigurations = {
 			BrianNixLaptop = nixpkgs.lib.nixosSystem {
 				system = "x86_64-linux";

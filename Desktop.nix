@@ -48,6 +48,22 @@
 		# gamescopeSession.enable = false;
 	};
 
+	# Desktop version crash xwayland because of the VR headset
+	/*
+	programs.hyprland.package = (pkgs.hyprland.overrideAttrs rec {
+			pname = "hyprland";
+			version = "0.41.2";
+
+			src = pkgs.fetchFromGitHub {
+				owner = "hyprwm";
+				repo = pname;
+				fetchSubmodules = true;
+				rev = "refs/tags/v${version}";
+				hash = "sha256-JmfnYz+9a4TjNl3mAus1VpoWtTI9d1xkW9MHbkcV0Po=";
+			};
+			});
+	*/
+
 # Clip last 30 seconds
 	users.users.brian.packages =
 		let gpu-screen-recorder = pkgs.gpu-screen-recorder.overrideAttrs (final: self: {
