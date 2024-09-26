@@ -256,6 +256,7 @@ function playerctl() {
 	env playerctl -p "$CURRENT_PLAYER" $*
 }
 
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
 '';
 	};
 }
