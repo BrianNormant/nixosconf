@@ -27,10 +27,9 @@
 
 	};
 
-	services.ollama = {
-		enable = true;
-		# acceleration = "rocm";
-	};
+	
+	# services.ollama.acceleration = "rocm";
+	
 	services.openssh = {
 		enable = true;
 		ports = [ 4269 ];
