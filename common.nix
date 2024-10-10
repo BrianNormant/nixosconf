@@ -21,7 +21,6 @@
 
 # Use the recommanded option : systemd-boot
 	boot.loader.systemd-boot.enable = true;
-	boot.kernelPackages = pkgs.linuxPackages_latest;
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
 
@@ -224,11 +223,16 @@ nmcli con up ETSVPN
 	services.ollama.loadModels = [ "llama3:latest" ]; # default for neovim
 	services.nextjs-ollama-llm-ui.enable = true; # access ollama from the browser
 
+	services.plantuml-server = {
+		enable = true;
+		listenPort = 4578;
+	};
+
 	programs.tmux = {
 		enable = true;
 		keyMode = "vi";
 		plugins = [ pkgs.tmuxPlugins.gruvbox ];
-		extraConfig = ( builtins.readFile ./tmux.conf );
+		extraConfig = builtins.readFile ./tmux.conf;
 	};
 
 	# Hyprland
