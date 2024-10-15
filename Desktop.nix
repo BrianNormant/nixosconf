@@ -29,7 +29,8 @@
 	};
 
 	
-	# services.ollama.acceleration = "rocm";
+	services.ollama.package = (pkgs.ollama.overrideAttrs { enableRocm = true; });
+	services.ollama.acceleration = "rocm";
 	
 	services.openssh = {
 		enable = true;
