@@ -147,7 +147,6 @@ nmcli con up ETSVPN
 			zoxide
 			tldr
 			dust
-			fzf
 			bat bat-extras.batman
 			tree
 
@@ -224,12 +223,6 @@ nmcli con up ETSVPN
 	services.ollama.loadModels = [ "llama3:latest" ]; # default for neovim
 	services.nextjs-ollama-llm-ui.enable = true; # access ollama from the browser
 
-	programs.tmux = {
-		enable = true;
-		keyMode = "vi";
-		plugins = [ pkgs.tmuxPlugins.gruvbox ];
-		extraConfig = ( builtins.readFile ./tmux.conf );
-	};
 
 	# Hyprland
 	programs.hyprland.enable = true;
