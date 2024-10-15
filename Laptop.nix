@@ -4,6 +4,7 @@
 	networking.hostName = "BrianNixLaptop"; # Define your hostname.
 	
 	boot.loader.systemd-boot.consoleMode = "max";
+	boot.kernelPackages = pkgs.linuxPackages_latest;
 
 	services.fprintd = {
 		enable = true;
