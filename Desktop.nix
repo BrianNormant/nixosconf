@@ -41,29 +41,17 @@
 	virtualisation.docker.enable = true;
 
 # Games
-	# programs.gamescope.enable = true;
+	programs.gamescope = {
+		enable = true;
+		# capSysNice = true;
+	};
+
 	programs.steam = {
 		enable = true;
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
 		# gamescopeSession.enable = false;
 	};
-
-	# Desktop version crash xwayland because of the VR headset
-	/*
-	programs.hyprland.package = (pkgs.hyprland.overrideAttrs rec {
-			pname = "hyprland";
-			version = "0.41.2";
-
-			src = pkgs.fetchFromGitHub {
-				owner = "hyprwm";
-				repo = pname;
-				fetchSubmodules = true;
-				rev = "refs/tags/v${version}";
-				hash = "sha256-JmfnYz+9a4TjNl3mAus1VpoWtTI9d1xkW9MHbkcV0Po=";
-			};
-			});
-	*/
 
 # Clip last 30 seconds
 	users.users.brian.packages =

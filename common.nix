@@ -169,6 +169,8 @@ nmcli con up ETSVPN
 			winetricks
 			wineWowPackages.wayland
 
+            gtk-engine-murrine
+			clearlooks-phenix
 		];
 	};
 
@@ -193,7 +195,6 @@ nmcli con up ETSVPN
 		python3
 		usb-modeswitch
 		jq
-		gamescope
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
