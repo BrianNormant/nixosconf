@@ -2,6 +2,7 @@
 	inputs = {
 		neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+        ce-program.url = "github:myclevorname/nix-calculators";
 	};
 	outputs = { self, nixpkgs, neovim-nightly-overlay, ... }@inputs: {
 		nixosConfigurations = {
