@@ -198,12 +198,12 @@ nmcli con up ETSVPN
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
-		noto-fonts-cjk
+		noto-fonts-cjk-sans
 		noto-fonts-emoji
 		liberation_ttf
 		fira-code
 		fira-code-symbols
-		mplus-outline-fonts.githubRelease
+		mplus-outline-fonts.githubReleaxe
 		dina-font
 		proggyfonts
 		(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
@@ -234,6 +234,8 @@ nmcli con up ETSVPN
 		enable = true;
 		listenPort = 4578;
 	};
+
+	services.xserver.desktopManager.lxqt.enable = true;
 
 	programs.tmux = {
 		enable = true;
