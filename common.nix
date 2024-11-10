@@ -203,7 +203,7 @@ nmcli con up ETSVPN
 		liberation_ttf
 		fira-code
 		fira-code-symbols
-		mplus-outline-fonts.githubReleaxe
+		mplus-outline-fonts.githubRelease
 		dina-font
 		proggyfonts
 		(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
@@ -234,8 +234,6 @@ nmcli con up ETSVPN
 		enable = true;
 		listenPort = 4578;
 	};
-
-	services.xserver.desktopManager.lxqt.enable = true;
 
 	programs.tmux = {
 		enable = true;
