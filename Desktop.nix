@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-	boot.kernelPackages = pkgs.linuxPackages_6_10;
+	boot.kernelPackages = pkgs.linuxPackages_6_11;
 	boot.kernelPatches = [ {
 		name = "beyondfix";
 		patch = ./beyond.patch;
@@ -29,7 +29,7 @@
 	};
 
 	
-	services.ollama.package = (pkgs.ollama.overrideAttrs { enableRocm = true; });
+	# services.ollama.package = (pkgs.ollama.overrideAttrs { enableRocm = true; });
 	services.ollama.acceleration = "rocm";
 	
 	services.openssh = {
