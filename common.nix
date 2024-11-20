@@ -194,11 +194,10 @@ nmcli con up ETSVPN
 		noto-fonts-emoji
 		liberation_ttf
 		fira-code
-		fira-code-symbols
+		fira-code-nerdfont
 		mplus-outline-fonts.githubRelease
 		dina-font
 		proggyfonts
-		(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
 	];
 
 # Programs enabled
@@ -210,7 +209,10 @@ nmcli con up ETSVPN
 		# clean.extraArgs = "--keep-since 4d --keep 3";
 		flake = "/home/brian/nixos-config";
 	};
-	
+
+	services.gvfs.enable = true;
+	services.power-profiles-daemon.enable = true;
+	services.upower.enable = true;
 	services.ollama.enable = true;
 	services.ollama.loadModels = [ "llama3:latest" ]; # default for neovim
 	services.open-webui = {
