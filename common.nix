@@ -37,14 +37,14 @@
 
 	# for gradle and jdtls
 	programs.nix-ld.enable = true;
-	programs.nix-ld.libraries = with pkgs; [
-		# For java swing
-		fontconfig 
-		noto-fonts
-		# for zutty
-		ucs-fonts
-		xorg.libxcb
-	];
+	# programs.nix-ld.libraries = with pkgs; [
+	# 	# For java swing
+	# 	fontconfig
+	# 	noto-fonts
+	# 	# for zutty
+	# 	ucs-fonts
+	# 	xorg.libxcb
+	# ];
 
 # Pick only one of the below networking options.
 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -188,16 +188,17 @@ nmcli con up ETSVPN
 		usb-modeswitch
 		jq
 	];
+
 	fonts.packages = with pkgs; [
-		noto-fonts
-		noto-fonts-cjk-sans
-		noto-fonts-emoji
-		liberation_ttf
+		# noto-fonts
+		# noto-fonts-cjk-sans
+		# noto-fonts-emoji
+		# liberation_ttf
 		fira-code
 		fira-code-nerdfont
 		mplus-outline-fonts.githubRelease
-		dina-font
-		proggyfonts
+		# dina-font
+		# proggyfonts
 	];
 
 # Programs enabled
