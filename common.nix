@@ -195,7 +195,7 @@ nmcli con up ETSVPN
 		# noto-fonts-emoji
 		# liberation_ttf
 		fira-code
-		nerdfonts
+		nerd-fonts.fira-code
 		mplus-outline-fonts.githubRelease
 		# dina-font
 		# proggyfonts
@@ -240,7 +240,6 @@ nmcli con up ETSVPN
 	# Hyprland
 	programs.hyprland = {
 		enable = true;
-		xwayland.enable = true;
 	};
 	services.hypridle.enable = true;
 
@@ -293,6 +292,7 @@ nmcli con up ETSVPN
 				keyutils
 				libxml2
 				mangohud
+				SDL2
 			];
 		};
 	};
