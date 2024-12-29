@@ -23,10 +23,9 @@
 	
 	systemd.user.services.monado.environment = {
 		STEAMVR_LH_ENABLE = "1";
-		XRT_COMPOSITOR_COMPUTE = "1";
+		# XRT_COMPOSITOR_COMPUTE = "1";
 		# XRT_COMPOSITOR_SCALE_PERCENTAGE = "120";
-		WMR_HANDTRACKING = "0";
-
+		# WMR_HANDTRACKING = "0";
 	};
 
 	
