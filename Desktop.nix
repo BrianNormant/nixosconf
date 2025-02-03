@@ -28,7 +28,20 @@
 		# WMR_HANDTRACKING = "0";
 	};
 
-	
+	programs.gamemode = {
+		enable = true;
+		settings = {
+			general = {
+				renice = 10;
+			};
+			gpu = {
+				apply_gpu_optimisations = "accept_responsibility";
+				gpu_device = 1; # 0 is igpu, 1 is dedicated
+				amd_performance_level = "high";
+			};
+		};
+	};
+
 	# services.ollama.package = (pkgs.ollama.overrideAttrs { enableRocm = true; });
 	services.ollama.acceleration = "rocm";
 	

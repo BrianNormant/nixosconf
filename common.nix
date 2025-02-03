@@ -120,7 +120,7 @@ nmcli con up ETSVPN
 
 	users.users.brian = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "docker" "kvm" "adbusers" ]; # Enable ‘sudo’ for the user.
+		extraGroups = [ "wheel" "docker" "kvm" "adbusers" "gamemode"]; # Enable ‘sudo’ for the user.
 		shell = pkgs.zsh;
 		packages = with pkgs; [
 # Burautique
@@ -150,13 +150,13 @@ nmcli con up ETSVPN
 			wob   # Ligthweight overlay to show volume changes
 			playerctl
 			appimage-run
+			wlx-overlay-s
 
 			unison # File sync
 
 
 # gaming
 			prismlauncher
-			gamemode
 
 			winetricks
 			wineWowPackages.wayland
@@ -178,6 +178,7 @@ nmcli con up ETSVPN
 		acpi
 		unzip
 		p7zip
+		unrar
 		fastfetch # Extrement important!!!
 		bluez # bluetooth headphones
 		bc
@@ -216,6 +217,7 @@ nmcli con up ETSVPN
 	services.upower.enable = true;
 	services.ollama.enable = true;
 	services.ollama.loadModels = [ "llama3:latest" ]; # default for neovim
+	services.xserver.desktopManager.lxqt.enable = true;
 	services.open-webui = {
 		enable = true;
 		port = 3000;
