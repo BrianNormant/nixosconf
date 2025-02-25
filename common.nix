@@ -12,6 +12,9 @@
         ce-program.flake = inputs.ce-program;
     };
 
+	security.polkit.enable = true;
+	security.polkit.extraConfig = builtins.readFile ./corectrl.rules;
+
 	boot.loader.systemd-boot.enable = true;
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
@@ -89,8 +92,6 @@ nmcli con up ETSVPN
 
 
 # Enable sound with pipewire
-	hardware.pulseaudio.enable = false;
-	hardware.pulseaudio.support32Bit = true;
 	security.rtkit.enable = true;
 	services.pipewire = {
 		enable = true;
@@ -151,7 +152,6 @@ nmcli con up ETSVPN
 			playerctl
 			appimage-run
 			wlx-overlay-s
-
 			unison # File sync
 
 
@@ -164,6 +164,14 @@ nmcli con up ETSVPN
             gtk-engine-murrine
 			clearlooks-phenix
 		];
+	};
+
+	programs.corectrl = {
+		enable = true;
+		gpuOverclock = {
+			enable = true;
+			ppfeaturemask = "0xffffffff";
+		};
 	};
 
 # List packages installed in system profile. To search, run:
@@ -219,7 +227,7 @@ nmcli con up ETSVPN
 	services.ollama.loadModels = [ "llama3:latest" ]; # default for neovim
 	services.xserver.desktopManager.lxqt.enable = true;
 	services.open-webui = {
-		enable = true;
+		enable = false;
 		port = 3000;
 		environment = {
 			OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
