@@ -12,6 +12,9 @@
         ce-program.flake = inputs.ce-program;
     };
 
+	security.polkit.enable = true;
+	security.polkit.extraConfig = builtins.readFile ./corectrl.rules;
+
 	boot.loader.systemd-boot.enable = true;
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.sandbox = "relaxed";
@@ -89,8 +92,6 @@ nmcli con up ETSVPN
 
 
 # Enable sound with pipewire
-	hardware.pulseaudio.enable = false;
-	hardware.pulseaudio.support32Bit = true;
 	security.rtkit.enable = true;
 	services.pipewire = {
 		enable = true;
@@ -120,7 +121,7 @@ nmcli con up ETSVPN
 
 	users.users.brian = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "docker" "kvm" "adbusers" ]; # Enable ‘sudo’ for the user.
+		extraGroups = [ "wheel" "docker" "kvm" "adbusers" "gamemode"]; # Enable ‘sudo’ for the user.
 		shell = pkgs.zsh;
 		packages = with pkgs; [
 # Burautique
@@ -150,13 +151,12 @@ nmcli con up ETSVPN
 			wob   # Ligthweight overlay to show volume changes
 			playerctl
 			appimage-run
-
+			wlx-overlay-s
 			unison # File sync
 
 
 # gaming
 			prismlauncher
-			gamemode
 
 			winetricks
 			wineWowPackages.wayland
@@ -164,6 +164,14 @@ nmcli con up ETSVPN
             gtk-engine-murrine
 			clearlooks-phenix
 		];
+	};
+
+	programs.corectrl = {
+		enable = true;
+		gpuOverclock = {
+			enable = true;
+			ppfeaturemask = "0xffffffff";
+		};
 	};
 
 # List packages installed in system profile. To search, run:
@@ -178,6 +186,7 @@ nmcli con up ETSVPN
 		acpi
 		unzip
 		p7zip
+		unrar
 		fastfetch # Extrement important!!!
 		bluez # bluetooth headphones
 		bc
@@ -216,6 +225,7 @@ nmcli con up ETSVPN
 	services.upower.enable = true;
 	services.ollama.enable = true;
 	services.ollama.loadModels = [ "llama3:latest" ]; # default for neovim
+	services.xserver.desktopManager.lxqt.enable = true;
 	services.open-webui = {
 		enable = false;
 		port = 3000;
