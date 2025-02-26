@@ -130,8 +130,7 @@ nmcli con up ETSVPN
 			hyprpaper hyprshot hyprlock hypridle# Window manager
 			cmus yt-dlp # picard # Music player, downloader and tagging
 			vlc
-			vesktop
-			webcord-vencord
+			discord
 			btop
 # Terminal Tools
 			kitty # terminal emulators
