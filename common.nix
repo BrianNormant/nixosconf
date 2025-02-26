@@ -217,7 +217,7 @@ nmcli con up ETSVPN
 	services.ollama.enable = true;
 	services.ollama.loadModels = [ "llama3:latest" ]; # default for neovim
 	services.open-webui = {
-		enable = true;
+		enable = false;
 		port = 3000;
 		environment = {
 			OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
