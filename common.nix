@@ -235,7 +235,7 @@ nmcli con up ETSVPN
 	};
 
 	services.plantuml-server = {
-		enable = true;
+		enable = false;
 		listenPort = 4578;
 	};
 
