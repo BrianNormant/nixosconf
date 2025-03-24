@@ -121,7 +121,14 @@ nmcli con up ETSVPN
 
 	users.users.brian = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "docker" "kvm" "adbusers" "gamemode"]; # Enable ‘sudo’ for the user.
+		extraGroups = [
+			"wheel"
+				"docker"
+				"kvm"
+				"adbusers"
+				"gamemode"
+				"ollama"
+		];
 		shell = pkgs.zsh;
 		packages = with pkgs; [
 # Burautique
@@ -222,17 +229,7 @@ nmcli con up ETSVPN
 	services.gvfs.enable = true;
 	services.power-profiles-daemon.enable = true;
 	services.upower.enable = true;
-	services.ollama.enable = true;
-	services.ollama.loadModels = [ "llama3:latest" ]; # default for neovim
 	services.xserver.desktopManager.lxqt.enable = true;
-	services.open-webui = {
-		enable = false;
-		port = 3000;
-		environment = {
-			OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
-			WEBUI_AUTH = "False";
-		};
-	};
 
 	services.plantuml-server = {
 		enable = false;

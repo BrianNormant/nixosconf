@@ -39,6 +39,15 @@
 		# WMR_HANDTRACKING = "0";
 	};
 
+	services.open-webui = {
+		enable = false; # Still buggy
+		port = 3000;
+		environment = {
+			OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
+			WEBUI_AUTH = "False";
+		};
+	};
+
 	programs.gamemode = {
 		enable = true;
 		settings = {
@@ -53,9 +62,26 @@
 		};
 	};
 
-	# services.ollama.package = (pkgs.ollama.overrideAttrs { enableRocm = true; });
-	services.ollama.acceleration = "rocm";
-	
+	services.ollama = {
+		enable = true;
+		user = "ollama";
+		acceleration = "rocm";
+		rocmOverrideGfx = "11.0.0";
+		loadModels = [
+			"deepseek-r1:14b"
+				"deepseek-r1:32b"
+				"starcoder2:3b"
+		];
+		environmentVariables = {
+			"OLLAMA_ORIGINS" = "*";
+		};
+	};
+
+	services.nextjs-ollama-llm-ui = {
+		enable = true;
+		port = 2999;
+	};
+
 	services.openssh = {
 		enable = true;
 		ports = [ 4269 ];
