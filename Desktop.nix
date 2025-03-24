@@ -2,10 +2,20 @@
 
 {
 	boot.kernelPackages = pkgs.linuxPackages_6_11;
-	boot.kernelPatches = [ {
+	boot.kernelPatches = [
+	{
 		name = "beyondfix";
 		patch = ./beyond.patch;
-	} ];
+	}
+	{
+		name = "amdgpu-ignore-ctx-privileges";
+		patch = pkgs.fetchpatch {
+			name = "cap_sys_nice_begone.patch";
+			url = "https://github.com/Frogging-Family/community-patches/raw/master/linux61-tkg/cap_sys_nice_begone.mypatch";
+			hash = "sha256-Y3a0+x2xvHsfLax/uwycdJf3xLxvVfkfDVqjkxNaYEo=";
+		};
+	}
+	];
 
 	networking.hostName = "BrianNixDesktop"; # Define your hostname.
 
@@ -23,8 +33,9 @@
 	
 	systemd.user.services.monado.environment = {
 		STEAMVR_LH_ENABLE = "1";
+		XRT_COMPOSITOR_DESIRED_MODE = "0"; # 0 for 2560*2560 | 1 for 1920 * 1920
+		XRT_COMPOSITOR_SCALE_PERCENTAGE = "100";
 		# XRT_COMPOSITOR_COMPUTE = "1";
-		# XRT_COMPOSITOR_SCALE_PERCENTAGE = "120";
 		# WMR_HANDTRACKING = "0";
 	};
 
