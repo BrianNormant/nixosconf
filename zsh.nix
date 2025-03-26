@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, ... }:
 {
 	programs.zsh = {
 		enable = true;
@@ -249,7 +249,7 @@ if [[ -n $TMUX ]]; then
 	(( ! ''${+functions[p10k]} )) || p10k finalize
 fi
 
-eval "$(zoxide init zsh)"
+eval "$(${pkgs.zoxide} init zsh)"
 # Function to autoload the correct CURRENT_PLAYER
 function playerctl() {
 	eval `systemctl --user show-environment | grep CURRENT_PLAYER`
