@@ -1,6 +1,4 @@
-{ config, pkgs, ... }:
-
-{
+{ pkgs, pkgs-stable, ...}: {
 	networking.hostName = "BrianNixLaptop"; # Define your hostname.
 	
 	boot.loader.systemd-boot.consoleMode = "max";
