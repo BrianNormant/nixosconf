@@ -74,6 +74,7 @@
 
 	virtualisation.docker.enable = true;
 	networking = {
+		networkmanager.enable = true;
 		firewall.allowedTCPPorts = [ 443 80 22 ];
 		firewall.allowedUDPPorts = [ ];
 		hostName = "BrianNixServer";
