@@ -1,13 +1,13 @@
 { pkgs, pkgs-stable, ...}: {
 	networking.hostName = "BrianNixLaptop"; # Define your hostname.
-	
+
 	boot.loader.systemd-boot.consoleMode = "max";
 	boot.kernelPackages = pkgs.linuxPackages_latest;
 
 	services.fprintd = {
 		enable = true;
 	};
-	
+
 	# Either manage to use ssh as a secondary network
 	# Or open a port and configure network port redirecting
 	services.open-webui = {
@@ -19,20 +19,5 @@
 		};
 	};
 
-	# services.tlp = {
-	# 	enable = true;
-	# 	settings = {
-	# 		CPU_SCALING_GOVERNOR_ON_AC = "performance";
-	# 		CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-	#
-	# 		CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-	# 		CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-	#
-	# 		CPU_MIN_PERF_ON_AC   =  0;
-	# 		CPU_MAX_PERF_ON_AC   =  100;
-	# 		CPU_MIN_PERF_ON_BAT  =  0;
-	# 		CPU_MAX_PERF_ON_BAT  =  20;
-	# 	};
-	# };
 
 }
