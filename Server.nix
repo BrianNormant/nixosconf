@@ -69,7 +69,6 @@
 
 	programs.nh = {
 		enable = true;
-		flake = "github:BrianNormant/nixosconf#BrianNixServer";
 	};
 
 	services.openssh.enable = true;
