@@ -66,6 +66,11 @@
 		};
 	};
 
+	programs.nh = {
+		enable = true;
+		flake = "github:BrianNormant/nixosconf#BrianNixServer";
+	};
+
 	services.openssh.enable = true;
 	services.openssh = {
 		settings.AllowUsers = [ "server" ];
