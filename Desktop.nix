@@ -1,6 +1,4 @@
-{ config, pkgs, ... }:
-
-{
+{ pkgs, pkgs-stable, ...}: {
 	boot.kernelPackages = pkgs.linuxPackages_6_13;
 	boot.kernelPatches = [
 	{
