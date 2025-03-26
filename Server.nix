@@ -26,6 +26,13 @@
 	users.users.server = {
 		isNormalUser = true;
 		extraGroups = [ "wheel" "docker" "kvm" ];
+		shell = pkgs.zsh;
+		packages = with pkgs; [
+			zoxide dust bat lsd
+			tree
+			fastfetch
+			unzip p7zip
+		];
 	};
 
 	programs.neovim = {
