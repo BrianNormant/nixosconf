@@ -32,11 +32,12 @@
 					./zsh.nix
 				];
 			};
-			BrianNixServer = nixpkgs.lib.nixosSystem {
+			BrianNixServer = nixpkgs-stable.lib.nixosSystem {
 				system = "x86_64-linux";
 				specialArgs = { inherit inputs; };
 				modules = [
 					./Server.nix
+					./Server-Services.nix
 					./hardware-Server.nix
 					./zsh.nix
 				];
