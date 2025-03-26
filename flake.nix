@@ -26,6 +26,15 @@
 					./zsh.nix
 				];
 			};
+			BrianNixServer = nixpkgs.lib.nixosSystem {
+				system = "x86_64-linux";
+				specialArgs = { inherit inputs; };
+				modules = [
+					./Server.nix
+					./hardware-Server.nix
+					./zsh.nix
+				];
+			};
 		};
 	};
 }
