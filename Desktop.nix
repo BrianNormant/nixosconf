@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-	boot.kernelPackages = pkgs.linuxPackages_6_11;
+	boot.kernelPackages = pkgs.linuxPackages_6_13;
 	boot.kernelPatches = [
 	{
 		name = "beyondfix";
