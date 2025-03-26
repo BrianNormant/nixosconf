@@ -29,7 +29,7 @@
 		shell = pkgs.zsh;
 		packages = with pkgs; [
 			zoxide dust bat lsd
-			tree
+			tree fzf
 			fastfetch
 			unzip p7zip
 		];
