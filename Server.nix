@@ -32,6 +32,7 @@
 			tree fzf
 			fastfetch
 			unzip p7zip
+			git
 		];
 	};
 
