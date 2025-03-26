@@ -1,7 +1,7 @@
 { inputs, pkgs, ...} : {
 	nix = {
 		settings = {
-			trusted-users = [ "root" "brian" ];
+			trusted-users = [ "root" "brian" "server" ];
 			experimental-features = [ "nix-command" "flakes" ];
 		};
 		registry = {
