@@ -19,5 +19,11 @@
 		};
 	};
 
+	services.openssh = {
+		enable = true;
+		ports = [ 4269 ];
+		settings.AllowUsers = [ "brian" ];
+		settings.PasswordAuthentication = false;
+	};
 
 }
