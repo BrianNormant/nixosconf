@@ -185,7 +185,6 @@ nmcli con up ETSVPN
 	environment.systemPackages = with pkgs; [
 		brightnessctl
 		wget
-		git
 		curl
 		lxqt.lxqt-policykit
 		file
