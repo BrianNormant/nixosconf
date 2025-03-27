@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
 
 	# Webserver
 	security.acme.acceptTerms = true;
@@ -19,7 +19,7 @@
 				enableACME = true;
 			};
 			"portfolio.ggkbrian.com" = {
-				documentRoot = "/var/www/portfolio";
+				documentRoot = inputs.portfolio.packages."x86_64-linux".default;
 				addSSL = true;
 				enableACME = true;
 			};

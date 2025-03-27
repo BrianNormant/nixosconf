@@ -4,6 +4,7 @@
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 		nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 		ce-program.url = "github:myclevorname/nix-calculators";
+		portfolio.url = "github:BrianNormant/portfolio";
 	};
 	outputs = { self, nixpkgs, nixpkgs-stable, neovim-nightly-overlay, ... }@inputs: {
 		nixosConfigurations =
