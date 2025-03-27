@@ -11,7 +11,7 @@
 			system = "x86_64-linux";
 			specialArgs = {
 				inherit inputs;
-				pkgs-stable = import nixpkgs-stable {system = "x86_64-linux";};
+				pkgs-stable = import nixpkgs-stable {inherit system;};
 			};
 		in {
 			BrianNixLaptop = nixpkgs.lib.nixosSystem {
