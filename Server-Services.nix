@@ -7,15 +7,22 @@
 		enable = true;
 		adminAddr = "briannormant@gmail.com";
 		enablePHP = true;
-		virtualHosts."ggkbrian.com" = {
-			documentRoot = "/var/www/main";
-			addSSL = true;
-			enableACME = true;
-		};
-		virtualHosts."tch057.ggkbrian.com" = {
-			documentRoot = "/var/www/tch057";
-			addSSL = true;
-			enableACME = true;
+		virtualHosts = {
+			"ggkbrian.com" = {
+				documentRoot = "/var/www/main";
+				addSSL = true;
+				enableACME = true;
+			};
+			"tch057.ggkbrian.com" = {
+				documentRoot = "/var/www/tch057";
+				addSSL = true;
+				enableACME = true;
+			};
+			"portfolio.ggkbrian.com" = {
+				documentRoot = "/var/www/portfolio";
+				addSSL = true;
+				enableACME = true;
+			};
 		};
 	};
 
