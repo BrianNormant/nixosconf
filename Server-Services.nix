@@ -52,7 +52,7 @@
 							Header always append X-Frame-Options "SAMEORIGIN"
 							Header always set X-XSS-Protection "1; mode=block"
 							Header always set X-Content-Type-Options "nosniff"
-							fastcgi_pass unix:${config.services.phpfpm.pools.portfolio.socket}
+							fastcgi_pass unix: ${config.services.phpfpm.pools.portfolio.socket}
 							fastcgi_index index.php
 						'';
 					};
