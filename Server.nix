@@ -73,7 +73,7 @@
 
 	services.openssh.enable = true;
 	services.openssh = {
-		settings.AllowUsers = [ "server" ];
+		settings.AllowUsers = [ "server" "root" ];
 		settings.PasswordAuthentication = false;
 	};
 
