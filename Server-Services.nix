@@ -49,12 +49,12 @@
 						root = inputs.portfolio.packages."x86_64-linux".portfolio-api + /public;
 						# TODO: configure 404 endpoint
 						extraConfig = ''
-							Header always append X-Frame-Options "SAMEORIGIN"
-							Header always set X-XSS-Protection "1; mode=block"
-							Header always set X-Content-Type-Options "nosniff"
-							fastcgi_pass unix: ${config.services.phpfpm.pools.portfolio.socket}
-							fastcgi_index index.php
+							fastcgi_pass unix:${config.services.phpfpm.pools.portfolio.socket} ;
+							fastcgi_index index.php ;
 						'';
+							# Header always append X-Frame-Options "SAMEORIGIN" ;
+							# Header always set X-XSS-Protection "1; mode=block" ;
+							# Header always set X-Content-Type-Options "nosniff" ;
 					};
 				};
 			};
