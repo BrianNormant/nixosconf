@@ -44,6 +44,7 @@
 			OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
 			WEBUI_AUTH = "False";
 		};
+		openFirewall = true;
 	};
 
 	programs.gamemode = {
@@ -73,11 +74,14 @@
 		environmentVariables = {
 			"OLLAMA_ORIGINS" = "*";
 		};
+		openFirewall = true;
+		host = "0.0.0.0";
 	};
 
 	services.nextjs-ollama-llm-ui = {
 		enable = true;
-		port = 2999;
+		port = 43941;
+		hostname = "0.0.0.0";
 	};
 
 	services.openssh = {
@@ -86,7 +90,7 @@
 		settings.AllowUsers = [ "brian" ];
 		settings.PasswordAuthentication = false;
 	};
-	virtualisation.docker.enable = true;
+	virtualisation.docker.enable = false;
 
 # Games
 	programs.gamescope = {
@@ -131,6 +135,7 @@
 	};
 
 # Special Rules
-	networking.firewall.allowedTCPPorts = [ 4270 4269 ];
+	networking.firewall.enable = true;
+	networking.firewall.allowedTCPPorts = pkgs.lib.mkForce [ 4270 4269 43941 11434 ];
 	networking.firewall.allowedUDPPorts = [ 4270 ];
 }
