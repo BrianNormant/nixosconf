@@ -1,4 +1,7 @@
 {pkgs, inputs, ...}: {
+	# To rebuild the server remotly run: ```
+	# nixos-rebuild switch --flake .#BrianNixServer --target-host RootNixServer
+	# ```
 
 	# Webserver
 	security.acme.acceptTerms = true;

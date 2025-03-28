@@ -11,6 +11,7 @@
         nixpkgs.flake = inputs.nixpkgs;
         ce-program.flake = inputs.ce-program;
     };
+	nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
 	security.polkit.enable = true;
 	security.polkit.extraConfig = builtins.readFile ./corectrl.rules;
