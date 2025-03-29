@@ -45,12 +45,17 @@
 					"/" = {
 						root = inputs.portfolio.packages."x86_64-linux".portfolio-website;
 					};
-					"/api" = {
+					"/api/" = {
 						root = inputs.portfolio.packages."x86_64-linux".portfolio-api + /public;
 						# TODO: configure 404 endpoint
 						extraConfig = ''
+							rewrite ^/api/(.*)$ /$1 break ;
 							fastcgi_pass unix:${config.services.phpfpm.pools.portfolio.socket} ;
 							fastcgi_index index.php ;
+
+							fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+							include ${pkgs.nginx}/conf/fastcgi_params;
+							include ${pkgs.nginx}/conf/fastcgi.conf
 						'';
 							# Header always append X-Frame-Options "SAMEORIGIN" ;
 							# Header always set X-XSS-Protection "1; mode=block" ;
@@ -68,8 +73,20 @@
 			"portfolio" = {
 				user = "nobody";
 				group = "nogroup";
-				phpPackage = pkgs.php.withExtensions ({enabled, all}:
-				enabled ++ [] # example all.imagemagick
+				phpPackage = pkgs.php.withExtensions ({all, ...}:
+				with all; [
+					ctype
+					curl
+					dom
+					fileinfo
+					filter
+					mbstring
+					openssl
+					pdo
+					session
+					tokenizer
+					xml
+				]
 				);
 				settings = {
 					"listen.owner" = config.services.nginx.user;
