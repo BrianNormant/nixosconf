@@ -116,8 +116,8 @@
 			"portfolio" = {
 				user = "portfolio";
 				group = "portfolio";
-				phpPackage = pkgs.php.withExtensions ({all, ...}:
-				with all; [
+				phpPackage = pkgs.php.withExtensions ({all, enabled}:
+				enabled ++ (with all; [
 					ctype
 					curl
 					dom
@@ -129,8 +129,13 @@
 					session
 					tokenizer
 					xml
-				]
+					pgsql
+				])
 				);
+				phpOptions = ''
+					extension=pgsql
+				'';
+
 				settings = {
 					"listen.owner" = config.services.nginx.user;
 					"listen.group" = config.services.nginx.group;
@@ -165,6 +170,12 @@
 		enable = true;
 		enableJIT = true;
 		ensureDatabases = [ "tch057" "portfolio" ];
+		authentication = pkgs.lib.mkForce ''
+		#TYPE    DB        USER      ADDRESS       METHOD
+		host     all       all       127.0.0.1/32  trust
+		host     portfolio portfolio 127.0.0.1/32  trust
+		local    all       all                     trust
+		'';
 		ensureUsers = [
 		{
 			name = "tch057";
