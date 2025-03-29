@@ -41,6 +41,7 @@
 					./Server-Services.nix
 					./hardware-Server.nix
 					./zsh.nix
+					inputs.portfolio.nixosModules.portfolio-api
 				];
 			};
 		};

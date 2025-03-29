@@ -337,11 +337,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1743202892,
-        "narHash": "sha256-PIB1M379NYbZvjlCFoE6j/xQP0n86uCE0DudeReaU9s=",
+        "lastModified": 1743222008,
+        "narHash": "sha256-KZqwj1Kf0OXtBHSuS5p20v3L82ojyaLtWzCHd2yyBMo=",
         "owner": "BrianNormant",
         "repo": "portfolio",
-        "rev": "112bb602e6cf1c010e1a8d1d4dbe57d11f0229a1",
+        "rev": "8c6f8962e4cffaff5374494461b6de3d3b84a27d",
         "type": "github"
       },
       "original": {

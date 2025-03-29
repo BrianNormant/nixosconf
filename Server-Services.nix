@@ -38,28 +38,63 @@
 					root = "/var/www/tch057";
 				};
 			};
+			"localhost" = {
+				listen = [ {
+					addr = "127.0.0.1";
+					port = 8080;
+					ssl = false;
+				} ];
+				root = inputs.portfolio.packages."x86_64-linux".portfolio-api + /public;
+				extraConfig = ''
+					index index.php;
+					error_page 404 /index.php;
+					add_header X-Frame-Options "SAMEORIGIN";
+					add_header X-Content-Type-Options "nosniff";
+				'';
+				locations = {
+					"/" = {
+						tryFiles = "$uri $uri/ /index.php?$query_string";
+					};
+					"= /favicon.ico" = {
+						extraConfig = ''
+							access_log off;
+							log_not_found off;
+						'';
+					};
+					"= /robots.txt" = {
+						extraConfig = ''
+							access_log off;
+							log_not_found off;
+						'';
+					};
+					"~ ^/index\.php(/|$)" = {
+						extraConfig = ''
+							fastcgi_pass unix:${config.services.phpfpm.pools.portfolio.socket} ;
+							# fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+							# include fastcgi_params;
+							fastcgi_hide_header X-Powered-By;
+						'';
+					};
+					# "~ /\.(?!well-known/).*" = {
+					# 	extraConfig = "deny all;";
+					# };
+				};
+
+			};
 			"portfolio.ggkbrian.com" = {
 				addSSL = true;
 				enableACME = true;
 				locations = {
-					"/" = {
-						root = inputs.portfolio.packages."x86_64-linux".portfolio-website;
-					};
 					"/api/" = {
-						root = inputs.portfolio.packages."x86_64-linux".portfolio-api + /public;
-						# TODO: configure 404 endpoint
+						proxyPass = "http://127.0.0.1:8080";
+						recommendedProxySettings = true;
 						extraConfig = ''
 							rewrite ^/api/(.*)$ /$1 break ;
-							fastcgi_pass unix:${config.services.phpfpm.pools.portfolio.socket} ;
-							fastcgi_index index.php ;
-
-							fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-							include ${pkgs.nginx}/conf/fastcgi_params;
-							include ${pkgs.nginx}/conf/fastcgi.conf
 						'';
-							# Header always append X-Frame-Options "SAMEORIGIN" ;
-							# Header always set X-XSS-Protection "1; mode=block" ;
-							# Header always set X-Content-Type-Options "nosniff" ;
+					};
+					"/" = {
+						root = inputs.portfolio.packages."x86_64-linux".portfolio-website;
+						tryFiles = "$uri $uri/ =404";
 					};
 				};
 			};
@@ -67,12 +102,20 @@
 
 	};
 
+
+	services.portfolio-api = {
+		enable = true;
+		portfolio-pkgs = inputs.portfolio.packages."x86_64-linux".portfolio-api;
+		debug = true;
+		domain = "portfolio.ggkbrian.com";
+	};
+
 	# PHP
 	services.phpfpm = {
 		pools = {
 			"portfolio" = {
-				user = "nobody";
-				group = "nogroup";
+				user = "portfolio";
+				group = "portfolio";
 				phpPackage = pkgs.php.withExtensions ({all, ...}:
 				with all; [
 					ctype
