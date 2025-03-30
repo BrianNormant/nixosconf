@@ -171,12 +171,12 @@
 		enableJIT = true;
 		ensureDatabases = [ "tch057" "portfolio" ];
 		authentication = pkgs.lib.mkForce ''
-		#TYPE    DB        USER      ADDRESS       METHOD
-		host     all       all       127.0.0.1/32  trust
-		host     portfolio portfolio 127.0.0.1/32  trust
-		local    all       all                     trust
-		host     all       all       192.168.2.69  trust
-		host     all       all       192.168.2.71  trust
+		#TYPE    DB        USER      ADDRESS          METHOD
+		host     all       all       127.0.0.1/32     trust
+		host     portfolio portfolio 127.0.0.1/32     trust
+		local    all       all                        trust
+		host     all       all       192.168.2.69/32  trust
+		host     all       all       192.168.2.71/32  trust
 		'';
 		ensureUsers = [
 		{
