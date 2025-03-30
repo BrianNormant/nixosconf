@@ -117,9 +117,10 @@
 					port = 5432;
 					ssl = false;
 				} ];
-			location."/" = {
-				proxyPass = "http://192.168.2.72:5432";
-				recommendedProxySettings = true;
+				locations."/" = {
+					proxyPass = "http://192.168.2.72:5432";
+					recommendedProxySettings = true;
+				};
 			};
 		};
 	};
