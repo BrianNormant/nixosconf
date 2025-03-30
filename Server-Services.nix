@@ -175,6 +175,8 @@
 		host     all       all       127.0.0.1/32  trust
 		host     portfolio portfolio 127.0.0.1/32  trust
 		local    all       all                     trust
+		host     all       all       192.168.2.69  trust
+		host     all       all       192.168.2.71  trust
 		'';
 		ensureUsers = [
 		{

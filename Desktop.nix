@@ -28,7 +28,7 @@
 		highPriority = true;
 		defaultRuntime = true;
 	};
-	
+
 	systemd.user.services.monado.environment = {
 		STEAMVR_LH_ENABLE = "1";
 		XRT_COMPOSITOR_DESIRED_MODE = "0"; # 0 for 2560*2560 | 1 for 1920 * 1920
@@ -103,6 +103,25 @@
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
 		# gamescopeSession.enable = false;
+	};
+
+	# Redirect the traffic destined to
+	# the postgres server to the local
+	# Server
+	services.nginx = {
+		enable = true;
+		virtualHosts = {
+			"localhost" = {
+				listen = [ {
+					addr = "127.0.0.1";
+					port = 5432;
+					ssl = false;
+				} ];
+			location."/" = {
+				proxyPass = "http://192.168.2.72:5432";
+				recommendedProxySettings = true;
+			};
+		};
 	};
 
 # Clip last 30 seconds
