@@ -11,11 +11,18 @@ in {
 		colorscheme = "gruvbox-material";
 		luaLoader.enable = true;
 		clipboard.register = "unnamedplus";
-
+		autoCmd = [
+			{
+				command = "!rm /tmp/nvim-startuptime";
+				event = [ "VimLeavePre" ];
+				pattern = [ "*" ];
+			}
+		];
 		plugins = {
 			mini = {
 				enable = true;
 				modules = {
+					pick = {};
 					comment = {
 						mappings = {
 							comment = "gc";
@@ -65,6 +72,12 @@ in {
 					};
 					cursorword = { delay = 200; };
 				};
+				luaConfig.post = ''
+					vim.keymap.set("n", "<space>ff", "<cmd>Pick files<cr>",     {silent = true})
+					vim.keymap.set("n", "<space>fF", "<cmd>Pick grep_live<cr>", {silent = true})
+					vim.keymap.set("n", "<space>fb", "<cmd>Pick buffers<cr>",   {silent = true})
+					vim.keymap.set("n", "<space>fh", "<cmd>Pick help<cr>",      {silent = true})
+				'';
 			};
 		};
 

@@ -13,6 +13,7 @@
 			cd    =  "z";
 			icat  =  "kitty +kitten icat --clear";
 			vim   =  "/run/current-system/sw/bin/vim --startuptime /tmp/nvim-startuptime";
+			nvim  =  "/home/brian/.nix-profile/bin/nvim --startuptime /tmp/nvim-startuptime";
 			lg    =  "lazygit";
 			man   =  "batman";
 			gg    =  "lazygit";
