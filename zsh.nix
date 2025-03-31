@@ -12,9 +12,9 @@
 			ll    =  "lsd -l";
 			cd    =  "z";
 			icat  =  "kitty +kitten icat --clear";
+			vim   =  "/run/current-system/sw/bin/vim --startuptime /tmp/nvim-startuptime";
 			lg    =  "lazygit";
 			man   =  "batman";
-			vim   =  "NVIM_APPNAME=nvim-simple  nvim";
 			gg    =  "lazygit";
 			ggpur = "ggu";
 			g = "git";
