@@ -5,8 +5,12 @@
 		nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
 		ce-program.url = "github:myclevorname/nix-calculators";
 		portfolio.url = "github:BrianNormant/portfolio";
+		nixvim = {
+			url = "github:nix-community/nixvim";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
-	outputs = { self, nixpkgs, nixpkgs-stable, neovim-nightly-overlay, ... }@inputs: {
+	outputs = { self, nixpkgs, nixpkgs-stable, neovim-nightly-overlay, nixvim, ... }@inputs: {
 		nixosConfigurations =
 		let
 			system = "x86_64-linux";
@@ -22,6 +26,8 @@
 					./common.nix
 					./hardware-Laptop.nix
 					./zsh.nix
+					nixvim.nixosModules.default
+					./nixvim.nix
 				];
 			};
 			BrianNixDesktop = nixpkgs.lib.nixosSystem {
@@ -31,6 +37,8 @@
 					./common.nix
 					./hardware-Desktop.nix
 					./zsh.nix
+					nixvim.nixosModules.default
+					./nixvim.nix
 				];
 			};
 			BrianNixServer = nixpkgs-stable.lib.nixosSystem {
@@ -42,6 +50,8 @@
 					./hardware-Server.nix
 					./zsh.nix
 					inputs.portfolio.nixosModules.portfolio-api
+					nixvim.nixosModules.default
+					./nixvim.nix
 				];
 			};
 		};

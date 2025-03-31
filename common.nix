@@ -249,9 +249,8 @@ nmcli con up ETSVPN
 	};
 	services.hypridle.enable = true;
 
-
 	programs.neovim = {
-		enable = true;
+		enable = false;
 		defaultEditor = true;
 		viAlias = true;
 		vimAlias = true;
