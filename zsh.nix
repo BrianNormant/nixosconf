@@ -5,6 +5,7 @@
 		autosuggestions.enable = true;
 		syntaxHighlighting.enable = true;
 		shellAliases = {
+			flake-init = "nix flake init -t github:BrianNormant/nixosconf";
 			du = "dust";
 			rimsort = "nix run github:vinnymeller/nixpkgs/init-rimsort#rimsort --extra-experimental-features 'nix-command flakes' --impure";
 			ls    =  "lsd";

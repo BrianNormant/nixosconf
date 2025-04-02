@@ -55,5 +55,13 @@
 				];
 			};
 		};
+		templates.default = {
+			path = ./template.nix;
+			description = ''
+				A template for a nixos configuration.
+				with flake-parts
+				and a default TMUX script for dev-env
+			'';
+		};
 	};
 }
