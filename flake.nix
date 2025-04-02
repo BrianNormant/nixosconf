@@ -56,7 +56,7 @@
 			};
 		};
 		templates.default = {
-			path = ./template.nix;
+			path = ./template;
 			description = ''
 				A template for a nixos configuration.
 				with flake-parts
