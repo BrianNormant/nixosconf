@@ -21,6 +21,7 @@
 					];
 					shellHook = ''
 						export SHELL=zsh
+						export PROJECT="${project_name}"
 						SESSION_NAME="${project_name}"
 						DEV_DIR=$PWD
 
