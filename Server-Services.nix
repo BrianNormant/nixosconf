@@ -190,4 +190,4 @@
 		];
 		initialScript = txt;
 	};
-}
+
