@@ -147,6 +147,7 @@ nmcli con up ETSVPN
 			tldr
 			dust
 			bat bat-extras.batman
+			duf
 			tree
 
 			vifm
