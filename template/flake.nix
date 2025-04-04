@@ -14,11 +14,23 @@
 			];
 			systems = ["x86_64-linux"];
 			perSystem = {config, pkgs, system, ... }: {
+				devShells.editor = pkgs.mkShell {
+					# the editor session with deps needed to
+					# build, run and test
+					packages = with pkgs; [
+						zsh
+					];
+					shellHook = ''
+						export SHELL=zsh
+						export PROJECT="${project_name}"
+					'';
+				};
 				devShells.default = pkgs.mkShell {
 					packages = with pkgs; [
 						zsh
 						tmux
 					];
+					# Create a new tmux session for this project
 					shellHook = ''
 						export SHELL=zsh
 						export PROJECT="${project_name}"
@@ -41,7 +53,7 @@
 
 						tmux new-session -d -c "~" -s $SESSION_NAME
 
-						tmux respawn-window -k -t $SESSION_NAME:1 -c $DEV_DIR "nix develop ."
+						tmux respawn-window -k -t $SESSION_NAME:1 -c $DEV_DIR "nix develop .#editor"
 						tmux rename-window -t $SESSION_NAME:1 "nvim"
 
 						tmux new-window -t $SESSION_NAME:2 -n "git" -c $DEV_DIR "lazygit"
