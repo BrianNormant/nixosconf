@@ -251,6 +251,11 @@ if [[ -n $TMUX ]]; then
 	(( ! ''${+functions[p10k]} )) || p10k finalize
 fi
 
+if [[ -n $NEOVIDE ]]; then
+	# When in neovide, we can't use tmux popup
+	zstyle ':fzf-tab:*' fzf-command fzf
+fi
+
 eval "$(zoxide init zsh)"
 # Function to autoload the correct CURRENT_PLAYER
 function playerctl() {
