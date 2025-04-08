@@ -215,6 +215,24 @@ nmcli con up ETSVPN
 		mplus-outline-fonts.githubRelease
 		# dina-font
 		# proggyfonts
+		# https://github.com/rbong/flog-symbols/tree/v1.1.0
+		(pkgs.stdenv.mkDerivation rec {
+			pname = "flog-symbols";
+			version = "v1.1.0";
+			installPhase = ''
+				runHook preInstall
+
+				install -Dm644 -t $out/share/fonts/truetype ./FlogSymbols.ttf
+
+				runHook postInstall
+			'';
+			src = pkgs.fetchFromGitHub {
+				owner = "rbong";
+				repo = "flog-symbols";
+				tag = version;
+				hash = "sha256-kGk1I3u9MT3E/yalNaNhopsItKsomcBfsoUUiccE+Tw=";
+			};
+		})
 	];
 
 # Programs enabled
