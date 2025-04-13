@@ -25,9 +25,8 @@
 					./Laptop.nix
 					./common.nix
 					./hardware-Laptop.nix
-					./zsh.nix
-					nixvim.nixosModules.default
 					./nixvim.nix
+					nixvim.nixosModules.default
 				];
 			};
 			BrianNixDesktop = nixpkgs.lib.nixosSystem {
@@ -36,9 +35,8 @@
 					./Desktop.nix
 					./common.nix
 					./hardware-Desktop.nix
-					./zsh.nix
-					nixvim.nixosModules.default
 					./nixvim.nix
+					nixvim.nixosModules.default
 				];
 			};
 			BrianNixServer = nixpkgs-stable.lib.nixosSystem {
@@ -48,10 +46,9 @@
 					./Server.nix
 					./Server-Services.nix
 					./hardware-Server.nix
-					./zsh.nix
+					./nixvim.nix
 					inputs.portfolio.nixosModules.portfolio-api
 					nixvim.nixosModules.default
-					./nixvim.nix
 				];
 			};
 		};
