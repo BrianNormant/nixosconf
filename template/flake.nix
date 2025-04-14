@@ -14,15 +14,20 @@
 			];
 			systems = ["x86_64-linux"];
 			perSystem = {config, pkgs, system, ... }: {
-				devShells.editor = pkgs.mkShell {
+				devShells.editor = pkgs.mkShell rec {
 					# the editor session with deps needed to
 					# build, run and test
 					packages = with pkgs; [
 						zsh
 					];
+					zshCmds = pkgs.lib.concatStringsSep ";" [
+						# Put the command to execute in the shell here
+						"neo"
+					];
 					shellHook = ''
-						export SHELL=zsh
 						export PROJECT="${project_name}"
+						export CMD="${zshCmds}"
+						exec zsh
 					'';
 				};
 				devShells.default = pkgs.mkShell {
