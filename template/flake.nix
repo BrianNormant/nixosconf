@@ -22,11 +22,12 @@
 					];
 					zshCmds = pkgs.lib.concatStringsSep ";" [
 						# Put the command to execute in the shell here
-						"neo"
+						"neo" # We run an alias that's create a neovide window below our window
 					];
 					shellHook = ''
 						export PROJECT="${project_name}"
-						export CMD="${zshCmds}"
+						export SHELL=zsh
+						export CMD="${zshCmds};unset CMD"
 						exec zsh
 					'';
 				};

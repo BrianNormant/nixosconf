@@ -68,8 +68,8 @@
 		rocmOverrideGfx = "11.0.0";
 		loadModels = [
 			"deepseek-r1:14b"
-				"gemma3:27b"
-				"dolphin-mistral"
+			"gemma3:27b"
+			"dolphin-mistral"
 		];
 		environmentVariables = {
 			"OLLAMA_ORIGINS" = "*";
