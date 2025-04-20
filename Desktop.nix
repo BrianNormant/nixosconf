@@ -61,6 +61,31 @@
 		};
 	};
 
+	systemd.tmpfiles.settings = {
+		"10-nvimpreview" = {
+			"/var/lib/nvimpreview" = {
+				d = {
+					group = "nginx";
+					user = "nginx";
+					mode = "0666";
+				};
+			};
+		};
+	};
+
+	services.nginx = {
+		enable = true;
+		virtualHosts = {
+			"localhost" = {
+				addSSL = false;
+				enableACME = false;
+				locations."/" = {
+					root = "/var/lib/nvimpreview";
+				};
+			};
+		};
+	};
+
 	services.ollama = {
 		enable = true;
 		user = "ollama";
@@ -103,26 +128,6 @@
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
 		# gamescopeSession.enable = false;
-	};
-
-	# Redirect the traffic destined to
-	# the postgres server to the local
-	# Server
-	services.nginx = {
-		enable = true;
-		virtualHosts = {
-			"localhost" = {
-				listen = [ {
-					addr = "127.0.0.1";
-					port = 5432;
-					ssl = false;
-				} ];
-				locations."/" = {
-					proxyPass = "http://192.168.2.72:5432";
-					recommendedProxySettings = true;
-				};
-			};
-		};
 	};
 
 # Clip last 30 seconds
