@@ -67,7 +67,7 @@
 				d = {
 					group = "nginx";
 					user = "nginx";
-					mode = "0666";
+					mode = "0777";
 				};
 			};
 		};

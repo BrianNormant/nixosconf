@@ -167,7 +167,7 @@ nmcli con up ETSVPN
 			prismlauncher
 
 			winetricks
-			wineWowPackages.wayland
+			wineWowPackages.stableFull
 
             gtk-engine-murrine
 			clearlooks-phenix
