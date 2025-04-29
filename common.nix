@@ -39,16 +39,17 @@
 
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-	# for gradle and jdtls
-	programs.nix-ld.enable = true;
-	# programs.nix-ld.libraries = with pkgs; [
-	# 	# For java swing
-	# 	fontconfig
-	# 	noto-fonts
-	# 	# for zutty
-	# 	ucs-fonts
-	# 	xorg.libxcb
-	# ];
+	programs.nix-ld = {
+		enable = false;
+		libraries = with pkgs; [
+			# For java swing
+			# fontconfig
+			# noto-fonts
+			# for zutty
+			# ucs-fonts
+			# xorg.libxcb
+		];
+	};
 
 # Pick only one of the below networking options.
 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -84,7 +85,13 @@ nmcli con up ETSVPN
 	i18n.defaultLocale = "en_US.UTF-8";
 
 # Enable CUPS to print documents.
-	services.printing.enable = true;
+	services.printing = {
+		enable = true;
+		drivers = with pkgs; [
+			cups-brother-mfcl2750dw
+		];
+	};
+
 	services.avahi = {
 		enable = true;
 		nssmdns4 = true;
