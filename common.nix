@@ -220,10 +220,23 @@ nmcli con up ETSVPN
 		# noto-fonts-emoji
 		# liberation_ttf
 		fira-code
+		victor-mono
 		nerd-fonts.fira-code
 		mplus-outline-fonts.githubRelease
 		# dina-font
 		# proggyfonts
+		(pkgs.stdenv.mkDerivation {
+			pname = "cedarville-cursive";
+			version = "1.0.1";
+			src = ./cedarville-cursive;
+			installPhase = ''
+				runHook preInstall
+
+				install -Dm644 -t $out/share/fonts/truetype ./*.ttf
+
+				runHook postInstall
+			'';
+		})
 		# https://github.com/rbong/flog-symbols/tree/v1.1.0
 		(pkgs.stdenv.mkDerivation rec {
 			pname = "flog-symbols";
