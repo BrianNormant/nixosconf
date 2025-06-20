@@ -131,32 +131,8 @@
 	};
 
 # Clip last 30 seconds
-	users.users.brian.packages =
-		let gpu-screen-recorder = pkgs.gpu-screen-recorder.overrideAttrs (final: self: {
-			postInstall = ''
-			install -Dt $out/bin gpu-screen-recorder gsr-kms-server
-			mkdir $out/bin/.wrapped
-			mv $out/bin/gpu-screen-recorder $out/bin/.wrapped/
-			makeWrapper "$out/bin/.wrapped/gpu-screen-recorder" "$out/bin/gpu-screen-recorder" \
-			--prefix LD_LIBRARY_PATH : ${pkgs.libglvnd}/lib \
-			--suffix PATH : $out/bin
-			'';
-		}); in [ gpu-screen-recorder ];
-	security.wrappers."gsr-kms-server" =
-		let gpu-screen-recorder = pkgs.gpu-screen-recorder.overrideAttrs (final: self: {
-			postInstall = ''
-			install -Dt $out/bin gpu-screen-recorder gsr-kms-server
-			mkdir $out/bin/.wrapped
-			mv $out/bin/gpu-screen-recorder $out/bin/.wrapped/
-			makeWrapper "$out/bin/.wrapped/gpu-screen-recorder" "$out/bin/gpu-screen-recorder" \
-			--prefix LD_LIBRARY_PATH : ${pkgs.libglvnd}/lib \
-			--suffix PATH : $out/bin
-			'';
-		}); in {
-		owner = "root";
-		group = "root";
-		capabilities = "cap_sys_admin+ep";
-		source = "${gpu-screen-recorder}/bin/gsr-kms-server";
+	programs.gpu-screen-recorder = {
+		enable = true;
 	};
 
 # Special Rules
