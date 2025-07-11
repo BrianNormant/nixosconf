@@ -1,5 +1,5 @@
 { pkgs, pkgs-stable, ...}: {
-	boot.kernelPackages = pkgs.linuxPackages_6_13;
+	boot.kernelPackages = pkgs.linuxPackages_6_15;
 	boot.kernelPatches = [
 	{
 		name = "beyondfix";
@@ -20,6 +20,10 @@
 # For logitech G29
 	hardware.new-lg4ff.enable = true;
 	hardware.usb-modeswitch.enable = true;
+	hardware.amdgpu.overdrive = {
+		enable = true;
+		ppfeaturemask = "0xffffffff";
+	};
 
 # Bg running services and daemons
 	services.monado = {

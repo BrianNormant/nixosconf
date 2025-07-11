@@ -183,10 +183,6 @@ nmcli con up ETSVPN
 
 	programs.corectrl = {
 		enable = true;
-		gpuOverclock = {
-			enable = true;
-			ppfeaturemask = "0xffffffff";
-		};
 	};
 
 	programs.zsh.enable = true;
