@@ -262,9 +262,6 @@ function playerctl() {
 	eval `systemctl --user show-environment | grep CURRENT_PLAYER`
 	env playerctl -p "$CURRENT_PLAYER" $*
 }
-
-export ELECTRON_OZONE_PLATFORM_HINT=wayland
-export NIXOS_OZONE_WL=1
 '';
 	};
 }

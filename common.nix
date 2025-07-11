@@ -140,7 +140,6 @@ nmcli con up ETSVPN
 		shell = pkgs.zsh;
 		packages = with pkgs; [
 # Burautique
-			onlyoffice-bin
 			pavucontrol
 			hyprpaper hyprshot hyprlock hypridle# Window manager
 			cmus yt-dlp # picard # Music player, downloader and tagging
@@ -193,10 +192,9 @@ nmcli con up ETSVPN
 		brightnessctl
 		wget
 		curl
-		lxqt.lxqt-policykit
 		file
 		acpi
-		unzip
+		zip unzip
 		p7zip
 		unrar
 		fastfetch # Extrement important!!!
@@ -208,6 +206,7 @@ nmcli con up ETSVPN
 		python3
 		usb-modeswitch
 		jq
+		killall
 	];
 
 	fonts.packages = with pkgs; [
@@ -266,7 +265,6 @@ nmcli con up ETSVPN
 	services.gvfs.enable = true;
 	services.power-profiles-daemon.enable = true;
 	services.upower.enable = true;
-	services.xserver.desktopManager.lxqt.enable = true;
 
 	services.plantuml-server = {
 		enable = false;
@@ -316,8 +314,6 @@ nmcli con up ETSVPN
 			};
 		};
 	};
-
-	# environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Hint electron to use wayland:
 
 	nixpkgs.config.packageOverrides = pkgs: {
 		steam = pkgs.steam.override {
