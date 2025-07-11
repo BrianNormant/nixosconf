@@ -136,8 +136,13 @@
 
 # Clip last 30 seconds
 	programs.gpu-screen-recorder = {
+		package = pkgs.gpu-screen-recorder;
 		enable = true;
 	};
+	environment.systemPackages = with pkgs; [
+		gpu-screen-recorder
+		gpu-screen-recorder-gtk
+	];
 
 # Special Rules
 	networking.firewall.enable = true;
