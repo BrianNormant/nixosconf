@@ -36,9 +36,8 @@
 	systemd.user.services.monado.environment = {
 		STEAMVR_LH_ENABLE = "1";
 		XRT_COMPOSITOR_DESIRED_MODE = "0"; # 0 for 2560*2560 | 1 for 1920 * 1920
-		XRT_COMPOSITOR_SCALE_PERCENTAGE = "100";
-		# XRT_COMPOSITOR_COMPUTE = "1";
-		# WMR_HANDTRACKING = "0";
+		# XRT_COMPOSITOR_SCALE_PERCENTAGE = "100";
+		XRT_COMPOSITOR_COMPUTE = "1";
 	};
 
 	services.open-webui = {
