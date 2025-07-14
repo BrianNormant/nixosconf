@@ -282,6 +282,9 @@ nmcli con up ETSVPN
 	programs.hyprland = {
 		enable = true;
 	};
+	programs.niri = {
+		enable = true;
+	};
 	services.hypridle.enable = true;
 
 	programs.neovim = {
