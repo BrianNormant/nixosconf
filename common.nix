@@ -161,7 +161,6 @@ nmcli con up ETSVPN
 			gh glab # Github and gitlab CLI tool
 #Other
 			copyq # clipboard manager
-			dunst # notification daemom
 			wob   # Ligthweight overlay to show volume changes
 			playerctl
 			appimage-run
@@ -173,7 +172,9 @@ nmcli con up ETSVPN
 			prismlauncher
 
 			winetricks
-			wineWowPackages.stableFull
+			# wine wine64
+			wineWowPackages.waylandFull
+			wineWow64Packages.waylandFull
 
             gtk-engine-murrine
 			clearlooks-phenix

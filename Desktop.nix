@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, ...}: {
+{ config, pkgs, pkgs-stable, ...}: {
 	boot.kernelPackages = pkgs.linuxPackages_6_15;
 	boot.kernelPatches = [
 	{
@@ -15,6 +15,14 @@
 	}
 	];
 
+	users.users.brian.packages = with pkgs; [
+		wayvr-dashboard
+	];
+	environment.variables = {
+		# necessary for wayvr-dashboard to find the monado runtime
+		# might help some other vr games?
+		XR_RUNTIME_JSON = "${pkgs.monado}/share/openxr/1/openxr_monado.json";
+	};
 	networking.hostName = "BrianNixDesktop"; # Define your hostname.
 
 # For logitech G29
@@ -23,6 +31,9 @@
 	hardware.amdgpu.overdrive = {
 		enable = true;
 		ppfeaturemask = "0xffffffff";
+	};
+	services.input-remapper = {
+		enable = true;
 	};
 
 # Bg running services and daemons
@@ -39,6 +50,8 @@
 		# XRT_COMPOSITOR_SCALE_PERCENTAGE = "100";
 		XRT_COMPOSITOR_COMPUTE = "1";
 	};
+
+	
 
 	services.open-webui = {
 		enable = false; # Still buggy
@@ -73,6 +86,77 @@
 					mode = "0777";
 				};
 			};
+		};
+		"11-vr" = {
+			"${config.users.users.brian.home}/OpenComposite" = {
+				L = {
+					group = "users";
+					user = "brian";
+					mode = "0444";
+					argument = "${pkgs.opencomposite}/lib/opencomposite";
+				};
+			};
+			"${config.users.users.brian.home}/Xrizer" = {
+				L = {
+					group = "users";
+					user = "brian";
+					mode = "0444";
+					argument = "${pkgs.xrizer}/lib/xrizer";
+				};
+			};
+			"${config.users.users.brian.home}/.config/openxr/1/active_runtime-monado.json" = {
+				f = {
+					group = "users";
+					user = "brian";
+					mode = "0444";
+					argument = ''
+{
+	"file_format_version": "1.0.0",
+		"runtime": {
+			"name": "Monado",
+			"library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
+		}
+}
+					'';
+				};
+			};
+			"${config.users.users.brian.home}/.config/openxr/1/active_runtime-steam.json" = {
+				L = {
+					group = "users";
+					user = "brian";
+					mode = "0444";
+					argument = "/home/brian/.local/share/Steam/steamapps/common/SteamVR/steamxr_linux64.json";
+				};
+			};
+			"${config.users.users.brian.home}/.config/openvr/openvrpaths.vrpath" = {
+				f = {
+					group = "users";
+					user = "brian";
+					mode = "0444";
+					argument = ''
+{
+	"config" : 
+	[
+		"/home/brian/.local/share/Steam/config"
+	],
+	"external_drivers" : 
+	[
+		"/home/brian/GamesSSD/SteamLibrary/steamapps/common/Bigscreen Beyond Driver"
+	],
+	"jsonid" : "vrpathreg",
+	"log" : 
+	[
+		"/home/brian/.local/share/Steam/logs"
+	],
+	"runtime" : 
+	[
+		"/home/brian/Xrizer/"
+	],
+	"version" : 1
+}
+						'';
+					};
+				};
 		};
 	};
 
@@ -130,6 +214,9 @@
 		enable = true;
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
+		extraCompatPackages = with pkgs; [
+			proton-ge-bin
+		];
 		# gamescopeSession.enable = false;
 	};
 
