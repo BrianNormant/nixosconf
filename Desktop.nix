@@ -36,6 +36,11 @@
 		enable = true;
 	};
 
+# For bigscreen beyond
+	services.udev.extraRules = ''
+		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="35bd", ATTRS{idProduct}=="0101", MODE="0666"
+	'';
+
 # Bg running services and daemons
 	services.monado = {
 		package = pkgs.monado;
@@ -47,7 +52,7 @@
 	systemd.user.services.monado.environment = {
 		STEAMVR_LH_ENABLE = "1";
 		XRT_COMPOSITOR_DESIRED_MODE = "0"; # 0 for 2560*2560 | 1 for 1920 * 1920
-		# XRT_COMPOSITOR_SCALE_PERCENTAGE = "100";
+		XRT_COMPOSITOR_SCALE_PERCENTAGE = "100";
 		XRT_COMPOSITOR_COMPUTE = "1";
 	};
 
@@ -228,6 +233,7 @@
 	environment.systemPackages = with pkgs; [
 		gpu-screen-recorder
 		gpu-screen-recorder-gtk
+		protontricks
 	];
 
 # Special Rules
