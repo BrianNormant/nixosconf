@@ -26,6 +26,13 @@
 		extraPackages = with pkgs; [ libvdpau-va-gl libvdpau ];
 	};
 
+	documentation = {
+		man = {
+			enable = true;
+			generateCaches = true;
+		};
+	};
+
 	security = {
 		sudo.enable = true;
 		doas.enable = true;
