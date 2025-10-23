@@ -1,9 +1,13 @@
 { config, pkgs, pkgs-stable, ...}: {
-	boot.kernelPackages = pkgs.linuxPackages_6_16;
+	boot.kernelPackages = pkgs.linuxPackages_6_17;
 	boot.kernelPatches = [
 	{
-		name = "beyondfix";
-		patch = ./beyond.patch;
+		name = "parse-drm-edid-bpp-target";
+		patch = ./0001-drm-edid-parse-DRM-VESA-dsc-bpp-target.patch;
+	}
+	{
+		name = "use-fixed-dsc-bits-per-pixel-from-edid";
+		patch = ./0002-drm-amd-use-fixed-dsc-bits-per-pixel-from-edid.patch;
 	}
 	{
 		name = "amdgpu-ignore-ctx-privileges";
@@ -184,9 +188,7 @@
 		acceleration = "rocm";
 		rocmOverrideGfx = "11.0.0";
 		loadModels = [
-			"deepseek-r1:14b"
 			"gemma3:27b"
-			"dolphin-mistral"
 		];
 		environmentVariables = {
 			"OLLAMA_ORIGINS" = "*";
