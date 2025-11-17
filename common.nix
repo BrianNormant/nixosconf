@@ -33,6 +33,10 @@
 		};
 	};
 
+	virtualisation.docker = {
+		enable = true;
+	};
+
 	security = {
 		sudo.enable = true;
 		doas.enable = true;
@@ -138,11 +142,11 @@ nmcli con up ETSVPN
 		isNormalUser = true;
 		extraGroups = [
 			"wheel"
-				"docker"
-				"kvm"
-				"adbusers"
-				"gamemode"
-				"ollama"
+			"docker"
+			"kvm"
+			"adbusers"
+			"gamemode"
+			"ollama"
 		];
 		shell = pkgs.zsh;
 		packages = with pkgs; [
@@ -184,8 +188,11 @@ nmcli con up ETSVPN
 			wineWowPackages.waylandFull
 			wineWow64Packages.waylandFull
 
-            gtk-engine-murrine
+			gtk-engine-murrine
 			clearlooks-phenix
+
+			winapps
+			winapps-launcher
 		];
 	};
 

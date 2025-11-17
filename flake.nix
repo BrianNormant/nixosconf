@@ -5,18 +5,29 @@
 		ce-program.url = "github:myclevorname/nix-calculators";
 		nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
 		portfolio.url = "github:BrianNormant/portfolio";
+		winapps.url = "github:winapps-org/winapps";
 		nixvim = {
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
-	outputs = { self, nixpkgs, nixpkgs-stable, nixvim, nixpkgs-xr,  ... }@inputs: {
+	outputs = {nixpkgs, nixpkgs-stable, nixvim, nixpkgs-xr, winapps, ... }@inputs: {
 		nixosConfigurations =
 		let
 			system = "x86_64-linux";
 			specialArgs = {
 				inherit inputs;
 				pkgs-stable = import nixpkgs-stable {inherit system;};
+			};
+			overlays = inputs: {
+				nixpkgs = {
+					overlays = [
+						(final: prev: {
+							inherit (winapps.packages.${system}) winapps;
+							inherit (winapps.packages.${system}) winapps-launcher;
+						})
+					];
+				};
 			};
 		in {
 			BrianNixLaptop = nixpkgs.lib.nixosSystem {
@@ -27,6 +38,7 @@
 					./hardware-Laptop.nix
 					./nixvim.nix
 					nixvim.nixosModules.default
+					overlays
 				];
 			};
 			BrianNixDesktop = nixpkgs.lib.nixosSystem {
@@ -38,6 +50,7 @@
 					./nixvim.nix
 					nixvim.nixosModules.default
 					nixpkgs-xr.nixosModules.nixpkgs-xr
+					overlays
 				];
 			};
 			BrianNixServer = nixpkgs-stable.lib.nixosSystem {

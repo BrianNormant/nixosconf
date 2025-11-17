@@ -209,7 +209,6 @@
 		settings.AllowUsers = [ "brian" ];
 		settings.PasswordAuthentication = false;
 	};
-	virtualisation.docker.enable = false;
 
 # Games
 	programs.gamescope = {
