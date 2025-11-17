@@ -149,7 +149,8 @@ nmcli con up ETSVPN
 # Burautique
 			pavucontrol
 			hyprpaper hyprshot hyprlock hypridle# Window manager
-			cmus yt-dlp # picard # Music player, downloader and tagging
+			# cmus
+			yt-dlp # picard # Music player, downloader and tagging
 			vlc
 			discord
 			btop
