@@ -38,7 +38,7 @@
 			enable = true;
 		};
 		oci-containers.backend = "docker";
-		oci-containers.containers."winapps" = {
+		oci-containers.containers."WinApps" = {
 			image = "ghcr.io/dockur/windows:latest";
 			environment = {
 				VERSION = "11";
@@ -226,6 +226,7 @@ nmcli con up ETSVPN
 
 			winapps
 			winapps-launcher
+			freerdp
 		];
 	};
 
