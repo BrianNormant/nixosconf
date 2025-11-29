@@ -9,7 +9,6 @@
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 	nix.registry = {
         nixpkgs.flake = inputs.nixpkgs;
-        ce-program.flake = inputs.ce-program;
     };
 	nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
