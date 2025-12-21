@@ -7,9 +7,6 @@ vim.cmd [[
 	hi FloatTitle  ctermfg=208 ctermbg=236 guifg=#e78a4e guibg=#32302f cterm=bold
 ]]
 
-require('nvim-startup').setup {}
-
-
 -- Default nvim settings
 vim.opt.laststatus = 3
 vim.opt.scrolloff = 5

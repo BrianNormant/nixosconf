@@ -1,8 +1,6 @@
-{ pkgs, lib, config, inputs, ... }:
+{ pkgs, ... }:
 let
-	helpers = config.lib.nixvim;
 	inherit (pkgs.vimUtils) buildVimPlugin;
-	inherit (pkgs) fetchFromGitHub;
 	inherit (pkgs) fetchgit;
 in {
 	programs.nixvim = {
@@ -83,16 +81,7 @@ in {
 
 		extraPlugins = with pkgs.vimPlugins; [
 			gruvbox-material-nvim
-			(buildVimPlugin rec {
-				pname = "nvim-startup";
-				version = "v0.6.0";
-				src = fetchgit {
-					url = "https://git.sr.ht/~henriquehbr/nvim-startup.lua";
-					tag = version;
-					hash = "sha256-96XvHPUzFN7ehUXTV+0+dBPdVej+57icuECRVYMqZaA";
-				};
-			})
 		];
-		extraConfigLua = builtins.readFile ./nixvim.lua;
+		extraConfigLua = builtins.readFile ./config-files/nixvim.lua;
 	};
 }

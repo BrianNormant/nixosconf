@@ -1,5 +1,5 @@
 { config, pkgs, pkgs-stable, ...}: {
-	boot.kernelPackages = pkgs.linuxPackages_6_17;
+	boot.kernelPackages = pkgs.linuxPackages_7_17;
 	boot.kernelPatches = [
 	{
 		name = "parse-drm-edid-bpp-target";
@@ -41,9 +41,6 @@
 	};
 
 # For bigscreen beyond
-	services.udev.extraRules = ''
-		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="35bd", ATTRS{idProduct}=="0101", MODE="0666"
-	'';
 
 # Bg running services and daemons
 	services.monado = {
@@ -87,15 +84,6 @@
 	};
 
 	systemd.tmpfiles.settings = {
-		"10-nvimpreview" = {
-			"/var/lib/nvimpreview" = {
-				d = {
-					group = "nginx";
-					user = "nginx";
-					mode = "0777";
-				};
-			};
-		};
 		"11-vr" = {
 			"${config.users.users.brian.home}/OpenComposite" = {
 				L = {
@@ -169,19 +157,6 @@
 		};
 	};
 
-	services.nginx = {
-		enable = true;
-		virtualHosts = {
-			"localhost" = {
-				addSSL = false;
-				enableACME = false;
-				locations."/" = {
-					root = "/var/lib/nvimpreview";
-				};
-			};
-		};
-	};
-
 	services.ollama = {
 		enable = true;
 		user = "ollama";
@@ -218,10 +193,29 @@
 
 	programs.steam = {
 		enable = true;
+		package = pkgs.steam.override {
+			extraPkgs = pkgs: with pkgs; [
+				xorg.libXcursor
+				xorg.libXi
+				xorg.libXinerama
+				xorg.libXScrnSaver
+				libpng
+				libpulseaudio
+				libvorbis
+				stdenv.cc.cc.lib
+				libkrb5
+				keyutils
+				libxml2
+				mangohud
+				SDL2
+				gamescope
+			];
+		};
 		remotePlay.openFirewall = true;
 		dedicatedServer.openFirewall = true;
 		extraCompatPackages = with pkgs; [
 			proton-ge-bin
+			gamescope
 		];
 		# gamescopeSession.enable = false;
 	};

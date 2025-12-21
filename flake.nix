@@ -1,7 +1,6 @@
 {
 	inputs = {
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-		nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 		nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
 		portfolio.url = "github:BrianNormant/portfolio";
 		winapps.url = "github:winapps-org/winapps";
@@ -10,68 +9,30 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
-	outputs = {nixpkgs, nixpkgs-stable, nixvim, nixpkgs-xr, winapps, ... }@inputs: {
+	outputs = inputs@{nixpkgs, ... }: {
 		nixosConfigurations =
 		let
 			system = "x86_64-linux";
-			specialArgs = {
-				inherit inputs;
-				pkgs-stable = import nixpkgs-stable {inherit system;};
-			};
-			overlays = inputs: {
+			overlays = i: {
 				nixpkgs = {
 					overlays = [
 						(final: prev: {
-							inherit (winapps.packages.${system}) winapps;
-							inherit (winapps.packages.${system}) winapps-launcher;
+							inherit (inputs.winapps.packages.${system}) winapps;
+							inherit (inputs.winapps.packages.${system}) winapps-launcher;
 						})
+						(import ./custom-pkgs/flog-symbols.nix)
+						(import ./custom-pkgs/cedarville-cursive.nix)
 					];
 				};
 			};
-		in {
-			BrianNixLaptop = nixpkgs.lib.nixosSystem {
-				inherit system; inherit specialArgs;
-				modules = [
-					./Laptop.nix
-					./common.nix
-					./hardware-Laptop.nix
-					./nixvim.nix
-					nixvim.nixosModules.default
-					overlays
-				];
+			mkNixos = {user, hostname, modules}: nixpkgs.lib.nixosSystem {
+				inherit system modules;
+				specialArgs = { main-user = user; inherit hostname; };
 			};
-			BrianNixDesktop = nixpkgs.lib.nixosSystem {
-				inherit system; inherit specialArgs;
-				modules = [
-					./Desktop.nix
-					./common.nix
-					./hardware-Desktop.nix
-					./nixvim.nix
-					nixvim.nixosModules.default
-					nixpkgs-xr.nixosModules.nixpkgs-xr
-					overlays
-				];
-			};
-			BrianNixServer = nixpkgs-stable.lib.nixosSystem {
-				system = "x86_64-linux";
-				specialArgs = { inherit inputs; };
-				modules = [
-					./Server.nix
-					./Server-Services.nix
-					./hardware-Server.nix
-					./nixvim.nix
-					inputs.portfolio.nixosModules.portfolio-api
-					nixvim.nixosModules.default
-				];
-			};
-		};
-		templates.default = {
-			path = ./template;
-			description = ''
-				A template for a nixos configuration.
-				with flake-parts
-				and a default TMUX script for dev-env
-			'';
+		in import ./configuration.nix {
+			inherit mkNixos;
+			inherit inputs;
+			inherit overlays;
 		};
 	};
 }
