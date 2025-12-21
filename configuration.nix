@@ -13,7 +13,6 @@ let cm = [
 	./common-config/print.nix
 	./common-config/security.nix
 	./common-config/services.nix
-	./common-config/tty.nix
 	./common-config/users.nix
 	./common-config/winapps.nix
 
