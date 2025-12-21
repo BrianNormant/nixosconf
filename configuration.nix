@@ -15,6 +15,7 @@ let cm = [
 	./common-config/services.nix
 	./common-config/users.nix
 	./common-config/winapps.nix
+	./common-config/recorder.nix
 
 	./common-config/nixvim.nix
 	./common-config/zsh.nix
