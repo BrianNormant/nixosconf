@@ -15,7 +15,6 @@
 			cd    =  "z";
 			icat  =  "kitty +kitten icat --clear";
 			lg    =  "lazygit";
-			man   =  "batman";
 			gg    =  "lazygit";
 			ggpur = "ggu";
 			g = "git";
