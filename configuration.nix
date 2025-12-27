@@ -14,7 +14,8 @@ let cm = [
 	./common-config/security.nix
 	./common-config/services.nix
 	./common-config/users.nix
-	./common-config/winapps.nix
+	# No need for winapps as of now, rm app works wine 10.17+
+	# ./common-config/winapps.nix
 	./common-config/recorder.nix
 
 	./common-config/nixvim.nix
