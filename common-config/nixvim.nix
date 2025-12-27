@@ -9,13 +9,6 @@ in {
 		colorscheme = "gruvbox-material";
 		luaLoader.enable = true;
 		clipboard.register = "unnamedplus";
-		autoCmd = [
-			{
-				command = "!rm /tmp/nvim-startuptime";
-				event = [ "VimLeavePre" ];
-				pattern = [ "*" ];
-			}
-		];
 		plugins = {
 			mini = {
 				enable = true;
@@ -69,6 +62,7 @@ in {
 						window = {winblend = 0;};
 					};
 					cursorword = { delay = 200; };
+					extra = {};
 				};
 				luaConfig.post = ''
 					vim.keymap.set("n", "<space>ff", "<cmd>Pick files<cr>",     {silent = true})

@@ -20,3 +20,14 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 vim.g.mapleader = "<space>"
+
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"
+vim.cmd [[
+	hi clear SpellBad
+	hi clear SpellCap
+	hi clear SpellLocal
+	hi clear SpellRare
+]]
+
+vim.keymap.set("n", "z=", MiniExtra.pickers.spellsuggest)
