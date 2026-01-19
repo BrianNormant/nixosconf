@@ -7,6 +7,14 @@ vim.cmd [[
 	hi FloatTitle  ctermfg=208 ctermbg=236 guifg=#e78a4e guibg=#32302f cterm=bold
 ]]
 
+
+
+for i=1,9 do
+	local key = string.format("<A-%d>", i)
+	local action = string.format("<cmd>%dtabnext<cr>", i)
+	-- Description.
+	vim.keymap.set("n", key, action, {silent = true})
+end
 -- Default nvim settings
 vim.opt.laststatus = 3
 vim.opt.scrolloff = 5
