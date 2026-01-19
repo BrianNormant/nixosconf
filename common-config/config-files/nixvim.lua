@@ -20,3 +20,11 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 vim.g.mapleader = "<space>"
+
+
+for i=1,9 do
+	local key = string.format("<A-%d>", i)
+	local action = string.format("<cmd>%dtabnext<cr>", i)
+	-- Description.
+	vim.keymap.set("n", key, action, {silent = true})
+end
