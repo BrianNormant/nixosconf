@@ -6,7 +6,7 @@ in {
 	programs.nixvim = {
 		enable = true;
 		vimAlias = true;
-		colorscheme = "gruvbox-material";
+		colorscheme = "melange";
 		luaLoader.enable = true;
 		clipboard.register = "unnamedplus";
 		plugins = {
@@ -74,7 +74,7 @@ in {
 		};
 
 		extraPlugins = with pkgs.vimPlugins; [
-			gruvbox-material-nvim
+			melange-nvim
 		];
 		extraConfigLua = builtins.readFile ./config-files/nixvim.lua;
 	};

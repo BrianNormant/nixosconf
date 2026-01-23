@@ -1,13 +1,15 @@
-require('gruvbox-material').setup {
-	contrast = "soft",
-}
-vim.cmd [[
-	hi NormalFloat ctermfg=223 ctermbg=236 guifg=#d4be98 guibg=#32302f
-	hi FloatBorder ctermfg=245 ctermbg=236 guifg=#928374 guibg=#32302f
-	hi FloatTitle  ctermfg=208 ctermbg=236 guifg=#e78a4e guibg=#32302f cterm=bold
-]]
 
-
+vim.api.nvim_create_autocmd({'ColorScheme'}, {
+	pattern = {"*"},
+	callback = function(_)
+	vim.cmd [[
+	hi clear SpellBad
+	hi clear SpellCap
+	hi clear SpellLocal
+	hi clear SpellRare
+	]]
+	end,
+})
 
 for i=1,9 do
 	local key = string.format("<A-%d>", i)
@@ -31,11 +33,6 @@ vim.g.mapleader = "<space>"
 
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
-vim.cmd [[
-	hi clear SpellBad
-	hi clear SpellCap
-	hi clear SpellLocal
-	hi clear SpellRare
-]]
 
 vim.keymap.set("n", "z=", MiniExtra.pickers.spellsuggest)
+vim.cmd "colorscheme melange"
