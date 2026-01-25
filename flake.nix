@@ -4,10 +4,6 @@
 		nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
 		portfolio.url = "github:BrianNormant/portfolio";
 		winapps.url = "github:winapps-org/winapps";
-		nixvim = {
-			url = "github:nix-community/nixvim";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
 	};
 	outputs = inputs@{nixpkgs, ... }: {
 		nixosConfigurations =

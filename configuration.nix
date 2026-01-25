@@ -18,9 +18,7 @@ let cm = [
 	# ./common-config/winapps.nix
 	./common-config/recorder.nix
 
-	./common-config/nixvim.nix
 	./common-config/zsh.nix
-	inputs.nixvim.nixosModules.default
 	inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
 	overlays
 ];
