@@ -3,7 +3,7 @@ let inherit (config.users.users.${main-user}) home;
 in {
 	#================================[ Kernel ]===================================
 	boot = {
-		kernelPackages = pkgs.linuxPackages_6_17;
+		kernelPackages = pkgs.linuxPackages_6_18;
 		kernelPatches = [
 			# For Bigscreen Beyond
 			{
