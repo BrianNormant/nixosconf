@@ -31,6 +31,7 @@ in
 			./hardware-config/hardware-Laptop.nix
 			./laptop-config/fingerprint.nix
 			./laptop-config/ssh.nix
+			./laptop-config/power.nix
 			((import ./server-config/chatbot-webui.nix) "http://ggkbrian:11434")
 		];
 	};
