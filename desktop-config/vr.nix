@@ -14,6 +14,10 @@ in {
 				name = "use-fixed-dsc-bits-per-pixel-from-edid";
 				patch = ./0002-drm-amd-use-fixed-dsc-bits-per-pixel-from-edid.patch;
 			}
+			{
+				name = "fix-dsc-artefacts";
+				patch = ./0003-drm-amd-bsb-dsc-fix.patch;
+			}
 			# For vr performance
 			{
 				name = "amdgpu-ignore-ctx-privileges";
