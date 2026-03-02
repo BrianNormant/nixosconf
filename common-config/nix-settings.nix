@@ -29,7 +29,7 @@
 			# for zutty
 			# ucs-fonts
 			# xorg.libxcb
-		nix-ld = {enable = false;};
+		nix-ld = {enable = true;};
 		nh = {
 			enable = true;
 			clean.enable = true;
