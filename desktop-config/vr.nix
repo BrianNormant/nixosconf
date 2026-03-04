@@ -7,12 +7,8 @@ in {
 		kernelPatches = [
 			# For Bigscreen Beyond
 			{
-				name = "parse-drm-edid-bpp-target";
-				patch = ./0001-drm-edid-parse-DRM-VESA-dsc-bpp-target.patch;
-			}
-			{
-				name = "use-fixed-dsc-bits-per-pixel-from-edid";
-				patch = ./0002-drm-amd-use-fixed-dsc-bits-per-pixel-from-edid.patch;
+				name = "beyondKernel";
+				patch = ./0001-beyond-kernel.patch;
 			}
 			{
 				name = "fix-dsc-artefacts";
@@ -137,6 +133,7 @@ SUBSYSTEM=="hidraw", ATTRS{idVendor}=="35bd", ATTRS{idProduct}=="0101", MODE="06
 		# necessary for wayvr-dashboard to find the monado runtime
 		# might help some other vr games?
 		XR_RUNTIME_JSON = "${pkgs.monado}/share/openxr/1/openxr_monado.json";
+		XRT_COMPOSITOR_COMPUTE = "1";
 	};
 
 }
