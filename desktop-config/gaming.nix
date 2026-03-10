@@ -46,7 +46,10 @@
 					PRESSURE_VESSEL_FILESYSTEMS_RW = "/run/user/1000/monado_comp_ipc"; # For VR with monado
 					WINE_FULLSCREEN_FSR=1;
 					PROTON_FSR4_RDNA3_UPGRADE=1;
+					PROTON_FSR4_UPGRADE=1;
+					DXIL_SPIRV_CONFIG="wmma_rdna3_workaround";
 					# FSR4_WATERMARK=1; -- apply per game to check if fsr is running
+					# MANGOHUD=1; -- apply per game for performance overlay
 					PROTON_ENABLE_WAYLAND=1;
 					# PROTON_ENABLE_HDR=1;
 					PROTON_USE_NTSYNC=1;

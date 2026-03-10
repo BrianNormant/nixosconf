@@ -45,6 +45,7 @@ in
 			./desktop-config/vr.nix
 			./desktop-config/ssh.nix
 			./desktop-config/firewall.nix
+			./desktop-config/minecraft.nix
 			((import ./server-config/chatbot-webui.nix) "http://127.0.0.1:11434")
 			./server-config/ollama.nix
 		];

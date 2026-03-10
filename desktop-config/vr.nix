@@ -7,21 +7,16 @@ in {
 		kernelPatches = [
 			# For Bigscreen Beyond
 			{
-				name = "beyondKernel";
-				patch = ./0001-beyond-kernel.patch;
+				name = "beyondKernelp1";
+				patch = ./0001-drm-edid-parse-DRM-VESA-dsc-bpp-target.patch;
+			}
+			{
+				name = "beyondKernelp2";
+				patch = ./0002-drm-amd-use-fixed-dsc-bits-per-pixel-from-edid.patch;
 			}
 			{
 				name = "fix-dsc-artefacts";
 				patch = ./0003-drm-amd-bsb-dsc-fix.patch;
-			}
-			# For vr performance
-			{
-				name = "amdgpu-ignore-ctx-privileges";
-				patch = pkgs.fetchpatch {
-					name = "cap_sys_nice_begone.patch";
-					url = "https://github.com/Frogging-Family/community-patches/raw/master/linux61-tkg/cap_sys_nice_begone.mypatch";
-					hash = "sha256-Y3a0+x2xvHsfLax/uwycdJf3xLxvVfkfDVqjkxNaYEo=";
-				};
 			}
 		];
 	};
@@ -50,7 +45,7 @@ SUBSYSTEM=="hidraw", ATTRS{idVendor}=="35bd", ATTRS{idProduct}=="0101", MODE="06
 	systemd.user.services.monado.environment = {
 		STEAMVR_LH_ENABLE = "1";
 		XRT_COMPOSITOR_DESIRED_MODE = "0"; # 0 for 2560*2560 | 1 for 1920 * 1920
-		XRT_COMPOSITOR_SCALE_PERCENTAGE = "100";
+		# XRT_COMPOSITOR_SCALE_PERCENTAGE = "100"; Leave as default
 		XRT_COMPOSITOR_COMPUTE = "1";
 	};
 	
@@ -74,7 +69,7 @@ SUBSYSTEM=="hidraw", ATTRS{idVendor}=="35bd", ATTRS{idProduct}=="0101", MODE="06
 				};
 			};
 			"${home}/.config/openxr/1/active_runtime-monado.json" = {
-				f = {
+			f = {
 					group = "users";
 					user = main-user;
 					mode = "0444";
@@ -133,7 +128,6 @@ SUBSYSTEM=="hidraw", ATTRS{idVendor}=="35bd", ATTRS{idProduct}=="0101", MODE="06
 		# necessary for wayvr-dashboard to find the monado runtime
 		# might help some other vr games?
 		XR_RUNTIME_JSON = "${pkgs.monado}/share/openxr/1/openxr_monado.json";
-		XRT_COMPOSITOR_COMPUTE = "1";
 	};
 
 }

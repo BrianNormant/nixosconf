@@ -25,9 +25,5 @@
 				};
 			};
 		};
-		firewall = {
-			allowedTCPPorts = [];
-			allowedUDPPorts = [];
-		};
 	};
 }
