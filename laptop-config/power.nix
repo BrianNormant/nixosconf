@@ -21,9 +21,7 @@ s=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null || echo Unknown)
 # https://wiki.archlinux.org/title/Lenovo_ThinkPad_P16s_(AMD)_Gen_2
 	powerManagement = {
 		enable = true;
-		powertop = {
-			enable = true;
-		};
+		powertop = { enable = false; };
 		powerDownCommands = with pkgs; ''
 		${systemd}/bin/systemctl stop NetworkManager.service
 		${kmod}/bin/modprobe -r ath11k_pci
