@@ -52,4 +52,11 @@ s=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null || echo Unknown)
 			timerConfig.Persistent = true;
 		};
 	};
+	services.logind = {
+		enable = true;
+		lidSwitch = "suspend";
+		settings.Login = {
+			HandlePowerKey = "suspend";
+		};
+	};
 }
