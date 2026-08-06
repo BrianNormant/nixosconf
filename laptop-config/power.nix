@@ -54,9 +54,13 @@ s=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null || echo Unknown)
 	};
 	services.logind = {
 		enable = true;
-		lidSwitch = "suspend";
+		lidSwitch = "suspend-then-hibernate";
 		settings.Login = {
 			HandlePowerKey = "suspend";
 		};
+	};
+	
+	systemd.sleep.settings.Sleep = {
+		HibernateDelaySec = "30m";
 	};
 }
