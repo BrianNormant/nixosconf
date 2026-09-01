@@ -3,7 +3,7 @@
 	users.users."${main-user}".extraGroups = [ "ollama" ];
 	services.ollama = {
 		enable = true;
-		package = pkgs.ollama-rocm;
+		package = pkgs.ollama-vulkan;
 		user = "ollama";
 		rocmOverrideGfx = "11.0.0";
 		loadModels = [
@@ -13,6 +13,6 @@
 			"OLLAMA_ORIGINS" = "*";
 		};
 		openFirewall = true;
-		host = "0.0.0.0";
+		host = "127.0.0.1";
 	};
 }
