@@ -3,22 +3,17 @@ let inherit (config.users.users.${main-user}) home;
 in {
 	#================================[ Kernel ]===================================
 	boot = {
-		kernelPackages = pkgs.linuxPackages_6_18;
-		kernelPatches = [
-			# For Bigscreen Beyond
-			{
-				name = "beyondKernelp1";
-				patch = ./0001-drm-edid-parse-DRM-VESA-dsc-bpp-target.patch;
-			}
-			{
-				name = "beyondKernelp2";
-				patch = ./0002-drm-amd-use-fixed-dsc-bits-per-pixel-from-edid.patch;
-			}
-			{
-				name = "fix-dsc-artefacts";
-				patch = ./0003-drm-amd-bsb-dsc-fix.patch;
-			}
-		];
+		kernelPackages = pkgs.linuxPackages_7_2;
+		# kernelPatches = [
+		# 	{
+		# 		name = "beyondKernelp2";
+		# 		patch = ./0002-drm-amd-use-fixed-dsc-bits-per-pixel-from-edid.patch;
+		# 	}
+		# 	{
+		# 		name = "fix-dsc-artefacts";
+		# 		patch = ./0003-drm-amd-bsb-dsc-fix.patch;
+		# 	}
+		# ];
 	};
 	
 	#================================[ GPUoc ]===================================
