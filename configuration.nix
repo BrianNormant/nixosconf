@@ -20,6 +20,7 @@ let cm = [
 
 	./common-config/zsh.nix
 	inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
+	inputs.agenix.nixosModules.default
 	overlays
 ];
 in
@@ -49,6 +50,7 @@ in
 			./desktop-config/minecraft.nix
 			((import ./server-config/chatbot-webui.nix) "http://127.0.0.1:11434")
 			./server-config/ollama.nix
+			./server-config/webserver.nix
 		];
 	};
 }

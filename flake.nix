@@ -4,7 +4,9 @@
 		nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
 		portfolio.url = "github:BrianNormant/portfolio";
 		winapps.url = "github:winapps-org/winapps";
+		agenix.url = "github:ryantm/agenix";
 	};
+
 	outputs = inputs@{nixpkgs, ... }: {
 		nixosConfigurations =
 		let
@@ -15,6 +17,7 @@
 						(final: prev: {
 							inherit (inputs.winapps.packages.${system}) winapps;
 							inherit (inputs.winapps.packages.${system}) winapps-launcher;
+							inherit (inputs.agenix.packages.${system}) agenix;
 						})
 						(import ./custom-pkgs/flog-symbols.nix)
 						(import ./custom-pkgs/cedarville-cursive.nix)

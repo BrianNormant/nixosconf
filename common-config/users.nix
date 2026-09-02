@@ -27,6 +27,7 @@
 			bluez # bluetooth headphones
 			bc
 			sshfs
+			agenix
 		];
 	};
 	programs = {
