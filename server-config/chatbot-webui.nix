@@ -1,10 +1,15 @@
 ollamaAPIEndpoint:
 {...}: {
-	services.nextjs-ollama-llm-ui = {
+	services.open-webui = {
 		enable = true;
 		host = "127.0.0.1"; # hide this behind nginx
 		port = 43941;
-		hostname = "0.0.0.0";
-		ollamaUrl = ollamaAPIEndpoint;
+		openFirewall = true;
+		environment = {
+			ANONYMIZED_TELEMETRY = "True";
+			DO_NOT_TRACK = "True";
+			SCARF_NO_ANALYTICS = "True";
+			OLLAMA_BASE_URL="${ollamaAPIEndpoint}";
+		};
 	};
 }

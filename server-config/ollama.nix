@@ -3,11 +3,11 @@
 	users.users."${main-user}".extraGroups = [ "ollama" ];
 	services.ollama = {
 		enable = true;
-		package = pkgs.ollama-vulkan;
+		package = pkgs.ollama-rocm;
 		user = "ollama";
 		rocmOverrideGfx = "11.0.0";
 		loadModels = [
-			"gemma3:27b"
+			"qwen3.8:27b"
 		];
 		environmentVariables = {
 			"OLLAMA_ORIGINS" = "*";
