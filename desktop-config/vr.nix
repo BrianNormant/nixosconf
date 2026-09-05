@@ -37,11 +37,14 @@ SUBSYSTEM=="hidraw", ATTRS{idVendor}=="35bd", ATTRS{idProduct}=="0101", MODE="06
 		};
 	};
 
-	systemd.user.services.monado.environment = {
-		STEAMVR_LH_ENABLE = "1";
-		XRT_COMPOSITOR_DESIRED_MODE = "0"; # 0 for 2560*2560 | 1 for 1920 * 1920
-		# XRT_COMPOSITOR_SCALE_PERCENTAGE = "100"; Leave as default
-		XRT_COMPOSITOR_COMPUTE = "1";
+	systemd.user.services.monado = {
+		enable = false;
+		environment = {
+			STEAMVR_LH_ENABLE = "1";
+			XRT_COMPOSITOR_DESIRED_MODE = "0"; # 0 for 2560*2560 | 1 for 1920 * 1920
+			# XRT_COMPOSITOR_SCALE_PERCENTAGE = "100"; Leave as default
+			XRT_COMPOSITOR_COMPUTE = "1";
+		};
 	};
 	
 	#===========================[ OpenComposite && XRizer ]==============================
