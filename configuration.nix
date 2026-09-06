@@ -34,7 +34,6 @@ in
 			./laptop-config/ssh.nix
 			./laptop-config/power.nix
 			./laptop-config/disable_usb_wakeup.nix
-			((import ./server-config/chatbot-webui.nix) "http://ggkbrian:11434")
 		];
 	};
 	BrianNixDesktop = mkNixos {
