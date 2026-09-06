@@ -4,7 +4,7 @@
 	age.secrets."ollama-nginx-token" = {
 		file = ../secrets/ollama-nginx-token.age;
 		owner = "brian";
-		group = "brian";
+		group = "users";
 	};
 	age.secrets."ollama-basic-auth" = {
 		file = ../secrets/ollama-basic-auth.age;

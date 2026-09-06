@@ -1,28 +1,26 @@
 {pkgs, config, ...}:
 {
-	services.nginx = {
-		enable = true;
-	};
-
+	# This module is for maintaining the correct ip on the dns
 	age.secrets.desectoken = {
-		file = ./secrets/desecio.age;
+		file = ../secrets/desecio.age;
 		owner = "root";
 		group = "root";
 	};
 
-	systemd.services.setlocalip = {
+
+
+	systemd.services."setlocalip" = {
 		enable = true;
-		Unit = {
-			Description = "Set the ip for the dns webserver";
-		};
-		Service = {
+		description = "Set the ip for the dns webserver";
+		startAt = "*-*-* 0/6:00:00";
+		serviceConfig = {
 			Type = "oneshot";
-			ExecStart = ''
+			ExecStart = "${pkgs.zsh}/bin/zsh ${pkgs.writeScript "setlocalip" ''
 #!env zsh
 
 set -euo pipefail
 
-DESEC_TOKEN=`cat ${config.age.secrets.desectoken.path}`
+DESEC_TOKEN=$(xargs < ${config.age.secrets.desectoken.path})
 
 DOMAIN=ggkbrian.com
 
@@ -32,15 +30,15 @@ echo "Current public IP: $IP"
 
 # 2. Update the record via deSec REST API
 RESPONSE=$(curl -s -w "\n%{http_code}" -X PATCH \
-  "https://desec.io/api/v1/domains/$${DOMAIN}/rrsets/@/A/" \
-  -H "Authorization: Token $${DESEC_TOKEN}" \
+  "https://desec.io/api/v1/domains/''\${DOMAIN}/rrsets/@/A/" \
+  -H "Authorization: Token ''\${DESEC_TOKEN}" \
   -H "Content-Type: application/json" \
   -d @- <<EOF
 {
   "subname": "",
   "type": "A",
   "ttl": 3600,
-  "records": ["$${IP}"]
+  "records": ["''\${IP}"]
 }
 EOF
 )
@@ -60,15 +58,15 @@ fi
 sleep 1
 
 RESPONSE=$(curl -s -w "\n%{http_code}" -X PATCH \
-  "https://desec.io/api/v1/domains/$${DOMAIN}/rrsets/ollama/A/" \
-  -H "Authorization: Token $${DESEC_TOKEN}" \
+  "https://desec.io/api/v1/domains/''\${DOMAIN}/rrsets/ollama/A/" \
+  -H "Authorization: Token ''\${DESEC_TOKEN}" \
   -H "Content-Type: application/json" \
   -d @- <<EOF
 {
   "subname": "ollama",
   "type": "A",
   "ttl": 3600,
-  "records": ["$${IP}"]
+  "records": ["''\${IP}"]
 }
 EOF
 )
@@ -88,15 +86,15 @@ fi
 sleep 1
 
 RESPONSE=$(curl -s -w "\n%{http_code}" -X PATCH \
-  "https://desec.io/api/v1/domains/$${DOMAIN}/rrsets/chatbot/A/" \
-  -H "Authorization: Token $${DESEC_TOKEN}" \
+  "https://desec.io/api/v1/domains/''\${DOMAIN}/rrsets/chatbot/A/" \
+  -H "Authorization: Token ''\${DESEC_TOKEN}" \
   -H "Content-Type: application/json" \
   -d @- <<EOF
 {
   "subname": "chatbot",
   "type": "A",
   "ttl": 3600,
-  "records": ["$${IP}"]
+  "records": ["''\${IP}"]
 }
 EOF
 )
@@ -112,13 +110,8 @@ else
   echo "$BODY" | jq . 2>/dev/null || echo "$BODY"
   exit 1
 fi
-				'';
-		};
-		Timer = {
-			OnCalendar = "*-*-*-*:*:00";
-			Unit = {
-				Description = "Timer for my service";
-			};
+				''
+			}";
 		};
 	};
 

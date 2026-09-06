@@ -8,6 +8,8 @@
 		rocmOverrideGfx = "11.0.0";
 		loadModels = [
 			"qwen3.8:27b"
+			"sweepai/sweep-next-edit"
+			"qwen2.5-coder:3b"
 		];
 		environmentVariables = {
 			"OLLAMA_ORIGINS" = "*";

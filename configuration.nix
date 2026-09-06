@@ -50,6 +50,7 @@ in
 			((import ./server-config/chatbot-webui.nix) "http://127.0.0.1:11434")
 			./server-config/ollama.nix
 			./server-config/nginx.nix
+			./server-config/webserver.nix
 		];
 	};
 }
