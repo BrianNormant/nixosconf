@@ -17,6 +17,7 @@ let cm = [
 	# No need for winapps as of now, rm app works wine 10.17+
 	# ./common-config/winapps.nix
 	./common-config/recorder.nix
+	./common-config/ollama-token.nix
 
 	./common-config/zsh.nix
 	inputs.nixpkgs-xr.nixosModules.nixpkgs-xr

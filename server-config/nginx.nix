@@ -1,11 +1,4 @@
-{ config, pkgs, ... }:
-
-{
-	age.secrets."ollama-nginx-token" = {
-		file = ../secrets/ollama-nginx-token.age;
-		owner = "brian";
-		group = "users";
-	};
+{ config, pkgs, ... }: {
 	age.secrets."ollama-basic-auth" = {
 		file = ../secrets/ollama-basic-auth.age;
 		owner = "nginx";
