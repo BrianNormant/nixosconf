@@ -35,6 +35,7 @@ in
 			./laptop-config/ssh.nix
 			./laptop-config/power.nix
 			./laptop-config/disable_usb_wakeup.nix
+			./server-config/postgres.nix
 		];
 	};
 	BrianNixDesktop = mkNixos {
