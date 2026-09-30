@@ -1,4 +1,4 @@
-{pkgs, config, main-user, ...}:
+{pkgs, config, main-user, lib, ...}:
 let inherit (config.users.users.${main-user}) home;
 in {
 	#================================[ Kernel ]===================================
@@ -38,7 +38,7 @@ SUBSYSTEM=="hidraw", ATTRS{idVendor}=="35bd", ATTRS{idProduct}=="0101", MODE="06
 	};
 
 	systemd.user.services.monado = {
-		enable = false;
+		wantedBy = lib.mkForce [];
 		environment = {
 			STEAMVR_LH_ENABLE = "1";
 			XRT_COMPOSITOR_DESIRED_MODE = "0"; # 0 for 2560*2560 | 1 for 1920 * 1920

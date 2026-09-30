@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs, lib, ...}:
 {
 	services.minecraft-server = {
 		enable = true;
@@ -19,5 +19,8 @@
 			white-list = true;
 		};
 		jvmOpts = "-Xms2048M -Xmx10G";
+	};
+	systemd.services.minecraft-server = {
+		wantedBy = lib.mkForce [];
 	};
 }
