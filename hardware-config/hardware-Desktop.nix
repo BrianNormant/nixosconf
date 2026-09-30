@@ -45,6 +45,21 @@
       fsType = "btrfs";
     };
 
+  fileSystems."/home/brian/data2" =
+    { device = "/dev/disk/by-uuid/c2aac4a3-5c69-46a0-84cb-3dd6142892f2";
+      fsType = "btrfs";
+    };
+
+  fileSystems."/home/brian/data3" =
+    { device = "/dev/disk/by-uuid/eab27e9f-438c-4c15-93d2-6d4ff6f8bb53";
+      fsType = "btrfs";
+    };
+
+  fileSystems."/home/brian/data4" =
+    { device = "/dev/disk/by-uuid/7402c755-2df9-4557-80dc-7e054669f1f0";
+      fsType = "btrfs";
+    };
+
   fileSystems."/home/brian/GamesHDD" =
     { device = "/dev/disk/by-uuid/0585d9ed-9042-4dbc-b3d5-e2e102a20401";
       fsType = "btrfs";
