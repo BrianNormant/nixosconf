@@ -5,6 +5,7 @@
 		portfolio.url = "github:BrianNormant/portfolio";
 		winapps.url = "github:winapps-org/winapps";
 		agenix.url = "github:ryantm/agenix";
+		nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 	};
 
 	outputs = inputs@{nixpkgs, ... }: {
@@ -21,6 +22,7 @@
 						})
 						(import ./custom-pkgs/flog-symbols.nix)
 						(import ./custom-pkgs/cedarville-cursive.nix)
+						inputs.nix-minecraft.overlay
 					];
 				};
 			};
