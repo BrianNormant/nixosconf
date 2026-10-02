@@ -16,7 +16,7 @@
 					hf-repo = "JonathanColetti/Qwen3.8-27B-Uncensored-GGUF";
 					hf-file = "Qwen3.8-27B-Uncensored-noMTP-Q4_K_M.gguf";
 					temp = "0.8";
-					reasoning = "off";
+					# reasoning = "off";
 				};
 				"QwenCoder" = {
 					hf-repo = "Qwen/Qwen2.5-Coder-1.5B-Instruct-GGUF";
