@@ -44,6 +44,10 @@ SUBSYSTEM=="hidraw", ATTRS{idVendor}=="35bd", ATTRS{idProduct}=="0101", MODE="06
 			XRT_COMPOSITOR_DESIRED_MODE = "0"; # 0 for 2560*2560 | 1 for 1920 * 1920
 			# XRT_COMPOSITOR_SCALE_PERCENTAGE = "100"; Leave as default
 			XRT_COMPOSITOR_COMPUTE = "1";
+
+			# Exit on idle
+			IPC_EXIT_WHEN_IDLE = "1";
+			IPC_EXIT_WHEN_IDLE_DELAY_MS = "5000";
 		};
 	};
 	
